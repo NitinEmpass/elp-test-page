@@ -7,6 +7,7 @@ import { genderOptions, gradeOptions } from "../assets/data/selectOptions";
 
 const Login = () => {
   const navigator = useNavigate();
+  const [testCode, setTestCode] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -54,7 +55,7 @@ const Login = () => {
       quiz_id: "9",
       player_id: player_id,
       source: "elp",
-      code: "ELP21",
+      code: testCode,
       school_name: "NA",
     };
     console.log(data);
@@ -100,10 +101,12 @@ const Login = () => {
           <input
             type="text"
             placeholder="Enter Test Code"
-            className="outline-none border-2 border-gray-500 p-2 rounded-md text-gray-500"
+            className="outline-none border-2 border-gray-500 p-2 rounded-md"
             required
-            value={"ELP21"}
-            disabled
+            value={testCode}
+            onChange={(e) => {
+              setTestCode(e.target.value);
+            }}
           />
           <span className="text-gray-500">
             A tool for you to help with you to assess your executive

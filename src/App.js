@@ -3,7 +3,6 @@ import Login from "./components/Login";
 import Rules from "./components/Rules";
 import Questions from "./components/Questions";
 import Result from "./components/Result";
-import logo from "./assets/images/bg-logo.png";
 import axios from "axios";
 
 function App() {

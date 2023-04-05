@@ -46,7 +46,7 @@ const Rules = () => {
         });
     };
     func();
-  }, []);
+  }, [player_id]);
 
   if (location.state === null) {
     return navigate("/");

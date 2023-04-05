@@ -42,8 +42,3 @@ export const gradeOptions = [
     label: "12 & Above",
   },
 ];
-const post = {
-  total_score: "45",
-  dominant_style: "auditory",
-  
-};
