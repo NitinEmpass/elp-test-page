@@ -129,10 +129,10 @@ const Result = () => {
               </span>
             </div>
             <div className="border-4 border-orange-400 lg:hidden flex flex-col items-center justify-center rounded-md max-w-[300px]">
-              <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white max-w-[300px]">
+              <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white max-w-[300px] w-[100%]">
                 Dominant Style
               </div>
-              <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-4xl text-center py-3 break-words">
+              <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-4xl text-center py-3 w-[100%] break-words whitespace-break-spaces">
                 {result.dominant_style}
               </span>
             </div>
@@ -140,11 +140,11 @@ const Result = () => {
           <div className="w-[90%] lg:w-[60%] shadow-lg rounded-xl">
             <Radar data={chartConfig} options={options} />
           </div>
-          <div className="border-4 border-orange-400 flex flex-col items-center justify-center rounded-md max-w-[300px]">
-            <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white max-w-[300px]">
+          <div className="border-4 border-orange-400 hidden lg:flex flex-col items-center justify-center rounded-md max-w-[300px]">
+            <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white max-w-[300px] w-[100%]">
               Dominant Style
             </div>
-            <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-4xl text-center py-3 break-words">
+            <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-4xl text-center py-3 w-[100%] break-words whitespace-break-spaces">
               {result.dominant_style}
             </span>
           </div>
