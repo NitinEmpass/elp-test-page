@@ -179,8 +179,8 @@ const Questions = () => {
         res={res}
         player_id={player_id}
         heading={"Are you sure you want to submit?"}
-        firstText={"No!"}
-        secondText={"Yes!"}
+        firstText={"No"}
+        secondText={"Yes"}
       />
     </div>
   );
