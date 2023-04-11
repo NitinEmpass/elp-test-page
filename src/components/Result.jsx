@@ -69,7 +69,7 @@ const Result = () => {
   const data = [];
 
   for (let i = 0; i < chart_data.group_name.length; i++) {
-    labels.push(chart_data.group_name[i].split(" (")[0]);
+    labels.push(chart_data.group_name[i]);
     data.push(chart_data.group_score[i]);
   }
   const chartConfig = {
@@ -121,16 +121,16 @@ const Result = () => {
         </span>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-16 w-[90%]">
           <div className="flex flex-row gap-4 lg:gap-16 flex-wrap items-center justify-center">
-            <div className="border-4 border-orange-400 flex flex-col items-center justify-center rounded-md max-w-[300px]">
-              <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-center py-2 px-8 text-white font-semibold text-4xl border-b-4 border-b-orange-400">
+            <div className="border-4 border-orange-400 flex flex-col items-center justify-center rounded-md max-w-[300px] h-48 flex-grow">
+              <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-center p-8 text-white font-semibold text-4xl border-b-4 border-b-orange-400 w-full h-full">
                 Test Score
               </div>
               <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-5xl text-center py-3">
                 {result.total_score}
               </span>
             </div>
-            <div className="border-4 border-orange-400 flex flex-col items-center justify-center rounded-md max-w-[300px]">
-              <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white max-w-[300px] w-[100%]">
+            <div className="border-4 border-orange-400 flex flex-col items-center justify-center rounded-md max-w-[300px] h-48 flex-grow">
+              <div className="p-4 border-b-4 border-b-orange-400 bg-gradient-to-r from-orange-500 to-yellow-500 text-center text-4xl font-semibold text-white w-full h-full">
                 Dominant Style
               </div>
               <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-4xl text-center py-3 w-[100%] break-words whitespace-break-spaces">
@@ -139,6 +139,7 @@ const Result = () => {
             </div>
           </div>
         </div>
+
         <div className="w-[90%] lg:w-[60%] shadow-lg rounded-xl">
           <Radar data={chartConfig} options={options} />
         </div>
