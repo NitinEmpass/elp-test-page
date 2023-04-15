@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { Radar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
@@ -30,7 +32,7 @@ const Result = () => {
     window.history.pushState(null, "/", window.location.href);
     window.history.pushState(null, "", window.location.href);
     window.history.pushState(null, "", window.location.href);
-    window.history.replaceState(null, "", window.location.href);
+    window.history.replaceState(null, "/", window.location.href);
   }
 
   console.log(player_id);
