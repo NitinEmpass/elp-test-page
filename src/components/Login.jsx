@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/images/elp.jpg";
 import axios from "axios";
 import { genderOptions, gradeOptions } from "../assets/data/selectOptions";
+import { UserContext } from "../context/UserContext";
 
 const Login = () => {
   const navigator = useNavigate();
@@ -16,6 +17,8 @@ const Login = () => {
   const [grade, setGrade] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { setPlayer_Id } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -41,7 +44,7 @@ const Login = () => {
       now.getSeconds().toString().padStart(2, "0") +
       now.getMilliseconds().toString().padStart(3, "0").slice(0, 2);
 
-    console.log(formattedDate); // output: "2023040411140755"
+    // console.log(formattedDate); // output: "2023040411140755"
     const player_id = formattedDate;
     const data = {
       firstname: firstName,
@@ -58,7 +61,7 @@ const Login = () => {
       code: testCode,
       school_name: "NA",
     };
-    console.log(data);
+    // console.log(data);
 
     await axios
       .post(
@@ -72,7 +75,8 @@ const Login = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        setPlayer_Id(player_id);
       })
       .catch((err) => {
         console.log(err);
@@ -81,7 +85,8 @@ const Login = () => {
     setLoading(false);
     // console.log(response);
     // console.log(testCode, firstName, lastName, email, gender, age, grade);
-    navigator("/rules", { state: { player_id: player_id } });
+    // navigator("/rules", { state: { player_id: player_id } });
+    navigator("/rules");
   };
   return (
     <div className="flex justify-center items-center lg:w-[80%] mx-auto lg:gap-16 p-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
@@ -90,10 +95,15 @@ const Login = () => {
       </div>
       <div className="border-orange-400 border-2 h-40 hidden lg:block"></div>
       <div className="flex flex-col justify-center items-center w-full lg:w-[60%] gap-6 shadow-2xl p-10 rounded-lg">
-        <h1 className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-5xl">
-          Welcome to ELP
-        </h1>
-        <span>Electric Learning Profile</span>
+        <div className="flex flex-col items-center justify-center w-full gap-4">
+          <h1 className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-5xl">
+            Welcome to ELP
+          </h1>
+          <span className="font-semibold text-lg">Eclectic Learning Profile</span>
+          <span className="text-gray-500">
+            Assessing and Accommodating Diverse Ways of Processing
+          </span>
+        </div>
         {error ? (
           <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
         ) : null}
@@ -108,10 +118,6 @@ const Login = () => {
               setTestCode(e.target.value);
             }}
           />
-          <span className="text-gray-500">
-            A tool for you to help with you to assess your executive
-            functioning. Make sure you have a Test Code before starting it.
-          </span>
           <div className="w-full flex items-center gap-6">
             <input
               type="text"
@@ -174,6 +180,7 @@ const Login = () => {
               placeholder="Your age"
               className="outline-none border-2 border-gray-500 p-2 rounded-md w-[80%] lg:w-[50%]"
               required
+              min={5}
               autoComplete="age"
               value={age}
               onChange={(e) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Modal = ({
+const CheckModal = ({
   open,
   onClose,
   res,
@@ -15,7 +15,7 @@ const Modal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  console.log(heading, firstText, secondText);
+  // console.log(heading, firstText, secondText);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -42,7 +42,7 @@ const Modal = ({
       .then((res) => {
         console.log(res.data);
         setLoading(false);
-        navigate("/result", { state: { player_id: player_id } });
+        navigate("/result");
       })
       .catch((err) => {
         console.log(err);
@@ -92,4 +92,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default CheckModal;

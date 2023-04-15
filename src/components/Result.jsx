@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Radar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import DOMPurify from "dompurify";
 import Modal from "./Modal";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Result = () => {
-  const location = useLocation();
+  const { player_id } = useContext(UserContext);
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!player_id) {
+      navigate("/");
+    }
+  }, [navigate, player_id]);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -19,13 +26,22 @@ const Result = () => {
     document.body.scrollTop = 0;
   }
 
+  function disableBackButton() {
+    window.history.pushState(null, "/", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.replaceState(null, "", window.location.href);
+  }
+
+  console.log(player_id);
   const requestData = {
     crt_id: "9",
     quiz_id: "9",
-    player_id: location.state.player_id,
+    player_id: player_id,
   };
 
   useEffect(() => {
+    disableBackButton();
     async function fetchData() {
       setLoading(true);
       await axios
@@ -104,7 +120,8 @@ const Result = () => {
     },
   };
 
-  const mySafeHTML = DOMPurify.sanitize(result.detail_info);
+  const details = DOMPurify.sanitize(result.detail_info);
+  const info = DOMPurify.sanitize(result.glossary);
 
   return (
     <div className="w-full overflow-hidden flex justify-center bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full">
@@ -195,9 +212,14 @@ const Result = () => {
                 voluptatibus dolores?
               </span>
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />
+              <div dangerouslySetInnerHTML={{ __html: details }} />
             )}
           </div>
+        </div>
+        <hr className="border-2 w-full border-gray-400" />
+        <div className="my-2 flex flex-col w-full lg:w-[85%] gap-3">
+          <h2 className="text-3xl">Strategies Details</h2>
+          <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: info }} />
         </div>
       </div>
     </div>

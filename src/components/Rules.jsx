@@ -1,18 +1,29 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import DOMPurify from "dompurify";
+import { UserContext } from "../context/UserContext";
 
 const Rules = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
+  const { player_id, setQuestions } = useContext(UserContext);
+  // console.log(player_id);
 
-  const player_id = location.state.player_id;
-  console.log(player_id);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!player_id) {
+      navigate("/");
+    }
+  }, [navigate, player_id]);
+  // const location = useLocation();
+  // console.log(location);
+
+  // const player_id = location.state.player_id;
+  // console.log(player_id);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [questions, setQuestions] = useState([]);
+  // const [questions, setQuestions] = useState([]);
+  const [intro, setIntro] = useState("");
 
   useEffect(() => {
     const func = async () => {
@@ -37,8 +48,10 @@ const Rules = () => {
         )
         .then((res) => {
           setLoading(false);
-          console.log(res.data.data.crt_que);
+          // console.log(res.data); // data is here
+          // console.log(res.data.data.crt_que);
           setQuestions(res.data.data.crt_que);
+          setIntro(res.data.data.crt_prop.intro_msg);
         })
         .catch((err) => {
           console.log(err);
@@ -46,11 +59,14 @@ const Rules = () => {
         });
     };
     func();
-  }, [player_id]);
+  }, [player_id, setQuestions]);
 
-  if (location.state === null) {
-    return navigate("/");
+  const mySafeHTML = DOMPurify.sanitize(intro);
+
+  if (!player_id) {
+    return null;
   }
+
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-screen w-full">
       <div className="flex flex-col items-center w-[90%] lg:w-[50%] mx-auto gap-4 p-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-2xl rounded-md bg-orange-50">
@@ -64,28 +80,30 @@ const Rules = () => {
         <span className="font-medium">
           Read all Instructions below before you start the Self Assessment.
         </span>
-        <ol className="list-decimal w-[90%]">
-          <li>There is 1 section in the ELP self-assessment.</li>
-          <ul className="list-disc list-inside">
+
+        {intro === "" ? (
+          <ol className="list-decimal w-[90%]">
+            <li>There is 1 section in the ELP self-assessment.</li>
+            <ul className="list-disc list-inside">
+              <li>
+                <span className="font-semibold">Executive Functions</span> traits
+                that you possess based on your behavior in everyday life
+              </li>
+            </ul>
             <li>
-              <span className="font-semibold">Executive Functions</span> traits
-              that you possess based on your behavior in everyday life
+              The self-assessment should be taken in a single sitting. It takes
+              around 30 minutes to complete.
             </li>
-          </ul>
-          <li>
-            The self-assessment should be taken in a single sitting. It takes
-            around 30 minutes to complete.
-          </li>
-          <li>Do not overthink any responses.</li>
-          <li>
-            Avoid trying to select the 'appropriate or best response' as there
-            are no right or wrong answers.
-          </li>
-          <li>
-            Attempt all items. Skipping any item will invalidate or affect the
-            result accuracy.
-          </li>
-        </ol>
+            <li>Do not overthink any responses.</li>
+            <li>
+              Avoid trying to select the 'appropriate or best response' as there
+              are no right or wrong answers.
+            </li>
+            <li>
+              Attempt all items. Skipping any item will invalidate or affect the
+              result accuracy.
+            </li>
+          </ol>) : <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} className="w-[65%]" />}
 
         <button
           type="submit"
@@ -96,7 +114,7 @@ const Rules = () => {
           ) : (
             <Link
               to="/ques"
-              state={{ player_id: player_id, questions: questions }}
+            // state={{ player_id: player_id, questions: questions }}
             >
               continue
             </Link>
