@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { UserContext } from "../context/UserContext";
+// import { questions } from "../assets/data/questions";
 
 const Rules = () => {
   const { player_id, setQuestions } = useContext(UserContext);
@@ -29,6 +30,8 @@ const Rules = () => {
     const func = async () => {
       setLoading(true);
 
+      // setQuestions(questions);
+      // setLoading(false);
       const data = {
         quiz_id: "9",
         crt_id: "9",

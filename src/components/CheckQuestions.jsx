@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
 
-const Questions = () => {
+const CheckQuestions = () => {
   const navigate = useNavigate();
   const { player_id, questions } = useContext(UserContext);
-  console.log(questions, player_id);
-  // const location = useLocation();
+  // console.log(questions, player_id);
+  const location = useLocation();
   // console.log(location);
 
+  const checkResultData = location.state;
+  console.log("this is checkResultData: ", checkResultData);
   // const questions = location.state.questions;
   // const player_id = location.state.player_id;
 
@@ -27,7 +29,8 @@ const Questions = () => {
     document.body.scrollTop = 0;
   }
 
-  const [res, setRes] = useState([]);
+  const [res, setRes] = useState(checkResultData);
+  console.log("this is result: ", res);
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     const ans = res;
     let existingAnswer = ans.find((answer) => answer.que_id === questionId);
@@ -44,11 +47,13 @@ const Questions = () => {
     console.log(ans);
     setRes(ans);
   }
+  // console.log("this is result: ", res)
 
-  let tempData;
+  const [quesAnsData, setQuesAnsData] = useState([]);
+
   const onSubmit = () => {
     console.log(res);
-    tempData = [];
+    const tempData = quesAnsData;
     res.map((ans, idx) => {
       if (ans.answer === "Yes") {
         tempData.push({
@@ -57,12 +62,11 @@ const Questions = () => {
       }
       return tempData;
     });
-    console.log("this is tempData => ", tempData)
+    setQuesAnsData(tempData);
     scrollToTop();
 
-    tempData.length > 10 ? setOpenCheckModal(true) : setOpenModal(true);
+    setQuesAnsData.length > 10 ? setOpenCheckModal(true) : setOpenModal(true);
   }
-  console.log(tempData);
 
   if (!player_id || !questions) {
     return null;
@@ -84,52 +88,59 @@ const Questions = () => {
             </tr>
           </thead>
           <tbody>
-            {questions.map((question, index) => (
-              <tr className="p-2" key={question.id}>
-                <td className="p-5">
-                  <span className="py-2 px-3 bg-yellow-400 text-white rounded-full">
-                    {index + 1}
-                  </span>
-                </td>
-                <td className="p-2">{question.que_title}</td>
-                <td className="p-2 text-center">
-                  <label>
-                    <input
-                      type="radio"
-                      name={question.id}
-                      value={question.choice_1}
-                      onChange={() =>
-                        handleAnswerSelect(
-                          question.id,
-                          question.choice_1,
-                          question.score_choice_1
-                        )
-                      }
-                      className="text-5xl h-4 w-4"
-                    />
-                    <span></span>
-                  </label>
-                </td>
-                <td className="p-2 text-center">
-                  <label>
-                    <input
-                      type="radio"
-                      name={question.id}
-                      value={question.choice_2}
-                      className="text-5xl h-4 w-4"
-                      onChange={() =>
-                        handleAnswerSelect(
-                          question.id,
-                          question.choice_2,
-                          question.score_choice_2
-                        )
-                      }
-                    />
-                    <span></span>
-                  </label>
-                </td>
-              </tr>
-            ))}
+            {questions.map((question, index) => {
+              const answerObj = checkResultData?.find((ans) => ans.que_id === question.id);
+              const yesSelected = answerObj?.answer === "Yes";
+              const noSelected = answerObj?.answer === "No";
+              return (
+                <tr className={yesSelected ? "p-2" : "p-2 bg-gray-200"} key={question.id}>
+                  <td className="p-5">
+                    <span className="py-2 px-3 bg-yellow-400 text-white rounded-full">
+                      {index + 1}
+                    </span>
+                  </td>
+                  <td className="p-2">{question.que_title}</td>
+                  <td className="p-2 text-center">
+                    <label>
+                      <input
+                        type="radio"
+                        defaultChecked={noSelected}
+                        name={question.id}
+                        value={question.choice_1}
+                        onChange={() =>
+                          handleAnswerSelect(
+                            question.id,
+                            question.choice_1,
+                            question.score_choice_1
+                          )
+                        }
+                        className="text-5xl h-4 w-4"
+                      />
+                      <span></span>
+                    </label>
+                  </td>
+                  <td className="p-2 text-center">
+                    <label>
+                      <input
+                        type="radio"
+                        name={question.id}
+                        defaultChecked={yesSelected}
+                        value={question.choice_2}
+                        className="text-5xl h-4 w-4"
+                        onChange={() =>
+                          handleAnswerSelect(
+                            question.id,
+                            question.choice_2,
+                            question.score_choice_2
+                          )
+                        }
+                      />
+                      <span></span>
+                    </label>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>
@@ -152,13 +163,12 @@ const Questions = () => {
       <Modal
         open={openCheckModal}
         onClose={() => setOpenCheckModal(false)}
-        heading={"You cannot select more than 6 answers as Yes!"}
-        secondText={"Ok"}
-        callAPI={false}
+        heading={"Please select less than 10 'YES' as answer!"}
+        firstText={"Ok"}
         res={res}
       />
     </div>
   );
 };
 
-export default Questions;
+export default CheckQuestions;

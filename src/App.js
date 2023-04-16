@@ -4,6 +4,7 @@ import Rules from "./components/Rules";
 import Questions from "./components/Questions";
 import Result from "./components/Result";
 import axios from "axios";
+import CheckQuestions from "./components/CheckQuestions";
 
 function App() {
   axios.defaults.baseURL =
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/rules" element={<Rules />} />
         <Route path="/ques" element={<Questions />} />
+        <Route path="/checkQues" element={<CheckQuestions />} />
         <Route path="/result" element={<Result />} />
       </Routes>
     </div>

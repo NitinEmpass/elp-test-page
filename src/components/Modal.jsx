@@ -10,6 +10,7 @@ const CheckModal = ({
   heading,
   firstText,
   secondText,
+  callAPI=true,
 }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -17,37 +18,42 @@ const CheckModal = ({
 
   // console.log(heading, firstText, secondText);
   const handleSubmit = async (e) => {
+    console.log(callAPI)
     e.preventDefault();
-    const data = {
-      crt_id: "9",
-      player_id: player_id,
-      res: res,
-    };
+    if (!callAPI) {
+      navigate("/checkQues", { state: res });
+    } else {
+      const data = {
+        crt_id: "9",
+        player_id: player_id,
+        res: res,
+      };
 
-    console.log(data);
+      console.log(data);
 
-    setLoading(true);
+      setLoading(true);
 
-    await axios
-      .post(
-        "/UserProfile",
-        { data },
-        {
-          headers: {
-            task: "addcrtestresult",
-            token: "amazeqyjtstedf8ie04osghaqw",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setLoading(false);
-        navigate("/result");
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Something went wrong. Please try again later.");
-      });
+      await axios
+        .post(
+          "/UserProfile",
+          { data },
+          {
+            headers: {
+              task: "addcrtestresult",
+              token: "amazeqyjtstedf8ie04osghaqw",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setLoading(false);
+          navigate("/result");
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Something went wrong. Please try again later.");
+        });
+    }
   };
   if (!open) return null;
   return (
