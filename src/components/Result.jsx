@@ -187,35 +187,10 @@ const Result = () => {
         </div>
         <div className="my-2 flex flex-col w-full lg:w-[85%] gap-3">
           <h1 className="text-lg text-gray-700 font-medium ">
-            {result.label_info === "" ? (
-              <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Cupiditate natus nemo ipsa ab dicta eligendi iusto sit quidem
-                quam ullam, ad nihil in laborum magnam totam, corporis officiis
-                reprehenderit facere.
-              </span>
-            ) : (
-              <span>{result.label_info}</span>
-            )}
+            <span>{result.label_info}</span>
           </h1>
           <div className="border border-gray-600 shadow-2xl px-5 py-2 text-gray-500 rounded-md overflow-auto max-h-[600px]">
-            {result.detail_info === "" ? (
-              <span>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus,
-                exercitationem! Provident similique aliquid explicabo vel harum
-                fuga architecto, laudantium in perferendis est suscipit quam
-                doloribus tempore officiis accusamus quisquam non laboriosam
-                rem? Dolorem cupiditate doloremque sed a consequatur, unde sit
-                voluptatibus tenetur voluptates perspiciatis ut. Amet quo,
-                sapiente quod nobis facilis quas iste obcaecati commodi sequi?
-                Molestiae perspiciatis suscipit natus corrupti ad, ipsa facere
-                nulla consectetur quasi exercitationem, aliquid doloremque
-                perferendis eius, id rerum. Nobis dignissimos nam ex
-                voluptatibus dolores?
-              </span>
-            ) : (
-              <div dangerouslySetInnerHTML={{ __html: details }} />
-            )}
+            <div dangerouslySetInnerHTML={{ __html: details }} />
           </div>
         </div>
         <hr className="border-2 w-full border-gray-400" />
