@@ -45,24 +45,39 @@ const Questions = () => {
     setRes(ans);
   }
 
-  let tempData;
   const onSubmit = () => {
-    console.log(res);
-    tempData = [];
-    res.map((ans, idx) => {
-      if (ans.answer === "Yes") {
-        tempData.push({
-          que_id: ans.que_id,
+    //handling the case when user does not select any answer
+    const updatedRes = [...res];
+    questions.forEach((question) => {
+      const existingAnswer = updatedRes.find(
+        (answer) => answer.que_id === question.id
+      );
+      if (!existingAnswer) {
+        updatedRes.push({
+          que_id: question.id,
+          answer: "No",
+          score: "0",
         });
       }
-      return tempData;
     });
-    console.log("this is tempData => ", tempData)
+    setRes(updatedRes);
+    console.log("this is updated res", updatedRes);
+    console.log("this is result", res);
+
+    //handling the 10 "Yes" answers condition
+    const yesCount = updatedRes.reduce((count, answer) => {
+      if (answer.answer === "Yes") {
+        count++;
+      }
+      return count;
+    }, 0);
+
+    console.log(yesCount);
+
     scrollToTop();
 
-    tempData.length > 10 ? setOpenCheckModal(true) : setOpenModal(true);
+    yesCount > 10 ? setOpenCheckModal(true) : setOpenModal(true);
   }
-  console.log(tempData);
 
   if (!player_id || !questions) {
     return null;
@@ -152,7 +167,7 @@ const Questions = () => {
       <Modal
         open={openCheckModal}
         onClose={() => setOpenCheckModal(false)}
-        heading={"You cannot select more than 6 answers as Yes!"}
+        heading={"You have selected more than 10 items as Yes, so would request you to select 6 out of all selected items."}
         secondText={"Ok"}
         callAPI={false}
         res={res}

@@ -29,43 +29,74 @@ const CheckQuestions = () => {
     document.body.scrollTop = 0;
   }
 
-  const [res, setRes] = useState(checkResultData);
+  const [res, setRes] = useState([]);
   console.log("this is result: ", res);
+
+  const [yesOptions, setYesOptions] = useState(0);
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     const ans = res;
+    let yesCount = yesOptions;
     let existingAnswer = ans.find((answer) => answer.que_id === questionId);
     if (existingAnswer) {
-      existingAnswer.answer = selectedAnswer;
-      existingAnswer.score = score;
+      if (existingAnswer.answer === "Yes" && selectedAnswer === "No") {
+        yesCount--;
+      } else if (existingAnswer.answer === "No" && selectedAnswer === "Yes") {
+        yesCount++;
+        existingAnswer.answer = selectedAnswer;
+        existingAnswer.score = score;
+      }
     } else {
+      if (selectedAnswer === "Yes") {
+        yesCount++;
+      }
       ans.push({
         que_id: questionId,
         answer: selectedAnswer,
         score: score,
       });
+      setYesOptions(yesCount);
+      if (yesCount === 6) {
+        onSubmit();
+      }
     }
     console.log(ans);
     setRes(ans);
   }
+  console.log(yesOptions);
   // console.log("this is result: ", res)
 
-  const [quesAnsData, setQuesAnsData] = useState([]);
-
   const onSubmit = () => {
-    console.log(res);
-    const tempData = quesAnsData;
-    res.map((ans, idx) => {
-      if (ans.answer === "Yes") {
-        tempData.push({
-          que_id: ans.que_id,
+    //handling the case when user does not select any answer
+    const updatedRes = [...res];
+    questions.forEach((question) => {
+      const existingAnswer = updatedRes.find(
+        (answer) => answer.que_id === question.id
+      );
+      if (!existingAnswer) {
+        updatedRes.push({
+          que_id: question.id,
+          answer: "No",
+          score: 0,
         });
       }
-      return tempData;
     });
-    setQuesAnsData(tempData);
-    scrollToTop();
+    setRes(updatedRes);
+    console.log("this is updated res", updatedRes);
+    console.log("this is result", res);
 
-    setQuesAnsData.length > 10 ? setOpenCheckModal(true) : setOpenModal(true);
+    //handling the 10 "Yes" answers condition
+    const yesCount = updatedRes.reduce((count, answer) => {
+      if (answer.answer === "Yes") {
+        count++;
+      }
+      return count;
+    }, 0);
+
+    console.log(yesCount);
+
+    scrollToTop();
+    setYesOptions(yesCount);
+    yesCount > 6 ? setOpenCheckModal(true) : setOpenModal(true);
   }
 
   if (!player_id || !questions) {
@@ -104,7 +135,7 @@ const CheckQuestions = () => {
                     <label>
                       <input
                         type="radio"
-                        defaultChecked={noSelected}
+                        disabled={noSelected}
                         name={question.id}
                         value={question.choice_1}
                         onChange={() =>
@@ -124,7 +155,7 @@ const CheckQuestions = () => {
                       <input
                         type="radio"
                         name={question.id}
-                        defaultChecked={yesSelected}
+                        disabled={noSelected}
                         value={question.choice_2}
                         className="text-5xl h-4 w-4"
                         onChange={() =>
@@ -163,8 +194,9 @@ const CheckQuestions = () => {
       <Modal
         open={openCheckModal}
         onClose={() => setOpenCheckModal(false)}
-        heading={"Please select less than 10 'YES' as answer!"}
-        firstText={"Ok"}
+        heading={"You cannot select more than 6 items as Yes!"}
+        secondText={"Ok"}
+        callAPI={false}
         res={res}
       />
     </div>

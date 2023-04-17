@@ -83,30 +83,9 @@ const Rules = () => {
         <span className="font-medium">
           Read all Instructions below before you start the Self Assessment.
         </span>
-
-        {intro === "" ? (
-          <ol className="list-decimal w-[90%]">
-            <li>There is 1 section in the ELP self-assessment.</li>
-            <ul className="list-disc list-inside">
-              <li>
-                <span className="font-semibold">Executive Functions</span> traits
-                that you possess based on your behavior in everyday life
-              </li>
-            </ul>
-            <li>
-              The self-assessment should be taken in a single sitting. It takes
-              around 30 minutes to complete.
-            </li>
-            <li>Do not overthink any responses.</li>
-            <li>
-              Avoid trying to select the 'appropriate or best response' as there
-              are no right or wrong answers.
-            </li>
-            <li>
-              Attempt all items. Skipping any item will invalidate or affect the
-              result accuracy.
-            </li>
-          </ol>) : <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} className="w-[65%]" />}
+        <div className="w-[85%]">
+          <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />
+        </div>
 
         <button
           type="submit"

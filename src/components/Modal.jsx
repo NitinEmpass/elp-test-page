@@ -10,7 +10,7 @@ const CheckModal = ({
   heading,
   firstText,
   secondText,
-  callAPI=true,
+  callAPI = true,
 }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,7 @@ const CheckModal = ({
     console.log(callAPI)
     e.preventDefault();
     if (!callAPI) {
+      onClose();
       navigate("/checkQues", { state: res });
     } else {
       const data = {
@@ -70,7 +71,7 @@ const CheckModal = ({
         {error ? (
           <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
         ) : null}
-        <h1 className="text-2xl">{heading}</h1>
+        <h1 className="text-xl">{heading}</h1>
         <div className="flex justify-center items-center gap-5">
           {firstText === undefined ? null : (
             <button

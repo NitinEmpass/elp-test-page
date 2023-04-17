@@ -220,7 +220,7 @@ const Result = () => {
         </div>
         <hr className="border-2 w-full border-gray-400" />
         <div className="my-2 flex flex-col w-full lg:w-[85%] gap-3">
-          <h2 className="text-3xl">Strategies Details</h2>
+          <h2 className="text-xl">Details about Learning Styles</h2>
           <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: info }} />
         </div>
       </div>
