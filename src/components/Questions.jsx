@@ -46,26 +46,8 @@ const Questions = () => {
   }
 
   const onSubmit = () => {
-    //handling the case when user does not select any answer
-    const updatedRes = [...res];
-    questions.forEach((question) => {
-      const existingAnswer = updatedRes.find(
-        (answer) => answer.que_id === question.id
-      );
-      if (!existingAnswer) {
-        updatedRes.push({
-          que_id: question.id,
-          answer: "No",
-          score: "0",
-        });
-      }
-    });
-    setRes(updatedRes);
-    console.log("this is updated res", updatedRes);
-    console.log("this is result", res);
-
     //handling the 10 "Yes" answers condition
-    const yesCount = updatedRes.reduce((count, answer) => {
+    const yesCount = res.reduce((count, answer) => {
       if (answer.answer === "Yes") {
         count++;
       }

@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const CheckModal = ({
   open,
@@ -12,22 +13,40 @@ const CheckModal = ({
   secondText,
   callAPI = true,
 }) => {
+  const { questions } = useContext(UserContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   // console.log(heading, firstText, secondText);
   const handleSubmit = async (e) => {
+    //handling the case when user does not select any answer
+    const updatedRes = [...res];
+    questions.forEach((question) => {
+      const existingAnswer = updatedRes.find(
+        (answer) => answer.que_id === question.id
+      );
+      if (!existingAnswer) {
+        updatedRes.push({
+          que_id: question.id,
+          answer: "No",
+          score: "0",
+        });
+      }
+    });
+    console.log("this is updated res", updatedRes);
+    console.log("this is result", res);
     console.log(callAPI)
     e.preventDefault();
     if (!callAPI) {
       onClose();
-      navigate("/checkQues", { state: res });
+      navigate("/checkQues", { state: updatedRes });
     } else {
+
       const data = {
         crt_id: "9",
         player_id: player_id,
-        res: res,
+        res: updatedRes,
       };
 
       console.log(data);
