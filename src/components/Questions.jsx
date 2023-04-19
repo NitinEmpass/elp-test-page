@@ -76,15 +76,15 @@ const Questions = () => {
         <table className="table-auto border-collapse shadow-2xl bg-amber-50 rounded-lg w-full overflow-auto">
           <thead>
             <tr>
-              <th className="p-2">S.No.</th>
-              <th className="p-2">Questions</th>
-              <th className="p-4"></th>
+              <th className="p-2 text-left w-16">S.No.</th>
+              <th className="p-2 text-left">Questions</th>
+              <th className="p-4 text-left"></th>
             </tr>
           </thead>
           <tbody>
             {questions.map((question, index) => (
-              <tr className="p-2" key={question.id}>
-                <td className="p-5">
+              <tr className="py-2" key={question.id}>
+                <td className="pl-4 w-16">
                   <span className="py-2 px-3 bg-yellow-400 text-white rounded-full">
                     {index + 1}
                   </span>

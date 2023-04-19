@@ -81,9 +81,9 @@ const CheckQuestions = () => {
         <table className="table-auto border-collapse shadow-2xl bg-amber-50 rounded-lg w-full overflow-auto">
           <thead>
             <tr>
-              <th className="p-2">S.No.</th>
-              <th className="p-2">Questions</th>
-              <th className="p-4"></th>
+              <th className="p-2 text-left w-16">S.No.</th>
+              <th className="p-2 text-left">Questions</th>
+              <th className="p-4 text-left"></th>
             </tr>
           </thead>
           <tbody>
@@ -91,8 +91,8 @@ const CheckQuestions = () => {
               const answerObj = checkResultData?.find((ans) => ans.que_id === question.id);
               const yesSelected = answerObj?.answer === "Yes";
               return (
-                <tr className={yesSelected ? "p-2" : "p-2 bg-gray-200"} key={question.id}>
-                  <td className="p-5">
+                <tr className={yesSelected ? "py-2" : "py-2 bg-gray-200"} key={question.id}>
+                  <td className="pl-4 w-16">
                     <span className="py-2 px-3 bg-yellow-400 text-white rounded-full">
                       {index + 1}
                     </span>
@@ -118,6 +118,8 @@ const CheckQuestions = () => {
                       <input
                         type="checkbox"
                         name={question.id}
+                        disabled={!yesSelected}
+                        defaultChecked={!yesSelected}
                         onChange={(e) => {
                           const checked = e.target.checked;
                           handleAnswerSelect(
