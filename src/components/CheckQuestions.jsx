@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
+import { Tooltip } from "react-tippy";
 
 const CheckQuestions = () => {
   const navigate = useNavigate();
@@ -72,24 +73,23 @@ const CheckQuestions = () => {
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full w-full relative overflow-hidden">
       <div className="flex flex-col w-[90%] p-5 lg:w-[80%] mx-auto h-full gap-4 lg:p-10 shadow-2xl rounded-md bg-white my-5 border-t-4 border-t-orange-500 relative overflow-auto">
-        <span className="font-semibold">
-          Read each statement carefully. Select how well each of these
-          statements describes you.
+        <span className="font-semibold text-2xl">
+          Place a check next to the ways you learn best. Please hover over questions to understand it better.
+          <br />
+          <span className="italic text-gray-500 text-xl">( Parents can also administer this profile aloud for students and record their responses.)</span>
         </span>
         <table className="table-auto border-collapse shadow-2xl bg-amber-50 rounded-lg w-full overflow-auto">
           <thead>
             <tr>
               <th className="p-2">S.No.</th>
               <th className="p-2">Questions</th>
-              <th className="p-4">No</th>
-              <th className="p-4">Yes</th>
+              <th className="p-4"></th>
             </tr>
           </thead>
           <tbody>
             {questions.map((question, index) => {
               const answerObj = checkResultData?.find((ans) => ans.que_id === question.id);
               const yesSelected = answerObj?.answer === "Yes";
-              const noSelected = answerObj?.answer === "No";
               return (
                 <tr className={yesSelected ? "p-2" : "p-2 bg-gray-200"} key={question.id}>
                   <td className="p-5">
@@ -97,42 +97,37 @@ const CheckQuestions = () => {
                       {index + 1}
                     </span>
                   </td>
-                  <td className="p-2">{question.que_title}</td>
-                  <td className="p-2 text-center">
-                    <label>
-                      <input
-                        type="radio"
-                        disabled={noSelected}
-                        defaultChecked={noSelected}
-                        name={question.id}
-                        value={question.choice_1}
-                        onChange={() =>
-                          handleAnswerSelect(
-                            question.id,
-                            question.choice_1,
-                            question.score_choice_1
-                          )
-                        }
-                        className="text-5xl h-4 w-4"
-                      />
-                      <span></span>
-                    </label>
+                  <td className="p-2">
+                    <Tooltip title={question.que_detail}
+                      position="bottom"
+                      trigger="mouseenter"
+                      arrow={true}
+                      animation="shift"
+                      duration={200}
+                      inertia={true}
+                      hideDelay={100}
+                      interactive={true}
+                      theme="light" >
+                      <span>
+                        {question.que_title}<span className="text-blue-500 text-2xl">  . . .</span>
+                      </span>
+                    </Tooltip>
                   </td>
-                  <td className="p-2 text-center">
+                  <td className="p-4 pr-8 text-center">
                     <label>
                       <input
-                        type="radio"
+                        type="checkbox"
                         name={question.id}
-                        disabled={noSelected}
-                        value={question.choice_2}
-                        className="text-5xl h-4 w-4"
-                        onChange={() =>
+                        onChange={(e) => {
+                          const checked = e.target.checked;
                           handleAnswerSelect(
                             question.id,
-                            question.choice_2,
-                            question.score_choice_2
+                            !checked ? question.choice_1 : question.choice_2,
+                            !checked ? question.score_choice_1 : question.score_choice_2,
                           )
                         }
+                        }
+                        className="h-4 w-4"
                       />
                       <span></span>
                     </label>

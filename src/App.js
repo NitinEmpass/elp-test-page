@@ -5,7 +5,7 @@ import Questions from "./components/Questions";
 import Result from "./components/Result";
 import axios from "axios";
 import CheckQuestions from "./components/CheckQuestions";
-
+import "react-tippy/dist/tippy.css";
 function App() {
   axios.defaults.baseURL =
     "https://dashboard.empasslearning.com/apicapi/index.php";
