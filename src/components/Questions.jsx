@@ -94,13 +94,8 @@ const Questions = () => {
                   <Tooltip title={question.que_detail}
                     className="w-[90%] lg:w-full"
                     position="bottom"
-                    trigger="mouseenter"
+                    trigger="mouseenter focus"
                     arrow={true}
-                    animation="shift"
-                    duration={200}
-                    inertia={true}
-                    hideDelay={100}
-                    interactive={true}
                     theme="light" >
                     <span>
                       {question.que_title}<span className="text-blue-500 text-2xl">  . . .</span>
