@@ -67,13 +67,13 @@ const Questions = () => {
   }
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full w-full relative overflow-hidden">
-      <div className="flex flex-col w-[90%] p-5 lg:w-[80%] mx-auto h-full gap-4 lg:p-10 shadow-2xl rounded-md bg-white my-5 border-t-4 border-t-orange-500 relative overflow-auto">
+      <div className="flex flex-col w-[90%] p-2 lg:w-[80%] mx-auto h-full gap-4 lg:p-10 shadow-2xl rounded-md bg-white my-5 border-t-4 border-t-orange-500 relative overflow-auto">
         <span className="font-semibold text-2xl">
           Place a check next to the ways you learn best. Please hover over questions to understand it better.
           <br />
           <span className="italic text-gray-500 text-xl">( Parents can also administer this profile aloud for students and record their responses.)</span>
         </span>
-        <table className="table-auto border-collapse shadow-2xl bg-amber-50 rounded-lg w-full overflow-auto">
+        <table className="table-auto border-collapse rounded-lg w-full overflow-auto">
           <thead>
             <tr>
               <th className="p-2 text-left w-16">S.No.</th>
@@ -92,6 +92,7 @@ const Questions = () => {
 
                 <td className="p-2">
                   <Tooltip title={question.que_detail}
+                    className="w-[90%] lg:w-full"
                     position="bottom"
                     trigger="mouseenter"
                     arrow={true}

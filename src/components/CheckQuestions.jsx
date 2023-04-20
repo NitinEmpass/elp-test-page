@@ -119,7 +119,6 @@ const CheckQuestions = () => {
                         type="checkbox"
                         name={question.id}
                         disabled={!yesSelected}
-                        defaultChecked={!yesSelected}
                         onChange={(e) => {
                           const checked = e.target.checked;
                           handleAnswerSelect(
