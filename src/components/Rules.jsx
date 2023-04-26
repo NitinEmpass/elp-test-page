@@ -44,8 +44,8 @@ const Rules = () => {
           { data },
           {
             headers: {
-              task: "getcrtestque",
-              token: "amazeqyjtstedf8ie04osghaqw",
+              task: process.env.REACT_APP_WEBSITE_QUESTIONS,
+              token: process.env.REACT_APP_WEBSITE_TOKEN,
             },
           }
         )

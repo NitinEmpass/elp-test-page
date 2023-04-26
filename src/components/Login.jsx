@@ -69,8 +69,8 @@ const Login = () => {
         { data },
         {
           headers: {
-            task: "websiteregister",
-            token: "amazeqyjtstedf8ie04osghaqw",
+            task: process.env.REACT_APP_WEBSITE_REGISTER,
+            token: process.env.REACT_APP_WEBSITE_TOKEN,
           },
         }
       )

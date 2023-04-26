@@ -52,8 +52,8 @@ const Result = () => {
           { data: requestData },
           {
             headers: {
-              task: "getelptestresult",
-              token: "amazeqyjtstedf8ie04osghaqw",
+              task: process.env.REACT_APP_WEBSITE_RESULT,
+              token: process.env.REACT_APP_WEBSITE_TOKEN,
             },
           }
         )

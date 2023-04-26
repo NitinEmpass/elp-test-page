@@ -12,7 +12,7 @@ const CheckQuestions = () => {
   // console.log(location);
 
   const checkResultData = location.state;
-  console.log("this is checkResultData: ", checkResultData);
+  // console.log("this is checkResultData: ", checkResultData);
   // const questions = location.state.questions;
   // const player_id = location.state.player_id;
 
@@ -31,7 +31,7 @@ const CheckQuestions = () => {
   }
 
   const [res, setRes] = useState([]);
-  console.log("this is result: ", res);
+  // console.log("this is result: ", res);
 
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     const ans = res;
@@ -47,10 +47,10 @@ const CheckQuestions = () => {
         score: score,
       });
     }
-    console.log(ans);
+    // console.log(ans);
     setRes(ans);
   }
-  console.log("this is result after option switching: ", res)
+  // console.log("this is result after option switching: ", res)
 
   const onSubmit = () => {
     //handling the 10 "Yes" answers condition
@@ -61,7 +61,7 @@ const CheckQuestions = () => {
       return count;
     }, 0);
 
-    console.log("this is yesCount", yesCount);
+    // console.log("this is yesCount", yesCount);
 
     scrollToTop();
     yesCount !== 6 ? setOpenCheckModal(true) : setOpenModal(true);

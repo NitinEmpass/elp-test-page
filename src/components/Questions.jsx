@@ -42,7 +42,7 @@ const Questions = () => {
         score: score,
       });
     }
-    console.log(ans);
+    // console.log(ans);
     setRes(ans);
   }
 

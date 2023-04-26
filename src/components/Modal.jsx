@@ -34,8 +34,8 @@ const CheckModal = ({
         });
       }
     });
-    console.log("this is updated res", updatedRes);
-    console.log("this is result", res);
+    // console.log("this is updated res", updatedRes);
+    // console.log("this is result", res);
     console.log(callAPI)
     e.preventDefault();
     if (!callAPI) {
@@ -59,8 +59,8 @@ const CheckModal = ({
           { data },
           {
             headers: {
-              task: "addcrtestresult",
-              token: "amazeqyjtstedf8ie04osghaqw",
+              task: process.env.REACT_APP_WEBSITE_ADD_TEST,
+              token: process.env.REACT_APP_WEBSITE_TOKEN,
             },
           }
         )
