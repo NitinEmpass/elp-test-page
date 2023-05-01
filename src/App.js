@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Rules from "./components/Rules";
+import HomePage from "./pages/HomePage";
+import Rules from "./pages/Rules";
 import Questions from "./components/Questions";
 import Result from "./components/Result";
 import axios from "axios";
@@ -12,9 +12,9 @@ function App() {
   axios.defaults.withCredentials = true;
 
   return (
-    <div className="min-h-screen max-w-full overflow-hidden relative">
+    <div className="min-h-screen max-w-full overflow-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/rules" element={<Rules />} />
         <Route path="/ques" element={<Questions />} />
         <Route path="/checkQues" element={<CheckQuestions />} />
