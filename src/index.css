@@ -51,7 +51,7 @@
   height: 36px;
   border-radius: 50%;
   border: 3px solid;
-  border-color: rgb(225, 255, 0) transparent;
+  border-color: rgb(255, 145, 0) transparent;
 }
 
 @keyframes rotation {
@@ -68,19 +68,36 @@ ol {
   padding: 0;
   margin: 0;
 }
-
+/* Set the width and height of both horizontal and vertical scrollbars */
 ::-webkit-scrollbar {
-  height: 1rem;
+  height: 0.5rem;
   width: 0.5rem;
 }
+
+/* Customize the thumb of both horizontal and vertical scrollbars */
 ::-webkit-scrollbar-thumb {
-  --tw-border-opacity: 1;
   background-color: rgb(233, 134, 35);
-  border-color: rgba(255, 255, 255, var(--tw-border-opacity));
   border-radius: 9999px;
-  border-width: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+/* Customize the track of both horizontal and vertical scrollbars */
 ::-webkit-scrollbar-track {
   background-color: transparent;
   border-radius: 9999px;
+}
+
+/* Customize the thumb of the horizontal scrollbar */
+::-webkit-scrollbar-thumb:horizontal {
+  width: 0.2rem;
+}
+
+/* Customize the track of the horizontal scrollbar */
+::-webkit-scrollbar-track:horizontal {
+  height: 0.5rem;
+}
+
+/* Hide the vertical scrollbar */
+::-webkit-scrollbar-vertical {
+  display: none;
 }

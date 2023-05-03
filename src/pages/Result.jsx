@@ -126,7 +126,7 @@ const Result = () => {
   const info = DOMPurify.sanitize(result.glossary);
 
   return (
-    <div className="w-full overflow-hidden flex justify-center bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full">
+    <div className="w-full overflow-hidden flex flex-col justify-center items-center bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full gap-4 lg:py-0 py-2 lg:p-5">
       <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-orange-500 bg-white flex flex-col gap-5 items-center justify-center rounded-md">
         <h1 className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-5xl text-center pb-2 border-b-[0.2rem] border-b-orange-400">
           ELP Result
@@ -138,8 +138,8 @@ const Result = () => {
         <span className="my-2 text-gray-400 text-2xl">
           Thank you for taking this test!
         </span>
-        <div className="flex items-center justify-center gap-10">
-          <div className="max-w-60 max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
+          <div className="max-w-48 max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
             <div className="w-full flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 text-center p-2 text-white text-4xl flex items-center justify-center">
               <span>Test Score</span>
             </div>
@@ -147,7 +147,7 @@ const Result = () => {
               <span>{result.total_score}</span>
             </div>
           </div>
-          <div className="max-w-60 max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
+          <div className="max-w-xl max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
             <div className="w-full flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 text-center p-2 text-white text-4xl flex items-center justify-center">
               <span>Dominant Style</span>
             </div>
@@ -157,8 +157,11 @@ const Result = () => {
           </div>
         </div>
 
-        <div className="w-[90%] lg:w-[60%] shadow-lg rounded-xl">
-          <Radar data={chartConfig} options={options} />
+        <div className="w-full h-[50vh] lg:w-[60%] shadow-lg rounded-xl overflow-auto">
+          <Radar
+            data={chartConfig}
+            options={{ ...options, maintainAspectRatio: false }}
+          />
         </div>
 
         <div className="flex flex-col items-center gap-3 w-[90%]">
@@ -187,18 +190,18 @@ const Result = () => {
           <h1 className="text-lg text-gray-700 font-medium ">
             <span>{result.label_info}</span>
           </h1>
-          <div className="border border-gray-600 shadow-2xl px-5 py-2 text-gray-500 rounded-md overflow-auto max-h-[600px]">
+          <div className="border border-gray-600 px-2 lg:px-5 py-2 text-gray-500 rounded-md overflow-auto max-h-[600px]">
             <div dangerouslySetInnerHTML={{ __html: details }} />
           </div>
         </div>
-        <hr className="border-2 border-gray-400 w-[90%]" />
-        <div className="my-2 flex flex-col w-full lg:w-[85%] gap-3 p-2">
-          <h2 className="text-xl">Details about Learning Styles</h2>
-          <div
-            className="text-gray-600"
-            dangerouslySetInnerHTML={{ __html: info }}
-          />
-        </div>
+      </div>
+      <hr className="border-2 border-gray-400 w-[90%] lg:w-[80%] mx-auto" />
+      <div className="my-2 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl">
+        <h2 className="text-xl">Details about Learning Styles</h2>
+        <div
+          className="text-gray-600 p-2 w-[90%] leading-8"
+          dangerouslySetInnerHTML={{ __html: info }}
+        />
       </div>
     </div>
   );
