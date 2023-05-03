@@ -97,6 +97,7 @@ const Result = () => {
         label: "Score",
         data,
         fill: true,
+        fontsize: "24px",
         backgroundColor: "rgba(249,115,22,0.4)",
         borderColor: "rgba(249,115,22,1.000)",
         pointBackgroundColor: "rgba(249,115,22,1.000)",
@@ -117,7 +118,7 @@ const Result = () => {
           display: true,
         },
         suggestedMin: 0,
-        suggestedMax: 10,
+        suggestedMax: 8,
       },
     },
   };

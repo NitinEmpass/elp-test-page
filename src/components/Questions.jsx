@@ -4,6 +4,8 @@ import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
 // import { questions } from "../assets/data/questions";
 import soundfile from "../assets/sounds/ques.mp3";
+import { Tooltip } from "react-tippy";
+
 const Questions = () => {
   const navigate = useNavigate();
   const { player_id, questions } = useContext(UserContext);
@@ -29,6 +31,7 @@ const Questions = () => {
   }
 
   const [res, setRes] = useState([]);
+
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     console.log(questionId, selectedAnswer, score);
     const ans = res;
@@ -46,6 +49,7 @@ const Questions = () => {
     console.log("this is ans", ans);
     setRes(ans);
   }
+
   console.log("this is res", res);
 
   const handlePrev = () => {
@@ -75,9 +79,11 @@ const Questions = () => {
       numbers.push(
         <div
           className={`px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r from-orange-500 to-yellow-500 hover:text-white ${
-            checkboxArray.includes(i)
-              ? "bg-slate-200 text-black"
-              : "bg-white text-black"
+            current+1 !== i
+              ? checkboxArray.includes(i)
+                ? "bg-[#d5869d] text-black"
+                : "bg-white text-black"
+              : "bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
           }`}
           key={i}
           onClick={() => setCurrent(i - 1)}
@@ -126,30 +132,36 @@ const Questions = () => {
   }
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat min-h-screen w-full relative overflow-hidden">
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[50%] mt-20 bg-orange-50 rounded-md shadow-lg gap-10">
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] mt-10 bg-orange-50 rounded-md shadow-lg gap-10">
         <div className="flex flex-col justify-center items-center w-full">
           <div
             key={questions[current].id}
             className="flex flex-col justify-center items-start gap-5 w-full"
           >
-            <div className="flex flex-col justify-center items-start gap-2 w-full relative">
-              <span className="text-xl">
-                <span className="text-5xl bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text border-b-2 border-orange-500">
+            <div className="flex flex-col justify-center items-start gap-6 w-full relative">
+              <span className="text-3xl">
+                <span className="text-6xl bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text border-b-2 border-orange-500">
                   {current < 9 ? `0${current + 1}` : current + 1}
                 </span>{" "}
                 of {questions.length}
               </span>
               <div className="flex justify-between items-center w-full gap-2">
-                <div className="flex items-center justify-center gap-4">
-                  <h3 className="text-2xl">{questions[current].que_title}</h3>
-                  <SoundButton src={soundfile} />
+                <div className="flex items-center justify-center gap-6">
+                  <h3 className="text-3xl lg:text-4xl">
+                    {questions[current].que_title}
+                  </h3>
+                  <Tooltip title="Listen to audio">
+                    <SoundButton src={soundfile} />
+                  </Tooltip>
                 </div>
-                <button
-                  className="border px-4 py-2 rounded-full font-serif font-bold bg-slate-50 hover:bg-slate-100"
-                  onClick={() => setOpenDesc(true)}
-                >
-                  i
-                </button>
+                <Tooltip title="Click to understand the statement better">
+                  <button
+                    className="border px-4 py-2 rounded-full font-serif font-bold bg-slate-50 hover:bg-slate-100"
+                    onClick={() => setOpenDesc(true)}
+                  >
+                    i
+                  </button>
+                </Tooltip>
               </div>
               <div
                 className={
@@ -166,20 +178,20 @@ const Questions = () => {
                 </button>
                 <div className="mr-10 flex items-center justify-center gap-4">
                   <span>{questions[current].que_detail}</span>
-                  <SoundButton
-                    src={soundfile}
-                  />
+                  <Tooltip title="Listen to audio">
+                    <SoundButton src={soundfile} />
+                  </Tooltip>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col justify-between gap-5 items-start">
+            <div className="flex flex-col justify-between gap-5 items-start text-2xl">
               <div className="flex justify-center items-center gap-4">
                 <input
                   type="radio"
                   name={questions[current].id}
                   value={questions[current].choice_1}
-                  className="text-5xl h-4 w-4"
+                  className="text-3xl lg:text-5xl h-5 w-5"
                   defaultChecked={res.find(
                     (item) =>
                       item.que_id === questions[current].id &&
@@ -210,7 +222,7 @@ const Questions = () => {
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_2
                   )}
-                  className="text-5xl h-4 w-4"
+                  className="text-3xl lg:text-5xl h-5 w-5"
                   onChange={() => {
                     if (checkboxArray.includes(current + 1)) {
                       setCheckboxArray((prev) =>
@@ -231,7 +243,7 @@ const Questions = () => {
                   type="radio"
                   name={questions[current].id}
                   value={questions[current].choice_3}
-                  className="text-5xl h-4 w-4"
+                  className="text-3xl lg:text-5xl h-5 w-5"
                   defaultChecked={res.find(
                     (item) =>
                       item.que_id === questions[current].id &&
@@ -253,7 +265,7 @@ const Questions = () => {
                 <label htmlFor={questions[current].id}>Most helpful</label>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex justify-center items-center gap-4 text-2xl">
               <input
                 type="radio"
                 name={questions[current].id}
@@ -263,7 +275,7 @@ const Questions = () => {
                     item.que_id === questions[current].id &&
                     item.answer === questions[current].choice_4
                 )}
-                className="text-5xl h-4 w-4"
+                className="text-3xl lg:text-5xl h-5 w-5"
                 onChange={() => {
                   if (!checkboxArray.includes(current + 1)) {
                     setCheckboxArray([...checkboxArray, current + 1]);
@@ -284,12 +296,27 @@ const Questions = () => {
           </div>
         </div>
         <div className="flex justify-between w-full">
-          <button
-            onClick={handlePrev}
-            className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
-          >
-            Prev
-          </button>
+          <Tooltip title="Previous">
+            <button
+              onClick={handlePrev}
+              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-2xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+          </Tooltip>
           {current === questions.length - 1 ? (
             <button
               type="submit"
@@ -299,12 +326,27 @@ const Questions = () => {
               Submit
             </button>
           ) : (
-            <button
-              onClick={handleNext}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
-            >
-              Next
-            </button>
+            <Tooltip title="Next">
+              <button
+                onClick={handleNext}
+                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-2xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </button>
+            </Tooltip>
           )}
         </div>
         <div className="flex items-center w-full overflow-auto pb-5">
