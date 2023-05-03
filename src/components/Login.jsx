@@ -4,13 +4,13 @@ import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-4 mb-40">
+    <div className="flex flex-col justify-center items-center gap-4 mb-28">
       <div className="flex flex-col justify-center items-center">
         <h1 className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-center text-3xl lg:text-5xl p-5 ">
           Student Processing Inventory (SPI)
         </h1>
-        <span className="font-semibold text-base lg:text-xl">
-          Understanding 12 ways of learning styles
+        <span className="font-semibold text-base lg:text-xl text-center">
+          Assessing and Accomodating Diverse Ways of Processing
         </span>
       </div>
       <div className="flex flex-col lg:flex-row justify-center items-center mb-5 mx-auto gap-10 lg:gap-16">

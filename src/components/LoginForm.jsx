@@ -192,7 +192,7 @@ const LoginForm = () => {
 
         <button
           type="submit"
-          className="uppercase py-3 px-2 bg-yellow-400 w-32 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold"
+          className="uppercase py-3 px-2 bg-gradient-to-r from-orange-500 to-yellow-500 w-32 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold"
         >
           {loading ? <span className="loader"></span> : "start test"}
         </button>

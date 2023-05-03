@@ -6,11 +6,11 @@ const Navbar = () => {
   return (
     <div className="w-full flex justify-between items-center border-b-2 border-b-red-400 bg-gray-100">
       <Link to="/">
-        <img src={logo} alt="SPI" width={100} height="auto" />
+        <img src={logo} alt="SPI" width={100} height="auto" className="mix-blend-darken aspect-auto" />
       </Link>
       <a
         href="mailto:support@mymemorymentor.com"
-        className="p-2 px-4 text-2xl border rounded-full mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
+        className="p-2 px-4 text-2xl border rounded-2xl mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
       >
         <Tooltip
           title="For any help or request for test code , click here to mail us at support@mymemorymentor.com"

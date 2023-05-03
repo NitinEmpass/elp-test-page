@@ -34,15 +34,14 @@ const CheckModal = ({
         });
       }
     });
-    // console.log("this is updated res", updatedRes);
+    console.log("this is updated res", updatedRes);
     // console.log("this is result", res);
-    console.log(callAPI)
+    console.log(callAPI);
     e.preventDefault();
     if (!callAPI) {
       onClose();
       navigate("/checkQues", { state: updatedRes });
     } else {
-
       const data = {
         crt_id: "9",
         player_id: player_id,
@@ -103,10 +102,10 @@ const CheckModal = ({
           {secondText === undefined ? null : (
             <button
               onClick={handleSubmit}
-              className="uppercase py-3 px-2 bg-yellow-400 w-32 text-white m-5 rounded-md mx-auto flex justify-center hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
+              className="uppercase py-3 px-2 bg-gradient-to-r from-orange-500 to-yellow-500 w-32 text-white m-5 rounded-md mx-auto flex justify-center hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
             >
               {loading ? (
-                <span className="loader"></span>
+                <span className="loaderOrange"></span>
               ) : (
                 <span>{secondText}</span>
               )}

@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Rules from "./pages/Rules";
 import Questions from "./components/Questions";
-import Result from "./components/Result";
+import Result from "./pages/Result";
 import axios from "axios";
 import CheckQuestions from "./components/CheckQuestions";
 import "react-tippy/dist/tippy.css";
