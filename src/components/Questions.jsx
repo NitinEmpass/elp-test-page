@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
@@ -11,6 +11,7 @@ const Questions = () => {
   const { player_id, questions } = useContext(UserContext);
   const [current, setCurrent] = useState(0);
   const [checkboxArray, setCheckboxArray] = useState([]);
+  const [checked, setChecked] = useState([]);
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
   // console.log("this is questions array", questions);
@@ -20,6 +21,7 @@ const Questions = () => {
   const [openDesc, setOpenDesc] = useState(false);
 
   useEffect(() => {
+    scrollToTop();
     if (!questions || !player_id) {
       navigate("/");
     }
@@ -31,7 +33,6 @@ const Questions = () => {
   }
 
   const [res, setRes] = useState([]);
-
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     console.log(questionId, selectedAnswer, score);
     const ans = res;
@@ -45,11 +46,11 @@ const Questions = () => {
         answer: selectedAnswer,
         score: score,
       });
+      setChecked([...checked, current + 1]);
     }
     console.log("this is ans", ans);
     setRes(ans);
   }
-
   console.log("this is res", res);
 
   const handlePrev = () => {
@@ -74,17 +75,37 @@ const Questions = () => {
   };
 
   function NumberList() {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+      // Scroll to the current question number when the component mounts
+      const container = containerRef.current;
+      const questionElems = container.querySelectorAll(".question-number");
+      const currentQuestionElem = questionElems[current];
+      const containerWidth = container.offsetWidth;
+      const currentQuestionLeft = currentQuestionElem.offsetLeft;
+      const currentQuestionWidth = currentQuestionElem.offsetWidth;
+      const scrollPosition =
+        currentQuestionLeft + currentQuestionWidth / 2 - containerWidth / 2;
+      container.scrollLeft = scrollPosition;
+    }, [current]);
+
     const numbers = [];
     for (let i = 1; i <= questions.length; i++) {
+      const isCurrent = i === current + 1;
       numbers.push(
         <div
-          className={`px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r from-orange-500 to-yellow-500 hover:text-white ${
-            current+1 !== i
+          className={`question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
+            checked.includes(i)
               ? checkboxArray.includes(i)
-                ? "bg-[#d5869d] text-black"
-                : "bg-white text-black"
-              : "bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
-          }`}
+                ? "bg-[#d5869d] text-white"
+                : "bg-green-500 text-white"
+              : "bg-white text-black"
+          } ${
+            isCurrent
+              ? "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
+              : "hover:text-white hover:from-gsl-light-red hover:to-gsl-dark-red"
+          } `}
           key={i}
           onClick={() => setCurrent(i - 1)}
         >
@@ -93,24 +114,62 @@ const Questions = () => {
       );
     }
     return (
-      <div className="flex justify-center items-center gap-4">{numbers}</div>
+      <div
+        className="flex items-center w-full overflow-x-auto pb-5"
+        ref={containerRef}
+      >
+        <div className="flex justify-center items-center gap-4">{numbers}</div>
+      </div>
     );
   }
 
   function SoundButton({ src }) {
     const [audio] = useState(new Audio());
+    const [playing, setPlaying] = useState(false);
+    const [currentSrc, setCurrentSrc] = useState(null);
 
-    const handleClick = () => {
+    const handlePlay = () => {
       console.log(src);
       audio.src = src;
-      audio.play().catch((err) => {
-        console.error(err);
-      });
+      if (currentSrc !== src) {
+        stopCurrentAudio();
+        setCurrentSrc(src);
+        audio
+          .play()
+          .then(() => {
+            setPlaying(true);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        audio
+          .play()
+          .then(() => {
+            setPlaying(true);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
     };
 
-    return (
+    const handlePause = () => {
+      console.log(src);
+      audio.pause();
+      setPlaying(false);
+    };
+
+    const stopCurrentAudio = () => {
+      if (currentSrc !== null) {
+        audio.pause();
+        audio.currentTime = 0;
+        setPlaying(false);
+      }
+    };
+    return !playing ? (
       <button
-        onClick={handleClick}
+        onClick={handlePlay}
         className="border rounded-full p-2 bg-slate-50 hover:bg-slate-100 hover:scale-105 duration-300 ease-in-out"
       >
         <svg
@@ -128,11 +187,45 @@ const Questions = () => {
           />
         </svg>
       </button>
+    ) : (
+      <button
+        onClick={handlePause}
+        className="border rounded-full p-2 bg-slate-50 hover:bg-slate-100 hover:scale-105 duration-300 ease-in-out"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+          />
+        </svg>
+      </button>
     );
   }
+  function handleKeyDown(e) {
+    // If the user presses the "N" key, go to the next question
+    if (e.key === "n") {
+      // code to go to the next question
+      handleNext();
+    }
+    // If the user presses the "P" key, go to the previous question
+    else if (e.key === "p") {
+      // code to go to the previous question
+      handlePrev();
+    }
+  }
+
+  window.addEventListener("keydown", handleKeyDown);
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat min-h-screen w-full relative overflow-hidden">
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] mt-10 bg-orange-50 rounded-md shadow-lg gap-10">
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] mt-10 bg-red-50 rounded-md shadow-lg gap-10">
         <div className="flex flex-col justify-center items-center w-full">
           <div
             key={questions[current].id}
@@ -140,7 +233,7 @@ const Questions = () => {
           >
             <div className="flex flex-col justify-center items-start gap-6 w-full relative">
               <span className="text-3xl">
-                <span className="text-6xl bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text border-b-2 border-orange-500">
+                <span className="text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-red-500">
                   {current < 9 ? `0${current + 1}` : current + 1}
                 </span>{" "}
                 of {questions.length}
@@ -156,7 +249,7 @@ const Questions = () => {
                 </div>
                 <Tooltip title="Click to understand the statement better">
                   <button
-                    className="border px-4 py-2 rounded-full font-serif font-bold bg-slate-50 hover:bg-slate-100"
+                    className="border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
                     onClick={() => setOpenDesc(true)}
                   >
                     i
@@ -166,7 +259,7 @@ const Questions = () => {
               <div
                 className={
                   openDesc === true
-                    ? "absolute border p-5 rounded-md top-0 right-0 bg-slate-100"
+                    ? "absolute border p-5 rounded-md -top-1 right-0 bg-slate-100 w-[90%] overflow-y-auto"
                     : "hidden"
                 }
               >
@@ -299,7 +392,7 @@ const Questions = () => {
           <Tooltip title="Previous">
             <button
               onClick={handlePrev}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-2xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
+              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl hover:bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +414,7 @@ const Questions = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-xl bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
+              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
             >
               Submit
             </button>
@@ -329,7 +422,7 @@ const Questions = () => {
             <Tooltip title="Next">
               <button
                 onClick={handleNext}
-                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-orange-400 rounded-md text-2xl hover:bg-gradient-to-r from-orange-500 to-yellow-500 text-black hover:text-white bg-white"
+                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl hover:bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -349,16 +442,14 @@ const Questions = () => {
             </Tooltip>
           )}
         </div>
-        <div className="flex items-center w-full overflow-auto pb-5">
-          <NumberList />
-        </div>
+        <NumberList />
       </div>
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`You have selected ${checkboxArray.length} items as "I don't know" (marked as gray), would you like to submit?`}
+        heading={`You have selected ${checkboxArray.length} items as "I don't know" (marked as redish pink), would you like to submit?`}
         firstText={"No"}
         secondText={"Yes"}
       />

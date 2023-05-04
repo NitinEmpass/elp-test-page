@@ -4,10 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "orange-gradient-0deg":
-          "linear-gradient(0deg, #ffc700 18%, #ff9500 76%)",
+        "gsl-dark-red": "#de4c39",
+        "gsl-light-red": "#d65345",
       },
     },
   },
-  plugins: [],
 };

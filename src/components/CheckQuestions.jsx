@@ -72,7 +72,7 @@ const CheckQuestions = () => {
   }
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full w-full relative overflow-hidden">
-      <div className="flex flex-col w-[90%] p-2 lg:w-[80%] mx-auto h-full gap-4 lg:p-10 shadow-2xl rounded-md bg-white my-5 border-t-4 border-t-orange-500 relative overflow-auto">
+      <div className="flex flex-col w-[90%] p-2 lg:w-[80%] mx-auto h-full gap-4 lg:p-10 shadow-2xl rounded-md bg-white my-5 border-t-4 border-t-red-500 relative overflow-auto">
         <span className="font-semibold text-2xl">
           Place a check next to the ways you learn best. Please hover over questions to understand it better.
           <br />

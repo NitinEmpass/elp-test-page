@@ -75,8 +75,8 @@ const Result = () => {
   if (loading || result === null)
     return (
       <div className="w-full h-full flex flex-col gap-2 justify-center items-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-        <div className="loaderOrange"></div>
-        <span className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-xl text-center">
+        <div className="loader"></div>
+        <span className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-xl text-center">
           Getting your result...
         </span>
       </div>
@@ -97,7 +97,6 @@ const Result = () => {
         label: "Score",
         data,
         fill: true,
-        fontsize: "24px",
         backgroundColor: "rgba(249,115,22,0.4)",
         borderColor: "rgba(249,115,22,1.000)",
         pointBackgroundColor: "rgba(249,115,22,1.000)",
@@ -128,9 +127,9 @@ const Result = () => {
 
   return (
     <div className="w-full overflow-hidden flex flex-col justify-center items-center bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-full gap-4 lg:py-0 py-2 lg:p-5">
-      <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-orange-500 bg-white flex flex-col gap-5 items-center justify-center rounded-md">
-        <h1 className="bg-gradient-to-r from-orange-500 to-yellow-500 inline-block text-transparent bg-clip-text text-5xl text-center pb-2 border-b-[0.2rem] border-b-orange-400">
-          ELP Result
+      <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-red-500 bg-white flex flex-col gap-5 items-center justify-center rounded-md">
+        <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-5xl text-center pb-2 border-b-[0.2rem] border-b-red-400">
+          SPI Result
         </h1>
         {error ? (
           <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
@@ -140,19 +139,19 @@ const Result = () => {
           Thank you for taking this test!
         </span>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
-          <div className="max-w-48 max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
-            <div className="w-full flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 text-center p-2 text-white text-4xl flex items-center justify-center">
+          <div className="max-w-48 max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
+            <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-4xl flex items-center justify-center">
               <span>Test Score</span>
             </div>
-            <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-orange-400 text-4xl text-center p-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-transparent bg-clip-text break-all whitespace-break-spaces">
+            <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
               <span>{result.total_score}</span>
             </div>
           </div>
-          <div className="max-w-xl max-h-60 border-4 border-orange-400 rounded-md flex flex-col items-center justify-center">
-            <div className="w-full flex-1 bg-gradient-to-r from-orange-500 to-yellow-500 text-center p-2 text-white text-4xl flex items-center justify-center">
+          <div className="max-w-xl max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
+            <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-4xl flex items-center justify-center">
               <span>Dominant Style</span>
             </div>
-            <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-orange-400 text-4xl text-center p-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-transparent bg-clip-text break-all whitespace-break-spaces">
+            <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
               <span>{result.dominant_style}</span>
             </div>
           </div>
@@ -170,7 +169,7 @@ const Result = () => {
             For more results & reports, click below!
           </span>
           <button
-            className="bg-gradient-to-r from-orange-500 to-yellow-500 py-3 px-4 text-white rounded-md hover:shadow-2xl hover:scale-105 duration-300 ease-in-out"
+            className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red py-3 px-4 text-white rounded-md hover:shadow-2xl hover:scale-105 duration-300 ease-in-out"
             onClick={() => {
               scrollToTop();
               setOpenModal(true);

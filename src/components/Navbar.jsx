@@ -10,7 +10,7 @@ const Navbar = () => {
       </Link>
       <a
         href="mailto:support@mymemorymentor.com"
-        className="p-2 px-4 text-2xl border rounded-2xl mr-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white"
+        className="p-2 px-4 text-2xl border rounded-2xl mr-4 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
       >
         <Tooltip
           title="For any help or request for test code , click here to mail us at support@mymemorymentor.com"
