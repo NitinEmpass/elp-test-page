@@ -3,6 +3,8 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { UserContext } from "../context/UserContext";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 // import { questions } from "../assets/data/questions";
 
 const Rules = () => {
@@ -94,6 +96,7 @@ const Rules = () => {
 
   return (
     <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-screen w-full">
+      <Navbar />
       <div className="flex flex-col items-center w-[95%] lg:w-[50%] mx-auto gap-4 p-5 lg:p-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-2xl rounded-md bg-red-50">
         {error ? (
           <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
@@ -125,6 +128,7 @@ const Rules = () => {
           )}
         </button>
       </div>
+      <Footer />
     </div>
   );
 };

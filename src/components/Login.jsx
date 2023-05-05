@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-4 mb-28">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-center text-3xl lg:text-5xl p-5 ">
+        <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-center text-3xl lg:text-5xl p-5">
           Student Processing Inventory (SPI)
         </h1>
         <span className="font-semibold text-base lg:text-xl text-center">

@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between items-center overflow-auto">
+    <div className="min-h-full w-full flex flex-col justify-between items-center overflow-auto">
       <Navbar />
       <Login />
       <Footer />

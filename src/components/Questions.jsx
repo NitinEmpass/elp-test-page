@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
 // import { questions } from "../assets/data/questions";
 import soundfile from "../assets/sounds/ques.mp3";
 import { Tooltip } from "react-tippy";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -76,7 +78,7 @@ const Questions = () => {
 
   function NumberList() {
     const containerRef = useRef(null);
-
+    const checkedStr = checked.join(",");
     useEffect(() => {
       // Scroll to the current question number when the component mounts
       const container = containerRef.current;
@@ -90,29 +92,35 @@ const Questions = () => {
       container.scrollLeft = scrollPosition;
     }, [current]);
 
-    const numbers = [];
-    for (let i = 1; i <= questions.length; i++) {
-      const isCurrent = i === current + 1;
-      numbers.push(
-        <div
-          className={`question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
-            checked.includes(i)
-              ? checkboxArray.includes(i)
-                ? "bg-[#d5869d] text-white"
-                : "bg-green-500 text-white"
-              : "bg-white text-black"
-          } ${
-            isCurrent
-              ? "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
-              : "hover:text-white hover:from-gsl-light-red hover:to-gsl-dark-red"
-          } `}
-          key={i}
-          onClick={() => setCurrent(i - 1)}
-        >
-          {i <= 9 ? `0${i}` : i}
-        </div>
-      );
-    }
+    const numbers = useMemo(() => {
+      return Array.from({ length: questions.length }, (_, i) => {
+        const number = i + 1;
+        const isCurrent = number === current + 1;
+        const isChecked = checked.includes(number);
+        const isCheckedBox = checkboxArray.includes(number);
+        const className = `question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
+          isChecked
+            ? isCheckedBox
+              ? "bg-[#d5869d] text-white"
+              : "bg-green-500 text-white"
+            : "bg-white text-black"
+        } ${
+          isCurrent
+            ? "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
+            : "hover:text-white hover:from-gsl-light-red hover:to-gsl-dark-red"
+        }`;
+        return (
+          <div
+            className={className}
+            key={number}
+            onClick={() => setCurrent(number - 1)}
+          >
+            {number <= 9 ? `0${number}` : number}
+          </div>
+        );
+      });
+    }, [questions, current, checkedStr, checkboxArray]);
+
     return (
       <div
         className="flex items-center w-full overflow-x-auto pb-5"
@@ -224,8 +232,9 @@ const Questions = () => {
 
   window.addEventListener("keydown", handleKeyDown);
   return (
-    <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat min-h-screen w-full relative overflow-hidden">
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] mt-10 bg-red-50 rounded-md shadow-lg gap-10">
+    <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat min-h-screen w-full relative overflow-auto">
+      <Navbar />
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] my-10 mb-32 bg-red-50 rounded-md shadow-lg gap-10">
         <div className="flex flex-col justify-center items-center w-full">
           <div
             key={questions[current].id}
@@ -259,7 +268,7 @@ const Questions = () => {
               <div
                 className={
                   openDesc === true
-                    ? "absolute border p-5 rounded-md -top-1 right-0 bg-slate-100 w-[90%] overflow-y-auto"
+                    ? "absolute border p-5 rounded-md -top-1 right-0 bg-slate-100 w-full lg:w-[90%] overflow-y-auto"
                     : "hidden"
                 }
               >
@@ -278,98 +287,81 @@ const Questions = () => {
               </div>
             </div>
 
-            <div className="flex flex-col justify-between gap-5 items-start text-2xl">
-              <div className="flex justify-center items-center gap-4">
-                <input
-                  type="radio"
-                  name={questions[current].id}
-                  value={questions[current].choice_1}
-                  className="text-3xl lg:text-5xl h-5 w-5"
-                  defaultChecked={res.find(
+            <div className="flex flex-col justify-center items-center gap-5 text-2xl w-[90%] mx-auto">
+              <li
+                onClick={() => {
+                  if (checkboxArray.includes(current + 1)) {
+                    setCheckboxArray((prev) =>
+                      prev.filter((item) => item !== current + 1)
+                    );
+                  } else {
+                  }
+                  handleAnswerSelect(
+                    questions[current].id,
+                    questions[current].choice_1,
+                    questions[current].score_choice_1
+                  );
+                }}
+                className={`flex justify-center items-center gap-4 border border-gray-500 p-2 rounded-full w-full cursor-pointer ${
+                  res.find(
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_1
-                  )}
-                  onChange={() => {
-                    if (checkboxArray.includes(current + 1)) {
-                      setCheckboxArray((prev) =>
-                        prev.filter((item) => item !== current + 1)
-                      );
-                    }
-                    handleAnswerSelect(
-                      questions[current].id,
-                      questions[current].choice_1,
-                      questions[current].score_choice_1
+                  ) && "ring-2 ring-green-500 border-transparent"
+                }`}
+              >
+                Not helpful
+              </li>
+              <li
+                onClick={() => {
+                  if (checkboxArray.includes(current + 1)) {
+                    setCheckboxArray((prev) =>
+                      prev.filter((item) => item !== current + 1)
                     );
-                  }}
-                />
-                <label htmlFor={questions[current].id}>Not helpful</label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <input
-                  type="radio"
-                  name={questions[current].id}
-                  value={questions[current].choice_2}
-                  defaultChecked={res.find(
+                  } else {
+                  }
+                  handleAnswerSelect(
+                    questions[current].id,
+                    questions[current].choice_2,
+                    questions[current].score_choice_2
+                  );
+                }}
+                className={`flex justify-center items-center gap-4 border border-gray-500 p-2 rounded-full w-full cursor-pointer ${
+                  res.find(
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_2
-                  )}
-                  className="text-3xl lg:text-5xl h-5 w-5"
-                  onChange={() => {
-                    if (checkboxArray.includes(current + 1)) {
-                      setCheckboxArray((prev) =>
-                        prev.filter((item) => item !== current + 1)
-                      );
-                    }
-                    handleAnswerSelect(
-                      questions[current].id,
-                      questions[current].choice_2,
-                      questions[current].score_choice_2
+                  ) && "ring-2 ring-green-500 border-transparent"
+                }`}
+              >
+                Somewhat helpful
+              </li>
+              <li
+                onClick={() => {
+                  if (checkboxArray.includes(current + 1)) {
+                    setCheckboxArray((prev) =>
+                      prev.filter((item) => item !== current + 1)
                     );
-                  }}
-                />
-                <label htmlFor={questions[current].id}>Somewhat helpful</label>
-              </div>
-              <div className="flex justify-center items-center gap-4">
-                <input
-                  type="radio"
-                  name={questions[current].id}
-                  value={questions[current].choice_3}
-                  className="text-3xl lg:text-5xl h-5 w-5"
-                  defaultChecked={res.find(
+                  } else {
+                  }
+                  handleAnswerSelect(
+                    questions[current].id,
+                    questions[current].choice_3,
+                    questions[current].score_choice_3
+                  );
+                }}
+                className={`flex justify-center items-center gap-4 border border-gray-500 p-2 rounded-full w-full cursor-pointer ${
+                  res.find(
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_3
-                  )}
-                  onChange={() => {
-                    if (checkboxArray.includes(current + 1)) {
-                      setCheckboxArray((prev) =>
-                        prev.filter((item) => item !== current + 1)
-                      );
-                    }
-                    handleAnswerSelect(
-                      questions[current].id,
-                      questions[current].choice_3,
-                      questions[current].score_choice_3
-                    );
-                  }}
-                />
-                <label htmlFor={questions[current].id}>Most helpful</label>
-              </div>
-            </div>
-            <div className="flex justify-center items-center gap-4 text-2xl">
-              <input
-                type="radio"
-                name={questions[current].id}
-                value={questions[current].choice_4}
-                defaultChecked={res.find(
-                  (item) =>
-                    item.que_id === questions[current].id &&
-                    item.answer === questions[current].choice_4
-                )}
-                className="text-3xl lg:text-5xl h-5 w-5"
-                onChange={() => {
+                  ) && "ring-2 ring-green-500 border-transparent"
+                }`}
+              >
+                Most helpful
+              </li>
+              <li
+                onClick={() => {
                   if (!checkboxArray.includes(current + 1)) {
                     setCheckboxArray([...checkboxArray, current + 1]);
                   } else {
@@ -383,8 +375,16 @@ const Questions = () => {
                     questions[current].score_choice_4
                   );
                 }}
-              />
-              <label htmlFor={questions[current].choice_4}>I don't know</label>
+                className={`flex justify-center items-center gap-4 border border-gray-500 p-2 rounded-full w-full cursor-pointer ${
+                  res.find(
+                    (item) =>
+                      item.que_id === questions[current].id &&
+                      item.answer === questions[current].choice_4
+                  ) && "ring-2 ring-green-500 border-transparent"
+                }`}
+              >
+                I don't know
+              </li>
             </div>
           </div>
         </div>
@@ -444,6 +444,7 @@ const Questions = () => {
         </div>
         <NumberList />
       </div>
+      <Footer />
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}
