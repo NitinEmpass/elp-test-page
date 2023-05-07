@@ -29,7 +29,7 @@ const CheckModal = ({
       if (!existingAnswer) {
         updatedRes.push({
           que_id: question.id,
-          answer: "No",
+          answer: "Not Helpful",
           score: "0",
         });
       }
@@ -87,7 +87,9 @@ const CheckModal = ({
         }}
       >
         {error ? (
-          <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
+          <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">
+            {error}
+          </p>
         ) : null}
         <h1 className="text-xl">{heading}</h1>
         <div className="flex justify-center items-center gap-5">

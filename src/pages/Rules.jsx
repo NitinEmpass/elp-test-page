@@ -95,18 +95,18 @@ const Rules = () => {
   }
 
   return (
-    <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat h-screen w-full">
+    <div className="h-screen w-full">
       <Navbar />
       <div className="flex flex-col items-center w-[95%] lg:w-[50%] mx-auto gap-4 p-5 lg:p-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-2xl rounded-md bg-red-50">
         {error ? (
-          <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
+          <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">{error}</p>
         ) : null}
         <h1 className="text-4xl font-semibold text-center">
           SPI Self Assessment
         </h1>
-        <div className="border-2 border-red-500 w-full"></div>
+        <div className="border-2 border-gsl-dark-red w-full"></div>
         <span className="font-medium">
-          Read all Instructions below before you start the Self Assessment.
+          Read all Instructions below before you start the self assessment.
         </span>
         <div className="w-[85%]">
           <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />

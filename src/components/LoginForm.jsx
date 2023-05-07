@@ -96,7 +96,7 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col justify-center items-center w-[90%] lg:w-[60%] gap-6 shadow-2xl p-10 rounded-lg">
       {error && (
-        <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
+        <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">{error}</p>
       )}
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input

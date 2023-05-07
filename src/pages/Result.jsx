@@ -96,15 +96,26 @@ const Result = () => {
     labels,
     datasets: [
       {
-        label: "Score",
+        label: "User Score",
         data,
-        fill: true,
-        backgroundColor: "rgba(249,115,22,0.4)",
-        borderColor: "rgba(249,115,22,1.000)",
-        pointBackgroundColor: "rgba(249,115,22,1.000)",
+        fill: false,
+        backgroundColor: "rgba(255,49,49,0.4)",
+        borderColor: "rgba(255,49,49,1.000)",
+        pointBackgroundColor: "rgba(255,49,49,1.000)",
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: "rgba(249,115,22,1.000)",
+        pointHoverBorderColor: "rgba(255,49,49,1.000)",
+      },
+      {
+        label: "Class Score",
+        data: [5, 3, 5, 6, 4, 4, 6, 5, 2, 3, 4, 6],
+        fill: false,
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgb(54, 162, 235)",
+        pointBackgroundColor: "rgb(54, 162, 235)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgb(54, 162, 235)",
       },
     ],
   };
@@ -120,6 +131,12 @@ const Result = () => {
         },
         suggestedMin: 0,
         suggestedMax: 8,
+        pointLabels: {
+          font: {
+            weight: "bold", // Set the font weight to bold
+            size: 14,
+          },
+        },
       },
     },
   };
@@ -130,13 +147,15 @@ const Result = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <div className="h-full w-full overflow-hidden relative flex flex-col justify-center items-center bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat gap-4 lg:py-0 py-2 lg:p-5">
-        <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-red-500 bg-white flex flex-col gap-5 items-center justify-center rounded-md">
+      <div className="h-full w-full overflow-auto relative flex flex-col justify-center items-center bg-cover bg-no-repeat gap-4 lg:py-0 py-2 lg:p-5">
+        <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5 relative">
           <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-5xl text-center pb-2 border-b-[0.2rem] border-b-red-400">
             SPI Result
           </h1>
           {error ? (
-            <p className="bg-red-500 p-3 my-2 rounded-md text-white">{error}</p>
+            <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">
+              {error}
+            </p>
           ) : null}
 
           <span className="my-2 text-gray-400 text-2xl">
@@ -161,13 +180,58 @@ const Result = () => {
             </div>
           </div>
 
-          <div className="w-full h-[50vh] lg:w-[60%] shadow-lg rounded-xl overflow-auto">
+          <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5">
             <Radar
               data={chartConfig}
               options={{ ...options, maintainAspectRatio: false }}
             />
           </div>
 
+          <div className="my-10 relative w-full h-full overflow-auto lg:w-[90%] rounded-lg">
+            <table className="w-full">
+              <thead className="bg-red-50 text-xl">
+                <tr className="border-2">
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">Style</th>
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">Not Helpful</th>
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">
+                    Somewhat Helpful
+                  </th>
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">Most Helpful</th>
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">I don't know</th>
+                  <th className="p-4 lg:px-3 lg:py-5 border-2">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.choice_count.map((item) => {
+                  return (
+                    <tr
+                      key={item.group_id}
+                      className="text-center last:border-b text-xl"
+                    >
+                      <td className="p-4 lg:px-3 lg:py-5 border-2 font-bold bg-red-50">
+                        {item.group_name}
+                      </td>
+                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                        {item.choice_1_count}
+                      </td>
+                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                        {item.choice_2_count}
+                      </td>
+                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                        {item.choice_3_count}
+                      </td>
+                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                        {item.choice_4_count}
+                      </td>
+                      <td className="p-4 lg:px-3 lg:py-5 border-r-2 text-xl">
+                        {item.group_score}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
           <div className="flex flex-col items-center gap-3 w-[90%]">
             <span className="text-xl">
               For more results & reports, click below!

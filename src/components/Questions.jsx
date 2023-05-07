@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
 // import { questions } from "../assets/data/questions";
-import soundfile from "../assets/sounds/ques.mp3";
+import soundfileTitle from "../assets/sounds/que_1146_title.mp3";
+import soundfileDetail from "../assets/sounds/que_1146_detail.mp3";
 import { Tooltip } from "react-tippy";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -14,6 +15,7 @@ const Questions = () => {
   const [current, setCurrent] = useState(0);
   const [checkboxArray, setCheckboxArray] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [option, setOption] = useState("");
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
   // console.log("this is questions array", questions);
@@ -67,11 +69,11 @@ const Questions = () => {
     return null;
   }
   const handleSubmit = () => {
-    if (res.length !== questions.length) {
-      setCheckModal(true);
-      scrollToTop();
-      return;
-    }
+    // if (res.length !== questions.length) {
+    //   setCheckModal(true);
+    //   scrollToTop();
+    //   return;
+    // }
     setOpenModal(true);
     scrollToTop();
   };
@@ -138,7 +140,7 @@ const Questions = () => {
 
     const handlePlay = () => {
       console.log(src);
-      audio.src = src;
+      audio.src = src; // Use require instead of import
       if (currentSrc !== src) {
         stopCurrentAudio();
         setCurrentSrc(src);
@@ -217,32 +219,27 @@ const Questions = () => {
       </button>
     );
   }
-  function handleKeyDown(e) {
-    // If the user presses the "N" key, go to the next question
-    if (e.key === "n") {
-      // code to go to the next question
-      handleNext();
+  const handleClick = (que_id, option, score) => {
+    setOption(option);
+    if (checkboxArray.includes(current + 1)) {
+      setCheckboxArray((prev) => prev.filter((item) => item !== current + 1));
+      handleAnswerSelect(que_id, option, score);
+    } else {
+      handleAnswerSelect(que_id, option, score);
     }
-    // If the user presses the "P" key, go to the previous question
-    else if (e.key === "p") {
-      // code to go to the previous question
-      handlePrev();
-    }
-  }
-
-  window.addEventListener("keydown", handleKeyDown);
+  };
   return (
-    <div className="bg-[url(./assets/images/bg-logo.png)] bg-cover bg-no-repeat min-h-screen w-full relative overflow-auto">
+    <div className="min-h-screen w-full relative overflow-auto">
       <Navbar />
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] my-10 mb-32 bg-red-50 rounded-md shadow-lg gap-10">
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] my-10 mb-32 bg-red-50 rounded-md shadow-lg gap-10 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <div
             key={questions[current].id}
             className="flex flex-col justify-center items-start gap-5 w-full"
           >
-            <div className="flex flex-col justify-center items-start gap-6 w-full relative">
+            <div className="flex flex-col justify-center items-start gap-6 w-full">
               <span className="text-3xl">
-                <span className="text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-red-500">
+                <span className="text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
                   {current < 9 ? `0${current + 1}` : current + 1}
                 </span>{" "}
                 of {questions.length}
@@ -253,13 +250,13 @@ const Questions = () => {
                     {questions[current].que_title}
                   </h3>
                   <Tooltip title="Listen to audio">
-                    <SoundButton src={soundfile} />
+                    <SoundButton src={soundfileTitle} />
                   </Tooltip>
                 </div>
                 <Tooltip title="Click to understand the statement better">
                   <button
                     className="border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
-                    onClick={() => setOpenDesc(true)}
+                    onClick={() => setOpenDesc(!openDesc)}
                   >
                     i
                   </button>
@@ -268,7 +265,7 @@ const Questions = () => {
               <div
                 className={
                   openDesc === true
-                    ? "absolute border p-5 rounded-md -top-1 right-0 bg-slate-100 w-full lg:w-[90%] overflow-y-auto"
+                    ? "absolute border p-2 lg:p-5 rounded-md -top-1 right-0 bg-slate-100 w-full lg:w-[90%] overflow-y-auto"
                     : "hidden"
                 }
               >
@@ -281,7 +278,7 @@ const Questions = () => {
                 <div className="mr-10 flex items-center justify-center gap-4">
                   <span>{questions[current].que_detail}</span>
                   <Tooltip title="Listen to audio">
-                    <SoundButton src={soundfile} />
+                    <SoundButton src={soundfileDetail} />
                   </Tooltip>
                 </div>
               </div>
@@ -290,13 +287,7 @@ const Questions = () => {
             <div className="flex flex-col justify-center items-center gap-5 text-2xl w-[90%] mx-auto">
               <li
                 onClick={() => {
-                  if (checkboxArray.includes(current + 1)) {
-                    setCheckboxArray((prev) =>
-                      prev.filter((item) => item !== current + 1)
-                    );
-                  } else {
-                  }
-                  handleAnswerSelect(
+                  handleClick(
                     questions[current].id,
                     questions[current].choice_1,
                     questions[current].score_choice_1
@@ -314,13 +305,7 @@ const Questions = () => {
               </li>
               <li
                 onClick={() => {
-                  if (checkboxArray.includes(current + 1)) {
-                    setCheckboxArray((prev) =>
-                      prev.filter((item) => item !== current + 1)
-                    );
-                  } else {
-                  }
-                  handleAnswerSelect(
+                  handleClick(
                     questions[current].id,
                     questions[current].choice_2,
                     questions[current].score_choice_2
@@ -338,13 +323,7 @@ const Questions = () => {
               </li>
               <li
                 onClick={() => {
-                  if (checkboxArray.includes(current + 1)) {
-                    setCheckboxArray((prev) =>
-                      prev.filter((item) => item !== current + 1)
-                    );
-                  } else {
-                  }
-                  handleAnswerSelect(
+                  handleClick(
                     questions[current].id,
                     questions[current].choice_3,
                     questions[current].score_choice_3
@@ -450,7 +429,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`You have selected ${checkboxArray.length} items as "I don't know" (marked as redish pink), would you like to submit?`}
+        heading={`You have selected ${checkboxArray.length} items as "I don't know" (marked as pink), would you like to submit?`}
         firstText={"No"}
         secondText={"Yes"}
       />
