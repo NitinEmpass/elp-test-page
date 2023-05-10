@@ -95,11 +95,13 @@ const Rules = () => {
   }
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
       <div className="flex flex-col items-center w-[95%] lg:w-[50%] mx-auto gap-4 p-5 lg:p-10 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-2xl rounded-md bg-red-50">
         {error ? (
-          <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">{error}</p>
+          <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">
+            {error}
+          </p>
         ) : null}
         <h1 className="text-4xl font-semibold text-center">
           SPI Self Assessment
@@ -113,17 +115,17 @@ const Rules = () => {
         </div>
 
         <button
-          type="submit"
+          type="button"
           className="uppercase py-3 px-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-32 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
         >
           {loading ? (
             <span className="loader"></span>
           ) : (
             <Link
-              to="/ques"
+              to="/overview"
               // state={{ player_id: player_id, questions: questions }}
             >
-              continue
+              Next
             </Link>
           )}
         </button>

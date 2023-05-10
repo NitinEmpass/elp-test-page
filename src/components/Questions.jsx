@@ -8,6 +8,7 @@ import soundfileDetail from "../assets/sounds/que_1146_detail.mp3";
 import { Tooltip } from "react-tippy";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import SoundButton from "./SoundButton";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -69,11 +70,11 @@ const Questions = () => {
     return null;
   }
   const handleSubmit = () => {
-    // if (res.length !== questions.length) {
-    //   setCheckModal(true);
-    //   scrollToTop();
-    //   return;
-    // }
+    if (res.length !== questions.length) {
+      setCheckModal(true);
+      scrollToTop();
+      return;
+    }
     setOpenModal(true);
     scrollToTop();
   };
@@ -103,13 +104,13 @@ const Questions = () => {
         const className = `question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
           isChecked
             ? isCheckedBox
-              ? "bg-[#d5869d] text-white"
-              : "bg-green-500 text-white"
+              ? "bg-[#ff6fdb] text-black"
+              : "bg-[#9fe59f] text-black"
             : "bg-white text-black"
         } ${
           isCurrent
             ? "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
-            : "hover:text-white hover:from-gsl-light-red hover:to-gsl-dark-red"
+            : ""
         }`;
         return (
           <div
@@ -133,92 +134,6 @@ const Questions = () => {
     );
   }
 
-  function SoundButton({ src }) {
-    const [audio] = useState(new Audio());
-    const [playing, setPlaying] = useState(false);
-    const [currentSrc, setCurrentSrc] = useState(null);
-
-    const handlePlay = () => {
-      console.log(src);
-      audio.src = src; // Use require instead of import
-      if (currentSrc !== src) {
-        stopCurrentAudio();
-        setCurrentSrc(src);
-        audio
-          .play()
-          .then(() => {
-            setPlaying(true);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        audio
-          .play()
-          .then(() => {
-            setPlaying(true);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    };
-
-    const handlePause = () => {
-      console.log(src);
-      audio.pause();
-      setPlaying(false);
-    };
-
-    const stopCurrentAudio = () => {
-      if (currentSrc !== null) {
-        audio.pause();
-        audio.currentTime = 0;
-        setPlaying(false);
-      }
-    };
-    return !playing ? (
-      <button
-        onClick={handlePlay}
-        className="border rounded-full p-2 bg-slate-50 hover:bg-slate-100 hover:scale-105 duration-300 ease-in-out"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
-          />
-        </svg>
-      </button>
-    ) : (
-      <button
-        onClick={handlePause}
-        className="border rounded-full p-2 bg-slate-50 hover:bg-slate-100 hover:scale-105 duration-300 ease-in-out"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 5.25v13.5m-7.5-13.5v13.5"
-          />
-        </svg>
-      </button>
-    );
-  }
   const handleClick = (que_id, option, score) => {
     setOption(option);
     if (checkboxArray.includes(current + 1)) {
@@ -298,10 +213,11 @@ const Questions = () => {
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_1
-                  ) && "ring-2 ring-green-500 border-transparent"
+                  ) &&
+                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
                 }`}
               >
-                Not helpful
+                {questions[current].choice_1}
               </li>
               <li
                 onClick={() => {
@@ -316,10 +232,11 @@ const Questions = () => {
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_2
-                  ) && "ring-2 ring-green-500 border-transparent"
+                  ) &&
+                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
                 }`}
               >
-                Somewhat helpful
+                {questions[current].choice_2}
               </li>
               <li
                 onClick={() => {
@@ -334,10 +251,11 @@ const Questions = () => {
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_3
-                  ) && "ring-2 ring-green-500 border-transparent"
+                  ) &&
+                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
                 }`}
               >
-                Most helpful
+                {questions[current].choice_3}
               </li>
               <li
                 onClick={() => {
@@ -359,10 +277,11 @@ const Questions = () => {
                     (item) =>
                       item.que_id === questions[current].id &&
                       item.answer === questions[current].choice_4
-                  ) && "ring-2 ring-green-500 border-transparent"
+                  ) &&
+                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
                 }`}
               >
-                I don't know
+                {questions[current].choice_4}
               </li>
             </div>
           </div>
@@ -371,7 +290,7 @@ const Questions = () => {
           <Tooltip title="Previous">
             <button
               onClick={handlePrev}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl hover:bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -379,7 +298,7 @@ const Questions = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-6 text-white"
               >
                 <path
                   strokeLinecap="round"
@@ -401,7 +320,7 @@ const Questions = () => {
             <Tooltip title="Next">
               <button
                 onClick={handleNext}
-                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl hover:bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -409,7 +328,7 @@ const Questions = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-6 h-6 text-white"
                 >
                   <path
                     strokeLinecap="round"
