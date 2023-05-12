@@ -30,7 +30,7 @@ const Login = () => {
         <img
           src={techniques}
           alt="Techniques"
-          className="w-[350px] lg:w-[500px]"
+          className="w-[75%] mx-auto"
         />
       </div>
     </div>

@@ -94,7 +94,7 @@ const LoginForm = () => {
     // console.log(formData);
   };
   return (
-    <div className="flex flex-col justify-center items-center w-[90%] lg:w-[60%] gap-6 shadow-2xl p-10 rounded-lg">
+    <div className="flex flex-col justify-center items-center w-[90%] lg:w-[60%] gap-6 shadow-2xl p-10 rounded-lg bg-white">
       {error && (
         <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">{error}</p>
       )}

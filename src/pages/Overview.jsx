@@ -39,10 +39,12 @@ const Overview = () => {
     return null;
   }
   return (
-    <div className="h-screen w-full bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
+    <div className="min-h-screen w-full bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
       <div className="flex flex-col items-center justify-center w-full mx-auto gap-4 p-5 lg:p-10 shadow-2xl rounded-md bg-red-50">
-        <h1 className="text-4xl font-semibold text-center">Quick Guide</h1>
+        <h1 className="text-2xl lg:text-4xl font-semibold text-center">
+          Quick Guide
+        </h1>
         <div className="border-2 border-gsl-dark-red w-full"></div>
         <div className="w-full">
           <img src={QuickGuide} alt="Quick Guide" />

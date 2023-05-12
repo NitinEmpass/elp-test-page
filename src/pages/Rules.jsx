@@ -103,7 +103,7 @@ const Rules = () => {
             {error}
           </p>
         ) : null}
-        <h1 className="text-4xl font-semibold text-center">
+        <h1 className="text-2xl lg:text-4xl font-semibold text-center">
           SPI Self Assessment
         </h1>
         <div className="border-2 border-gsl-dark-red w-full"></div>

@@ -130,8 +130,21 @@ const Result = () => {
   };
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     layout: {
       padding: 10,
+    },
+    plugins: {
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "xy",
+        },
+        zoom: {
+          enabled: true,
+          mode: "xy",
+        },
+      },
     },
     scales: {
       r: {
@@ -149,24 +162,66 @@ const Result = () => {
       },
     },
   };
+  const smallScreenOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: 10,
+    },
+    plugins: {
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "xy",
+        },
+        zoom: {
+          enabled: true,
+          mode: "xy",
+        },
+      },
+    },
+    scales: {
+      r: {
+        angleLines: {
+          display: true,
+        },
+        suggestedMin: 0,
+        suggestedMax: 8,
+        pointLabels: {
+          font: {
+            size: 10,
+          },
+        },
+      },
+    },
+  };
 
-  const details = DOMPurify.sanitize(result.detail_info);
+  // const details = DOMPurify.sanitize(result.detail_info);
   const info = DOMPurify.sanitize(result.glossary);
 
   return (
     <div className="relative">
       <Navbar />
       {showConfetti && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          recycle={false}
-          numberOfPieces={600}
-        />
+        <div>
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            recycle={false}
+            numberOfPieces={600}
+            fallSpeed={50}
+            gravity={0.05}
+          />
+          <div className="absolute top-0 left-0 w-full h-full bg-black/80">
+            <div className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-lg lg:text-3xl text-center z-10 bg-red-50 rounded-xl mx-auto py-5 my-5">
+              Thank You for taking this test!
+            </div>
+          </div>
+        </div>
       )}
-      <div className="h-full w-full overflow-auto flex flex-col justify-center items-center bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat gap-4 lg:py-0 py-2 lg:p-5">
+      <div className="h-full w-full overflow-auto flex flex-col justify-center items-center gap-4 lg:py-0 py-2 lg:p-5">
         <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5">
-          <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-5xl text-center pb-2 border-b-[0.2rem] border-b-red-400">
+          <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-3xl lg:text-5xl text-center pb-2 border-b-[0.2rem] border-b-red-400">
             SPI Result
           </h1>
           {error ? (
@@ -175,7 +230,7 @@ const Result = () => {
             </p>
           ) : null}
 
-          <span className="my-2 text-gray-400 text-2xl">
+          <span className="lg:my-2 text-gray-400 text-lg lg:text-2xl mx-auto break-words">
             Congratulations! You have successfully completed the assessment!
           </span>
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
@@ -188,34 +243,36 @@ const Result = () => {
               </div>
             </div> */}
             <div className="max-w-xl max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
-              <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-4xl flex items-center justify-center">
+              <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style</span>
               </div>
-              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
+              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-xl lg:text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
                 <span>{result.dominant_style}</span>
               </div>
             </div>
           </div>
 
-          <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5">
-            <Radar
-              data={chartConfig}
-              options={{ ...options, maintainAspectRatio: false }}
-            />
+          <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5 hidden lg:block">
+            <Radar data={chartConfig} options={options} />
+          </div>
+          <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5 lg:hidden">
+            <Radar data={chartConfig} options={smallScreenOptions} />
           </div>
 
-          <div className="my-10 relative w-full h-full overflow-auto lg:w-[90%] rounded-lg">
+          <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] rounded-lg">
             <table className="w-full">
-              <thead className="bg-red-50 text-xl">
-                <tr className="border-2">
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">Style</th>
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">Not Helpful</th>
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">
+              <thead className="bg-red-50 text-base lg:text-xl">
+                <tr className="border lg:border-2">
+                  <th className="p-1 lg:py-5 lg:border-2 border">Style</th>
+                  {/* <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">Not Helpful</th>
+                  <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">
                     Somewhat Helpful
                   </th>
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">Most Helpful</th>
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">I don't know</th>
-                  <th className="p-4 lg:px-3 lg:py-5 border-2">Score</th>
+                  <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">Most Helpful</th> */}
+                  <th className="p-2 lg:py-5 lg:border-2 border">
+                    I have never done this!
+                  </th>
+                  <th className="p-2 lg:py-5 lg:border-2 border">Score</th>
                 </tr>
               </thead>
               <tbody>
@@ -223,24 +280,24 @@ const Result = () => {
                   return (
                     <tr
                       key={item.group_id}
-                      className="text-center last:border-b text-xl"
+                      className="text-center last:border-b lg:text-xl"
                     >
-                      <td className="p-4 lg:px-3 lg:py-5 border-2 font-bold bg-red-50">
+                      <td className="p-1 lg:py-5 border-2 font-bold bg-red-50">
                         {item.group_name}
                       </td>
-                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                      {/* <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
                         {item.choice_1_count}
                       </td>
-                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                      <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
                         {item.choice_2_count}
                       </td>
-                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                      <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
                         {item.choice_3_count}
-                      </td>
-                      <td className="p-4 lg:px-3 lg:py-5 text-xl">
+                      </td> */}
+                      <td className="p-2 lg:py-5 text-lg lg:text-xl">
                         {item.choice_4_count}
                       </td>
-                      <td className="p-4 lg:px-3 lg:py-5 border-r-2 text-xl">
+                      <td className="p-2 lg:py-5 border-r-2 text-lg lg:text-xl">
                         {item.group_score}
                       </td>
                     </tr>
@@ -250,7 +307,7 @@ const Result = () => {
             </table>
           </div>
           <div className="flex flex-col items-center gap-3 w-[90%]">
-            <span className="text-xl">
+            <span className="lg:text-xl">
               For more results & reports, click below!
             </span>
             <button
@@ -281,7 +338,7 @@ const Result = () => {
           </div> */}
         </div>
         <hr className="border-2 border-gray-400 w-[90%] lg:w-[80%] mx-auto" />
-        <div className="my-2 mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl">
+        <div className="my-2 mb-10 lg:mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl">
           <h2 className="text-xl">Details about Learning Styles</h2>
           <div
             className="text-gray-600 p-2 w-[90%] leading-8"
