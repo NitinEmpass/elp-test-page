@@ -116,6 +116,7 @@ const Questions = () => {
 
   function NumberList() {
     const containerRef = useRef(null);
+    const checkedStr = checked.join(",");
     useEffect(() => {
       // Scroll to the current question number when the component mounts
       const container = containerRef.current;
@@ -127,7 +128,7 @@ const Questions = () => {
       const scrollPosition =
         currentQuestionLeft + currentQuestionWidth / 2 - containerWidth / 2;
       container.scrollLeft = scrollPosition;
-    }, []);
+    }, [current]);
 
     const numbers = useMemo(() => {
       return Array.from({ length: questions.length }, (_, i) => {
@@ -156,7 +157,7 @@ const Questions = () => {
           </div>
         );
       });
-    }, []);
+    }, [questions, current, checkedStr, checkboxArray]);
 
     return (
       <div
@@ -204,7 +205,7 @@ const Questions = () => {
                 </Tooltip>
               </div>
               <div className="flex justify-between items-center w-full gap-2">
-                <div className="flex items-center justify-center gap-6">
+                <div className="flex items-center justify-center gap-6 h-20">
                   <h3 className="text-2xl lg:text-4xl">
                     {questions[current].que_title}
                     {"  "}

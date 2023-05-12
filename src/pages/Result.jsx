@@ -78,7 +78,7 @@ const Result = () => {
     setShowConfetti(true);
     const timer = setTimeout(() => {
       setShowConfetti(false);
-    }, 6000); // Set the duration (in milliseconds) for the confetti effect
+    }, 7000); // Set the duration (in milliseconds) for the confetti effect
 
     return () => clearTimeout(timer);
   }, []);
@@ -93,7 +93,7 @@ const Result = () => {
       </div>
     );
 
-  const { chart_data } = result;
+  /* const { chart_data } = result;
   const labels = [];
   const data = [];
 
@@ -194,7 +194,7 @@ const Result = () => {
         },
       },
     },
-  };
+  }; */
 
   // const details = DOMPurify.sanitize(result.detail_info);
   const info = DOMPurify.sanitize(result.glossary);
@@ -203,19 +203,19 @@ const Result = () => {
     <div className="relative">
       <Navbar />
       {showConfetti && (
-        <div>
+        <div className="z-50">
           <Confetti
             width={window.innerWidth}
             height={window.innerHeight}
             recycle={false}
-            numberOfPieces={600}
-            fallSpeed={50}
+            numberOfPieces={800}
+            fallSpeed={10}
             gravity={0.05}
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black/80">
-            <div className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-lg lg:text-3xl text-center z-10 bg-red-50 rounded-xl mx-auto py-5 my-5">
-              Thank You for taking this test!
-            </div>
+          <div className="absolute top-0 left-0 w-full h-full bg-black/80 z-[1]">
+            <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5">
+              Congratulations!
+            </span>
           </div>
         </div>
       )}
@@ -252,12 +252,12 @@ const Result = () => {
             </div>
           </div>
 
-          <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5 hidden lg:block">
+          {/* <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5 hidden lg:block">
             <Radar data={chartConfig} options={options} />
           </div>
           <div className="w-full lg:w-[90%] h-[40vh] lg:h-[90vh] shadow-lg rounded-xl overflow-auto mt-5 lg:hidden">
             <Radar data={chartConfig} options={smallScreenOptions} />
-          </div>
+          </div> */}
 
           <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] rounded-lg">
             <table className="w-full">
@@ -270,7 +270,7 @@ const Result = () => {
                   </th>
                   <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">Most Helpful</th> */}
                   <th className="p-2 lg:py-5 lg:border-2 border">
-                    I have never done this!
+                    I have never done this
                   </th>
                   <th className="p-2 lg:py-5 lg:border-2 border">Score</th>
                 </tr>

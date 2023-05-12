@@ -18,7 +18,7 @@ const Navbar = () => {
       {location.pathname === "/" || location.pathname === "/result" ? (
         <a
           href="mailto:support@mymemorymentor.com"
-          className="p-1 lg:p-2 lg:px-4 text-base lg:text-xl border rounded-lg mr-4 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white uppercase"
+          className="p-1 lg:p-2 lg:px-4 text-base lg:text-xl border rounded-lg mr-4 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
         >
           <Tooltip
             title="For any help or request for test code , click here to mail us at support@mymemorymentor.com"
