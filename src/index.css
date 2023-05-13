@@ -77,3 +77,34 @@ ol {
 ::-webkit-scrollbar-vertical {
   display: none;
 }
+
+@keyframes lazily {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+/* Use the 'animate-bounce' class to apply the animation */
+.animate-lazily {
+  animation-name: lazily;
+  animation-duration: 1s; /* Adjust the duration as needed */
+  animation-timing-function: ease-out; /* Adjust the timing function as desired */
+}
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Use the 'animate-bounce' class to apply the animation */
+.animate-opacity {
+  animation-name: opacity;
+  animation-duration: 2s; /* Adjust the duration as needed */
+  animation-timing-function: ease-in-out; /* Adjust the timing function as desired */
+}

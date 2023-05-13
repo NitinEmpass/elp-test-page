@@ -122,7 +122,7 @@ const Rules = () => {
             <span className="loader"></span>
           ) : (
             <Link
-              to="/overview"
+              to="/ques"
               // state={{ player_id: player_id, questions: questions }}
             >
               Next

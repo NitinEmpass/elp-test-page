@@ -6,7 +6,6 @@ import Result from "./pages/Result";
 import axios from "axios";
 import CheckQuestions from "./components/CheckQuestions";
 import "react-tippy/dist/tippy.css";
-import Overview from "./pages/Overview";
 function App() {
   axios.defaults.baseURL =
     "https://dashboard.empasslearning.com/apicapi/index.php";
@@ -17,7 +16,6 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/rules" element={<Rules />} />
-        <Route path="/overview" element={<Overview />} />
         <Route path="/ques" element={<Questions />} />
         <Route path="/checkQues" element={<CheckQuestions />} />
         <Route path="/result" element={<Result />} />

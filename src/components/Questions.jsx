@@ -9,6 +9,7 @@ import { Tooltip } from "react-tippy";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import SoundButton from "./SoundButton";
+import CustomTour from "./CustomTour";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -25,6 +26,13 @@ const Questions = () => {
   const [checkModal, setCheckModal] = useState(false);
   const [openDesc, setOpenDesc] = useState(false);
 
+  const [tour, setTour] = useState(0);
+  function disableBackButton() {
+    window.history.pushState(null, "/", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.replaceState(null, "/", window.location.href);
+  }
   useEffect(() => {
     scrollToTop();
     if (!questions || !player_id) {
@@ -63,6 +71,7 @@ const Questions = () => {
       }
     };
 
+    disableBackButton();
     importSoundTitle();
     importSoundDetail();
   }, [current]);
@@ -90,6 +99,9 @@ const Questions = () => {
     }
     console.log("this is ans", ans);
     setRes(ans);
+    if (ans.length === questions.length) {
+      handleSubmit();
+    }
   }
   console.log("this is res", res);
 
@@ -139,7 +151,7 @@ const Questions = () => {
         const className = `question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
           isChecked
             ? isCheckedBox
-              ? "bg-[#ff6fdb] text-black"
+              ? "bg-[#737373] text-white"
               : "bg-[#9fe59f] text-black"
             : "bg-white text-black"
         } ${
@@ -165,6 +177,48 @@ const Questions = () => {
         ref={containerRef}
       >
         <div className="flex justify-center items-center gap-4">{numbers}</div>
+        <div
+          className={`flex justify-center items-center gap-4 ${
+            tour > 4 && tour < 8 ? "absolute" : "hidden"
+          }`}
+        >
+          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-[#737373] text-white">
+            01
+          </div>
+          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-[#9fe59f] text-black">
+            02
+          </div>
+          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-white text-black">
+            03
+          </div>
+          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-white text-black">
+            04
+          </div>
+        </div>
+        <CustomTour
+          content="All questions you choose 'I have never done this'"
+          isTour={tour === 5 ? true : false}
+          setTour={setTour}
+          edge="rounded-bl-none"
+          bottom="bottom-24"
+          left="left-16"
+        />
+        <CustomTour
+          content="All questions you have attempted"
+          isTour={tour === 6 ? true : false}
+          setTour={setTour}
+          edge="rounded-bl-none"
+          left="left-28"
+          bottom="bottom-24"
+        />
+        <CustomTour
+          content="All questions you have unattempted"
+          isTour={tour === 7 ? true : false}
+          setTour={setTour}
+          edge="rounded-bl-none"
+          left="left-44"
+          bottom="bottom-24"
+        />
       </div>
     );
   }
@@ -178,31 +232,66 @@ const Questions = () => {
       handleAnswerSelect(que_id, option, score);
     }
   };
+
+  if (tour === 9) {
+    setTour(10);
+    setRes([]);
+    setChecked([]);
+    setCheckboxArray([]);
+    setCurrent(0);
+  }
+
   return (
     <div className="min-h-screen w-full relative overflow-auto bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
       <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] my-10 mb-32 bg-red-50 rounded-md shadow-lg gap-10 relative">
         <div className="flex flex-col justify-center items-center w-full">
+          <CustomTour
+            content="End of the Tour"
+            isTour={tour === 8 ? true : false}
+            setTour={setTour}
+            text="Start test"
+          />
           <div
             key={questions[current].id}
             className="flex flex-col justify-center items-start gap-5 w-full"
           >
             <div className="flex flex-col justify-center items-start gap-6 w-full">
               <div className="flex justify-between items-center w-full">
-                <span className="text-xl lg:text-3xl">
+                <span className="relative text-xl lg:text-3xl">
                   <span className="text-4xl lg:text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
                     {current < 9 ? `0${current + 1}` : current + 1}
                   </span>{" "}
                   of {questions.length}
                 </span>
-                <Tooltip title="Click to understand the statement better">
-                  <button
-                    className="block lg:hidden border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
-                    onClick={() => setOpenDesc(!openDesc)}
-                  >
-                    i
-                  </button>
-                </Tooltip>
+                <CustomTour
+                  content={"Current question out of Total questions"}
+                  isTour={tour === 0 ? true : false}
+                  setTour={setTour}
+                  left="left-40"
+                  top="-top-24"
+                  edge="rounded-bl-none"
+                />
+                <div className="relative block lg:hidden">
+                  <Tooltip title="Click to understand the statement better">
+                    <button
+                      className="relative block lg:hidden border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
+                      onClick={() => setOpenDesc(!openDesc)}
+                    >
+                      i
+                    </button>
+                  </Tooltip>
+                  <CustomTour
+                    content={
+                      "Click to listen to a detailed explanation of the question"
+                    }
+                    isTour={tour === 2 ? true : false}
+                    setTour={setTour}
+                    left="left-40"
+                    top="-top-24"
+                    edge="rounded-bl-none"
+                  />
+                </div>
               </div>
               <div className="flex justify-between items-center w-full gap-2">
                 <div className="flex items-center justify-center gap-6 h-20">
@@ -213,6 +302,14 @@ const Questions = () => {
                       <Tooltip title="Listen to audio">
                         <SoundButton src={soundTitle} />
                       </Tooltip>
+                      <CustomTour
+                        content={"Click to listen to this text"}
+                        isTour={tour === 1 ? true : false}
+                        setTour={setTour}
+                        left="left-40"
+                        top="-top-24"
+                        edge="rounded-bl-none"
+                      />
                     </div>
                   </h3>
                 </div>
@@ -220,15 +317,33 @@ const Questions = () => {
                   <Tooltip title="Listen to audio">
                     <SoundButton src={soundTitle} />
                   </Tooltip>
+                  <CustomTour
+                    content={"Click to listen to this text"}
+                    isTour={tour === 1 ? true : false}
+                    setTour={setTour}
+                    edge="rounded-tl-none"
+                    right="-right-50"
+                  />
                 </div>
-                <Tooltip title="Click to understand the statement better">
-                  <button
-                    className="hidden lg:block border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
-                    onClick={() => setOpenDesc(!openDesc)}
-                  >
-                    i
-                  </button>
-                </Tooltip>
+                <div className="relative">
+                  <Tooltip title="Click to understand the statement better">
+                    <button
+                      className="hidden lg:block border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
+                      onClick={() => setOpenDesc(!openDesc)}
+                    >
+                      i
+                    </button>
+                  </Tooltip>
+                  <CustomTour
+                    content={
+                      "Click to listen to a detailed explanation of the question"
+                    }
+                    isTour={tour === 2 ? true : false}
+                    setTour={setTour}
+                    edge="rounded-tl-none"
+                    right="-right-50"
+                  />
+                </div>
               </div>
               <div
                 className={
@@ -340,39 +455,10 @@ const Questions = () => {
           </div>
         </div>
         <div className="flex justify-between w-full">
-          <Tooltip title="Previous">
-            <button
-              onClick={handlePrev}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 text-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 19.5L8.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
-          </Tooltip>
-          {current === questions.length - 1 ? (
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
-            >
-              Submit
-            </button>
-          ) : (
-            <Tooltip title="Next">
+          <div className="relative">
+            <Tooltip title="Previous">
               <button
-                onClick={handleNext}
+                onClick={handlePrev}
                 className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
               >
                 <svg
@@ -386,11 +472,57 @@ const Questions = () => {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
               </button>
             </Tooltip>
+            <CustomTour
+              content="To go back to the previous item"
+              isTour={tour === 3 ? true : false}
+              setTour={setTour}
+              edge="rounded-tl-none"
+            />
+          </div>
+          {current === questions.length - 1 ? (
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
+            >
+              Submit
+            </button>
+          ) : (
+            <div className="relative">
+              <Tooltip title="Next">
+                <button
+                  onClick={handleNext}
+                  className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-white"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </button>
+              </Tooltip>
+              <CustomTour
+                content="To move to the next question"
+                isTour={tour === 4 ? true : false}
+                setTour={setTour}
+                edge="rounded-tr-none"
+                right="right-4"
+              />
+            </div>
           )}
         </div>
         <NumberList />

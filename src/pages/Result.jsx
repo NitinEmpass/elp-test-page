@@ -78,7 +78,7 @@ const Result = () => {
     setShowConfetti(true);
     const timer = setTimeout(() => {
       setShowConfetti(false);
-    }, 7000); // Set the duration (in milliseconds) for the confetti effect
+    }, 9000); // Set the duration (in milliseconds) for the confetti effect
 
     return () => clearTimeout(timer);
   }, []);
@@ -209,11 +209,12 @@ const Result = () => {
             height={window.innerHeight}
             recycle={false}
             numberOfPieces={800}
-            fallSpeed={10}
-            gravity={0.05}
+            fallSpeed={2} // Adjust the fallSpeed value to control the speed
+            gravity={0.03} // Adjust the gravity value to control the speed
+            className="animate-opacity"
           />
           <div className="absolute top-0 left-0 w-full h-full bg-black/80 z-[1]">
-            <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5">
+            <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
               Congratulations!
             </span>
           </div>
@@ -282,7 +283,7 @@ const Result = () => {
                       key={item.group_id}
                       className="text-center last:border-b lg:text-xl"
                     >
-                      <td className="p-1 lg:py-5 border-2 font-bold bg-red-50">
+                      <td className="p-1 lg:py-3 border-2 font-bold bg-red-50">
                         {item.group_name}
                       </td>
                       {/* <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
@@ -294,10 +295,10 @@ const Result = () => {
                       <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
                         {item.choice_3_count}
                       </td> */}
-                      <td className="p-2 lg:py-5 text-lg lg:text-xl">
+                      <td className="p-2 lg:py-3 border-2 text-lg lg:text-xl">
                         {item.choice_4_count}
                       </td>
-                      <td className="p-2 lg:py-5 border-r-2 text-lg lg:text-xl">
+                      <td className="p-2 lg:py-3 border-2 text-lg lg:text-xl">
                         {item.group_score}
                       </td>
                     </tr>
@@ -337,9 +338,10 @@ const Result = () => {
             </div>
           </div> */}
         </div>
-        <hr className="border-2 border-gray-400 w-[90%] lg:w-[80%] mx-auto" />
-        <div className="my-2 mb-10 lg:mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl">
-          <h2 className="text-xl">Details about Learning Styles</h2>
+        <div className="my-2 mb-10 lg:mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl border-t-4 border-t-gsl-dark-red">
+          <h2 className="text-xl font-bold">
+            Brief definitions of the 12 Student Processing Styles
+          </h2>
           <div
             className="text-gray-600 p-2 w-[90%] leading-8"
             dangerouslySetInnerHTML={{ __html: info }}
