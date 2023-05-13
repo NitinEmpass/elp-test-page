@@ -15,7 +15,7 @@ const CustomTour = ({
     <div
       className={`${
         isTour ? "absolute" : "hidden"
-      } bg-black/80 text-white text-base lg:text-xl min-w-[100px] lg:min-w-[270px] h-auto rounded-xl px-4 py-2 lg:${left} ${right} ${bottom} ${top} ${edge} flex flex-col justify-center items-center`}
+      } bg-black/80 text-white text-base lg:text-xl min-w-[100px] lg:min-w-[270px] h-auto rounded-xl px-4 py-2 ${left} ${right} ${bottom} ${top} ${edge} flex flex-col justify-center items-center`}
     >
       <span>{content}</span>
       <button
