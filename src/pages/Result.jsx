@@ -227,7 +227,7 @@ const Result = () => {
             gravity={0.03} // Adjust the gravity value to control the speed
             className="animate-opacity"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black/80 z-[1]">
+          <div className="absolute top-0 left-0 w-full h-full bg-black z-[1]">
             <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
               Congratulations!
             </span>
@@ -291,14 +291,14 @@ const Result = () => {
                     Score
                   </th>
                   <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
+                    Yes <br /> (2 Points)
+                  </th>
+                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
+                    Sometimes <br /> (1 Points)
+                  </th>
+                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
                     No <br />
-                    (Points - 0)
-                  </th>
-                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
-                    Sometimes <br /> (Points - 1)
-                  </th>
-                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
-                    Yes <br /> (Points - 2)
+                    (0 Points)
                   </th>
                   <th className="p-1 lg:py-2 border-2 font-semibold">
                     I have never done this <br /> (-)

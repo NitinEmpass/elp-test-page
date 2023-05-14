@@ -69,6 +69,7 @@ const CheckModal = ({
           navigate("/result");
         })
         .catch((err) => {
+          setLoading(false);
           console.log(err);
           setError("Something went wrong. Please try again later.");
         });
