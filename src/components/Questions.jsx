@@ -1,4 +1,11 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
@@ -25,6 +32,20 @@ const Questions = () => {
   const [openModal, setOpenModal] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
   const [openDesc, setOpenDesc] = useState(false);
+  const confirmLeavePage = useCallback((e) => {
+    e.preventDefault();
+    e.returnValue = "";
+    const message = "Do you really want to lose your progress?";
+    e.returnValue = message;
+    return message;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", confirmLeavePage);
+    return () => {
+      window.removeEventListener("beforeunload", confirmLeavePage);
+    };
+  }, [confirmLeavePage]);
 
   const [tour, setTour] = useState(0);
   function disableBackButton() {
@@ -201,7 +222,7 @@ const Questions = () => {
           setTour={setTour}
           edge="rounded-bl-none"
           bottom="bottom-24"
-          left="left-16"
+          left="left-12"
         />
         <CustomTour
           content="All questions you have attempted"
@@ -244,7 +265,7 @@ const Questions = () => {
   return (
     <div className="min-h-screen w-full relative overflow-auto bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[70%] my-10 mb-32 bg-red-50 rounded-md shadow-lg gap-10 relative">
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-5 lg:mb-20 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <CustomTour
             content="End of the Tour"
@@ -256,7 +277,7 @@ const Questions = () => {
             key={questions[current].id}
             className="flex flex-col justify-center items-start gap-5 w-full"
           >
-            <div className="flex flex-col justify-center items-start gap-6 w-full">
+            <div className="flex flex-col justify-center items-start gap-6 lg:gap-2 w-full">
               <div className="flex justify-between items-center w-full">
                 <span className="relative text-xl lg:text-3xl">
                   <span className="text-4xl lg:text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
@@ -268,7 +289,7 @@ const Questions = () => {
                   content={"Current question out of Total questions"}
                   isTour={tour === 0 ? true : false}
                   setTour={setTour}
-                  left="left-40"
+                  left="left-36 mt-5"
                   top="-top-24"
                   edge="rounded-bl-none"
                 />
@@ -367,7 +388,7 @@ const Questions = () => {
               </div>
             </div>
 
-            <div className="flex flex-col justify-center items-center gap-5 text-lg lg:text-2xl w-[90%] mx-auto">
+            <div className="flex flex-col justify-center items-center gap-5 lg:gap-3 text-lg lg:text-2xl w-[90%] mx-auto">
               <li
                 onClick={() => {
                   handleClick(
@@ -533,7 +554,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`You have selected ${checkboxArray.length} items as "I don't know" (marked as pink), would you like to submit?`}
+        heading={`Great you have selected all answers, would you like to submit?`}
         firstText={"No"}
         secondText={"Yes"}
       />

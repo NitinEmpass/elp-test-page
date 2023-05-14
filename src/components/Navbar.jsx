@@ -12,7 +12,7 @@ const Navbar = () => {
           src={logo}
           alt="SPI"
           height="auto"
-          className="mix-blend-darken aspect-auto lg:w-24 w-12"
+          className="mix-blend-darken aspect-auto lg:w-20 w-12"
         />
       </Link>
       {location.pathname === "/" || location.pathname === "/result" ? (

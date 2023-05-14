@@ -1,5 +1,5 @@
 import React from "react";
-import techniques from "../assets/images/techniques.jpg";
+import techniques from "../assets/images/techniques.png";
 import LoginForm from "./LoginForm";
 
 const Login = () => {

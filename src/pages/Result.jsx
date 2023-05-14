@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Radar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import axios from "axios";
@@ -31,6 +31,21 @@ const Result = () => {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }
+
+  const confirmLeavePage = useCallback((e) => {
+    e.preventDefault();
+    e.returnValue = "";
+    const message = "Do you really want to lose your progress?";
+    e.returnValue = message;
+    return message;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", confirmLeavePage);
+    return () => {
+      window.removeEventListener("beforeunload", confirmLeavePage);
+    };
+  }, [confirmLeavePage]);
 
   function disableBackButton() {
     window.history.pushState(null, "/", window.location.href);
@@ -76,11 +91,10 @@ const Result = () => {
     console.log(result);
 
     setShowConfetti(true);
-    const timer = setTimeout(() => {
+    /* const timer = setTimeout(() => {
       setShowConfetti(false);
     }, 9000); // Set the duration (in milliseconds) for the confetti effect
-
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer); */
   }, []);
 
   if (loading || result === null)
@@ -217,6 +231,14 @@ const Result = () => {
             <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
               Congratulations!
             </span>
+            <div className="w-full flex justify-center items-center">
+              <button
+                className="uppercase py-3 px-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-32 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold"
+                onClick={() => setShowConfetti(false)}
+              >
+                View Result
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -260,46 +282,53 @@ const Result = () => {
             <Radar data={chartConfig} options={smallScreenOptions} />
           </div> */}
 
-          <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] rounded-lg">
-            <table className="w-full">
-              <thead className="bg-red-50 text-base lg:text-xl">
-                <tr className="border lg:border-2">
-                  <th className="p-1 lg:py-5 lg:border-2 border">Style</th>
-                  {/* <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">Not Helpful</th>
-                  <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">
-                    Somewhat Helpful
+          <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] shadow-2xl rounded-xl">
+            <table className="w-full bg-white border-stone-50 border-2">
+              <thead className="text-base lg:text-xl">
+                <tr className="border-2 bg-gsl-light-red text-white">
+                  <th className="p-1 lg:py-2 border-2 font-semibold">Style</th>
+                  <th className="p-1 px-3 lg:py-2 lg:px-8 border-2 font-semibold">
+                    Score
                   </th>
-                  <th className="p-2 lg:px-3 lg:py-5 lg:border-2 border">Most Helpful</th> */}
-                  <th className="p-2 lg:py-5 lg:border-2 border">
-                    I have never done this
+                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
+                    No <br />
+                    (Points - 0)
                   </th>
-                  <th className="p-2 lg:py-5 lg:border-2 border">Score</th>
+                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
+                    Sometimes <br /> (Points - 1)
+                  </th>
+                  <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
+                    Yes <br /> (Points - 2)
+                  </th>
+                  <th className="p-1 lg:py-2 border-2 font-semibold">
+                    I have never done this <br /> (-)
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {result.choice_count.map((item) => {
+                {result.choice_count.map((item, index) => {
                   return (
                     <tr
                       key={item.group_id}
-                      className="text-center last:border-b lg:text-xl"
+                      className={`${
+                        index % 2 === 0 ? "bg-gray-100/80" : "bg-white/80"
+                      } text-center text-lg text-black`}
                     >
-                      <td className="p-1 lg:py-3 border-2 font-bold bg-red-50">
-                        {item.group_name}
+                      <td className="p-1 lg:py-2">{item.group_name}</td>
+                      <td className="p-2 lg:py-2 lg:px-6">
+                        {item.group_score}
                       </td>
-                      {/* <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
+                      <td className="p-2 lg:px-2 lg:py-5">
                         {item.choice_1_count}
                       </td>
-                      <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
+                      <td className="p-2 lg:px-2 lg:py-5">
                         {item.choice_2_count}
                       </td>
-                      <td className="p-2 lg:px-3 lg:py-5 lg:text-xl">
+                      <td className="p-2 lg:px-2 lg:py-5">
                         {item.choice_3_count}
-                      </td> */}
-                      <td className="p-2 lg:py-3 border-2 text-lg lg:text-xl">
-                        {item.choice_4_count}
                       </td>
-                      <td className="p-2 lg:py-3 border-2 text-lg lg:text-xl">
-                        {item.group_score}
+                      <td className="p-2 lg:py-2 min-w-40">
+                        {item.choice_4_count}
                       </td>
                     </tr>
                   );
