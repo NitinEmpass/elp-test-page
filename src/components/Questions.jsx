@@ -17,6 +17,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import SoundButton from "./SoundButton";
 import CustomTour from "./CustomTour";
+import { isMobile } from "react-device-detect";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -56,6 +57,9 @@ const Questions = () => {
   }
   useEffect(() => {
     scrollToTop();
+    if (isMobile) {
+      setTour(10);
+    }
     if (!questions || !player_id) {
       navigate("/");
     }
