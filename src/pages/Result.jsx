@@ -25,6 +25,20 @@ const Result = () => {
     }
   }, [navigate, player_id]);
 
+  useEffect(() => {
+    const body = document.querySelector("body");
+
+    if (showConfetti) {
+      body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      body.style.overflow = ""; // Enable scrolling
+    }
+
+    return () => {
+      body.style.overflow = ""; // Re-enable scrolling on component unmount
+    };
+  }, [showConfetti]);
+
   const [openModal, setOpenModal] = useState(false);
 
   function scrollToTop() {
@@ -229,7 +243,7 @@ const Result = () => {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-black z-[1]">
             <span className="w-[90%] lg:w-[60%] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
-              Congratulations!
+              Congratulations! You have successfully completed the assessment!
             </span>
             <div className="w-full flex justify-center items-center">
               <button
@@ -314,7 +328,9 @@ const Result = () => {
                         index % 2 === 0 ? "bg-gray-100/80" : "bg-white/80"
                       } text-center text-lg text-black`}
                     >
-                      <td className="p-1 lg:py-2">{item.group_name}</td>
+                      <td className="p-1 lg:py-2 text-left">
+                        {item.group_name}
+                      </td>
                       <td className="p-2 lg:py-2 lg:px-6">
                         {item.group_score}
                       </td>

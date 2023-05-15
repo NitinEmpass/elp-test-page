@@ -17,11 +17,12 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import SoundButton from "./SoundButton";
 import CustomTour from "./CustomTour";
-import { isMobile } from "react-device-detect";
+// import { isMobile } from "react-device-detect";
 
 const Questions = () => {
   const navigate = useNavigate();
   const { player_id, questions } = useContext(UserContext);
+  // const player_id = "1";
   const [current, setCurrent] = useState(0);
   const [checkboxArray, setCheckboxArray] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -57,9 +58,9 @@ const Questions = () => {
   }
   useEffect(() => {
     scrollToTop();
-    if (isMobile) {
-      setTour(10);
-    }
+    // if (isMobile) {
+    //   setTour(10);
+    // }
     if (!questions || !player_id) {
       navigate("/");
     }
@@ -224,25 +225,19 @@ const Questions = () => {
           content="All questions you choose 'I have never done this'"
           isTour={tour === 5 ? true : false}
           setTour={setTour}
-          edge="rounded-bl-none"
-          bottom="bottom-24"
-          left="left-12"
+          className="bottom-24 left-12 rounded-bl-none"
         />
         <CustomTour
           content="All questions you have attempted"
           isTour={tour === 6 ? true : false}
           setTour={setTour}
-          edge="rounded-bl-none"
-          left="left-28"
-          bottom="bottom-24"
+          className="bottom-24 left-24 rounded-bl-none"
         />
         <CustomTour
           content="All questions you have unattempted"
           isTour={tour === 7 ? true : false}
           setTour={setTour}
-          edge="rounded-bl-none"
-          left="left-44"
-          bottom="bottom-24"
+          className="bottom-24 left-40 rounded-bl-none"
         />
       </div>
     );
@@ -266,6 +261,7 @@ const Questions = () => {
     setCurrent(0);
   }
 
+  console.log(tour);
   return (
     <div className="min-h-screen w-full relative overflow-auto bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
@@ -276,6 +272,8 @@ const Questions = () => {
             isTour={tour === 8 ? true : false}
             setTour={setTour}
             text="Start test"
+            yMobile="bottom-24"
+            xMobile="left-12"
           />
           <div
             key={questions[current].id}
@@ -293,52 +291,47 @@ const Questions = () => {
                   content={"Current question out of Total questions"}
                   isTour={tour === 0 ? true : false}
                   setTour={setTour}
-                  left="left-36 mt-5"
-                  top="-top-24"
-                  edge="rounded-bl-none"
+                  className="top-12 left-24 rounded-tl-none lg:top-16 lg:left-36"
                 />
-                <div className="relative block lg:hidden">
-                  <Tooltip title="Click to understand the statement better">
-                    <button
-                      className="relative block lg:hidden border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
-                      onClick={() => setOpenDesc(!openDesc)}
-                    >
-                      i
-                    </button>
-                  </Tooltip>
-                  <CustomTour
-                    content={
-                      "Click to listen to a detailed explanation of the question"
-                    }
-                    isTour={tour === 2 ? true : false}
-                    setTour={setTour}
-                    left="left-40"
-                    top="-top-24"
-                    edge="rounded-bl-none"
-                  />
+                <div className="relative flex lg:hidden gap-4">
+                  <div className="inline-block lg:hidden">
+                    <Tooltip title="Listen to audio">
+                      <SoundButton src={soundTitle} />
+                    </Tooltip>
+                    <CustomTour
+                      content={"Click to listen to this text"}
+                      isTour={tour === 1 ? true : false}
+                      setTour={setTour}
+                      className="top-10 right-16 rounded-tr-none"
+                    />
+                  </div>
+                  <div>
+                    <Tooltip title="Click to understand the statement better">
+                      <button
+                        className="relative block lg:hidden border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
+                        onClick={() => setOpenDesc(!openDesc)}
+                      >
+                        i
+                      </button>
+                    </Tooltip>
+                    <CustomTour
+                      content={
+                        "Click to listen to a detailed explanation of the question"
+                      }
+                      isTour={tour === 2 ? true : false}
+                      setTour={setTour}
+                      className="right-4 top-10 rounded-tr-none"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex justify-between items-center w-full gap-2">
                 <div className="flex items-center justify-center gap-6 h-20">
                   <h3 className="text-2xl lg:text-4xl">
                     {questions[current].que_title}
-                    {"  "}
-                    <div className="inline-block lg:hidden">
-                      <Tooltip title="Listen to audio">
-                        <SoundButton src={soundTitle} />
-                      </Tooltip>
-                      <CustomTour
-                        content={"Click to listen to this text"}
-                        isTour={tour === 1 ? true : false}
-                        setTour={setTour}
-                        left="left-40"
-                        top="-top-24"
-                        edge="rounded-bl-none"
-                      />
-                    </div>
                   </h3>
                 </div>
-                <div className="hidden lg:block">
+                <div className="hidden lg:flex relative gap-4">
                   <Tooltip title="Listen to audio">
                     <SoundButton src={soundTitle} />
                   </Tooltip>
@@ -346,11 +339,8 @@ const Questions = () => {
                     content={"Click to listen to this text"}
                     isTour={tour === 1 ? true : false}
                     setTour={setTour}
-                    edge="rounded-tl-none"
-                    right="-right-50"
+                    className="lg:top-6 lg:right-24 rounded-tr-none"
                   />
-                </div>
-                <div className="relative">
                   <Tooltip title="Click to understand the statement better">
                     <button
                       className="hidden lg:block border px-4 py-2 rounded-full font-serif font-bold bg-black/70 hover:bg-white text-white hover:text-black duration-300 ease-in-out"
@@ -359,15 +349,16 @@ const Questions = () => {
                       i
                     </button>
                   </Tooltip>
-                  <CustomTour
-                    content={
-                      "Click to listen to a detailed explanation of the question"
-                    }
-                    isTour={tour === 2 ? true : false}
-                    setTour={setTour}
-                    edge="rounded-tl-none"
-                    right="-right-50"
-                  />
+                  <div className="hidden lg:inline-block relative">
+                    <CustomTour
+                      content={
+                        "Click to listen to a detailed explanation of the question"
+                      }
+                      isTour={tour === 2 ? true : false}
+                      setTour={setTour}
+                      className="lg:top-12 lg:right-4 rounded-tr-none"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -503,10 +494,10 @@ const Questions = () => {
               </button>
             </Tooltip>
             <CustomTour
-              content="To go back to the previous item"
+              content="To go back to the previous question"
               isTour={tour === 3 ? true : false}
               setTour={setTour}
-              edge="rounded-tl-none"
+              className="rounded-tl-none lg:bottom-10 lg:rounded-bl-none lg:rounded-tl-3xl"
             />
           </div>
           {current === questions.length - 1 ? (
@@ -544,8 +535,7 @@ const Questions = () => {
                 content="To move to the next question"
                 isTour={tour === 4 ? true : false}
                 setTour={setTour}
-                edge="rounded-tr-none"
-                right="right-4"
+                className="right-4 rounded-tr-none lg:bottom-10 lg:rounded-br-none lg:rounded-tr-3xl"
               />
             </div>
           )}

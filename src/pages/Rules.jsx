@@ -26,8 +26,16 @@ const Rules = () => {
     };
   }, [confirmLeavePage]);
 
+  function disableBackButton() {
+    window.history.pushState(null, "/", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.history.replaceState(null, "/", window.location.href);
+  }
+
   const navigate = useNavigate();
   useEffect(() => {
+    disableBackButton();
     scrollToTop();
     if (!player_id) {
       navigate("/");
