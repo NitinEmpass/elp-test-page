@@ -26,7 +26,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full lg:text-lg">
+      <div className="flex justify-center items-center w-full text-gray-500">
         &#169; {date.getFullYear()} Empass Learning Pvt. Ltd.
       </div>
     </div>

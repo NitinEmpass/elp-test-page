@@ -126,7 +126,9 @@ const Questions = () => {
     console.log("this is ans", ans);
     setRes(ans);
     if (ans.length === questions.length) {
-      handleSubmit();
+      setTimeout(() => {
+        handleSubmit();
+      }, 1000); // Delay the execution of handleSubmit() by 4 seconds
     }
   }
   console.log("this is res", res);
@@ -205,7 +207,7 @@ const Questions = () => {
         <div className="flex justify-center items-center gap-4">{numbers}</div>
         <div
           className={`flex justify-center items-center gap-4 ${
-            tour > 4 && tour < 8 ? "absolute" : "hidden"
+            tour > 5 && tour < 9 ? "absolute" : "hidden"
           }`}
         >
           <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-[#737373] text-white">
@@ -223,19 +225,19 @@ const Questions = () => {
         </div>
         <CustomTour
           content="All questions you choose 'I have never done this'"
-          isTour={tour === 5 ? true : false}
+          isTour={tour === 6 ? true : false}
           setTour={setTour}
           className="bottom-24 left-12 rounded-bl-none"
         />
         <CustomTour
           content="All questions you have attempted"
-          isTour={tour === 6 ? true : false}
+          isTour={tour === 7 ? true : false}
           setTour={setTour}
           className="bottom-24 left-24 rounded-bl-none"
         />
         <CustomTour
           content="All questions you have unattempted"
-          isTour={tour === 7 ? true : false}
+          isTour={tour === 8 ? true : false}
           setTour={setTour}
           className="bottom-24 left-40 rounded-bl-none"
         />
@@ -253,8 +255,8 @@ const Questions = () => {
     }
   };
 
-  if (tour === 9) {
-    setTour(10);
+  if (tour === 10) {
+    setTour(11);
     setRes([]);
     setChecked([]);
     setCheckboxArray([]);
@@ -268,10 +270,20 @@ const Questions = () => {
       <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-5 lg:mb-20 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <CustomTour
-            content="End of the Tour"
-            isTour={tour === 8 ? true : false}
+            content="Remember points shown in quick tour and click below to start your test now."
+            isTour={tour === 9 ? true : false}
             setTour={setTour}
+            tour={9}
             text="Start test"
+            yMobile="bottom-24"
+            xMobile="left-12"
+          />
+          <CustomTour
+            content="Here's quick tour for the test screen"
+            isTour={tour === 0 ? true : false}
+            setTour={setTour}
+            tour={0}
+            text="Start Tour"
             yMobile="bottom-24"
             xMobile="left-12"
           />
@@ -281,17 +293,17 @@ const Questions = () => {
           >
             <div className="flex flex-col justify-center items-start gap-6 lg:gap-2 w-full">
               <div className="flex justify-between items-center w-full">
-                <span className="relative text-xl lg:text-3xl">
-                  <span className="text-4xl lg:text-6xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
+                <span className="relative text-xl lg:text-2xl">
+                  <span className="text-3xl lg:text-4xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
                     {current < 9 ? `0${current + 1}` : current + 1}
                   </span>{" "}
                   of {questions.length}
                 </span>
                 <CustomTour
                   content={"Current question out of Total questions"}
-                  isTour={tour === 0 ? true : false}
+                  isTour={tour === 1 ? true : false}
                   setTour={setTour}
-                  className="top-12 left-24 rounded-tl-none lg:top-16 lg:left-36"
+                  className="top-12 left-24 rounded-tl-none lg:top-15 lg:left-26"
                 />
                 <div className="relative flex lg:hidden gap-4">
                   <div className="inline-block lg:hidden">
@@ -300,7 +312,7 @@ const Questions = () => {
                     </Tooltip>
                     <CustomTour
                       content={"Click to listen to this text"}
-                      isTour={tour === 1 ? true : false}
+                      isTour={tour === 2 ? true : false}
                       setTour={setTour}
                       className="top-10 right-16 rounded-tr-none"
                     />
@@ -318,7 +330,7 @@ const Questions = () => {
                       content={
                         "Click to listen to a detailed explanation of the question"
                       }
-                      isTour={tour === 2 ? true : false}
+                      isTour={tour === 3 ? true : false}
                       setTour={setTour}
                       className="right-4 top-10 rounded-tr-none"
                     />
@@ -327,7 +339,12 @@ const Questions = () => {
               </div>
               <div className="flex justify-between items-center w-full gap-2">
                 <div className="flex items-center justify-center gap-6 h-20">
-                  <h3 className="text-2xl lg:text-4xl">
+                  <h3
+                    className="text-2xl lg:text-4xl"
+                    onCopy={(e) => e.preventDefault()} // Prevent copy
+                    onCut={(e) => e.preventDefault()} // Prevent cut
+                    onContextMenu={(e) => e.preventDefault()} // Prevent right-click
+                  >
                     {questions[current].que_title}
                   </h3>
                 </div>
@@ -337,7 +354,7 @@ const Questions = () => {
                   </Tooltip>
                   <CustomTour
                     content={"Click to listen to this text"}
-                    isTour={tour === 1 ? true : false}
+                    isTour={tour === 2 ? true : false}
                     setTour={setTour}
                     className="lg:top-6 lg:right-24 rounded-tr-none"
                   />
@@ -354,7 +371,7 @@ const Questions = () => {
                       content={
                         "Click to listen to a detailed explanation of the question"
                       }
-                      isTour={tour === 2 ? true : false}
+                      isTour={tour === 3 ? true : false}
                       setTour={setTour}
                       className="lg:top-12 lg:right-4 rounded-tr-none"
                     />
@@ -495,7 +512,7 @@ const Questions = () => {
             </Tooltip>
             <CustomTour
               content="To go back to the previous question"
-              isTour={tour === 3 ? true : false}
+              isTour={tour === 4 ? true : false}
               setTour={setTour}
               className="rounded-tl-none lg:bottom-10 lg:rounded-bl-none lg:rounded-tl-3xl"
             />
@@ -533,7 +550,7 @@ const Questions = () => {
               </Tooltip>
               <CustomTour
                 content="To move to the next question"
-                isTour={tour === 4 ? true : false}
+                isTour={tour === 5 ? true : false}
                 setTour={setTour}
                 className="right-4 rounded-tr-none lg:bottom-10 lg:rounded-br-none lg:rounded-tr-3xl"
               />

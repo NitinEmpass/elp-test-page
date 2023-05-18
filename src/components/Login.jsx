@@ -4,19 +4,19 @@ import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-4 mb-28">
+    <div className="flex flex-col justify-center items-center gap-6 mb-28">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-center text-3xl lg:text-5xl p-5">
+        <h1 className="text-gsl-light-red text-center text-3xl lg:text-5xl p-5 text-stroke">
           Student Processing Inventory (SPI)
         </h1>
-        <span className="font-semibold text-base lg:text-xl text-center">
+        <span className="font-semibold text-base lg:text-2xl text-center">
           Building Compassion & Accommodating Neurodiversity
         </span>
       </div>
       <div className="flex flex-col lg:flex-row justify-center items-center mb-5 mx-auto gap-10 lg:gap-16">
         <div className="order-last lg:order-first">
           <iframe
-            className="w-full lg:w-[500px] h-full lg:h-80 aspect-video"
+            className="w-full lg:w-[500px] h-full lg:h-80 rounded-lg aspect-video"
             src="https://www.youtube-nocookie.com/embed/FD_AdcTABWw?rel=0"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -27,11 +27,7 @@ const Login = () => {
         <LoginForm />
       </div>
       <div>
-        <img
-          src={techniques}
-          alt="Techniques"
-          className="w-[75%] mx-auto"
-        />
+        <img src={techniques} alt="Techniques" className="w-[75%] mx-auto" />
       </div>
     </div>
   );

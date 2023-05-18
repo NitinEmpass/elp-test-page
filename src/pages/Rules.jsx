@@ -115,7 +115,7 @@ const Rules = () => {
           SPI Self Assessment
         </h1>
         <div className="border-2 border-gsl-dark-red w-full"></div>
-        <span className="font-medium">
+        <span className="font-medium text-lg">
           Read all Instructions below before you start the self assessment.
         </span>
         <div className="w-[85%]">
