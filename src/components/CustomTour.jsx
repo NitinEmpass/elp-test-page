@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
   const classnames = `${
     isTour ? "absolute" : "hidden"
-  } bg-black/80 text-white text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
+  } bg-[#ffff99] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
   console.log(classnames);
   console.log(tour);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
           />
         )}
         <div
-          className={`${classnames} w-[95%] lg:w-[500px] bg-red-50 !text-black py-5`}
+          className={`${classnames} w-[95%] lg:w-[500px] !bg-red-50 !text-black py-5 shadow-lg`}
         >
           <h1 className="text-2xl lg:text-4xl font-semibold text-center pb-2">
             Quick Tour
@@ -45,7 +45,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
                 className="uppercase py-3 px-2 bg-gray-400 w-40 text-white lg:text-lg rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
                 onClick={() => setTour(0)}
               >
-                Restart Tour
+                Tour Again
               </button>
               <button
                 className="uppercase py-3 px-2 w-40 lg:text-lg bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
@@ -73,12 +73,12 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
       )}
       <div className={classnames}>
         <span>{content}</span>
-        <span
-          className="uppercase p-2 w-full text-base text-center text-white mx-auto cursor-pointer font-semibold mt-5 border-t border-white"
+        <button
+          className="uppercase p-2 w-36 bg-black rounded-md text-base text-center text-white mx-auto cursor-pointer font-semibold my-5"
           onClick={() => setTour((prev) => prev + 1)}
         >
           {!text ? "Next" : text}
-        </span>
+        </button>
       </div>
     </>
   );

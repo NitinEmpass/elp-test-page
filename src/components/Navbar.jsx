@@ -28,7 +28,7 @@ const Navbar = () => {
             arrow={true}
             theme="light"
           >
-            <span className="hidden lg:block">Help </span>
+            <span className="hidden lg:block uppercase">Help </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -27,6 +27,7 @@ const Questions = () => {
   const [checkboxArray, setCheckboxArray] = useState([]);
   const [checked, setChecked] = useState([]);
   const [option, setOption] = useState("");
+  const [animate, setAnimate] = useState(false);
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
   // console.log("this is questions array", questions);
@@ -125,6 +126,7 @@ const Questions = () => {
     }
     console.log("this is ans", ans);
     setRes(ans);
+    setAnimate(true);
     if (ans.length === questions.length) {
       setTimeout(() => {
         handleSubmit();
@@ -138,6 +140,7 @@ const Questions = () => {
     setCurrent(current - 1);
   };
   const handleNext = () => {
+    setAnimate(false);
     if (current === questions.length - 1) setCurrent(0);
     else setCurrent(current + 1);
   };
@@ -224,19 +227,19 @@ const Questions = () => {
           </div>
         </div>
         <CustomTour
-          content="All questions you choose 'I have never done this'"
+          content="Question you chose 'I have never done this'"
           isTour={tour === 6 ? true : false}
           setTour={setTour}
           className="bottom-24 left-12 rounded-bl-none"
         />
         <CustomTour
-          content="All questions you have attempted"
+          content="Question attempted"
           isTour={tour === 7 ? true : false}
           setTour={setTour}
           className="bottom-24 left-24 rounded-bl-none"
         />
         <CustomTour
-          content="All questions you have unattempted"
+          content="Question unattempted"
           isTour={tour === 8 ? true : false}
           setTour={setTour}
           className="bottom-24 left-40 rounded-bl-none"
@@ -270,16 +273,16 @@ const Questions = () => {
       <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-5 lg:mb-20 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <CustomTour
-            content="Remember points shown in quick tour and click below to start your test now."
+            content="You're all set! Click 'Start Now' to take the assessment now OR 'Tour again' to see navigation tour again."
             isTour={tour === 9 ? true : false}
             setTour={setTour}
             tour={9}
-            text="Start test"
+            text="Start now"
             yMobile="bottom-24"
             xMobile="left-12"
           />
           <CustomTour
-            content="Here's quick tour for the test screen"
+            content="Please take a minute to get familiar with the assessment navigation and help options."
             isTour={tour === 0 ? true : false}
             setTour={setTour}
             tour={0}
@@ -293,8 +296,8 @@ const Questions = () => {
           >
             <div className="flex flex-col justify-center items-start gap-6 lg:gap-2 w-full">
               <div className="flex justify-between items-center w-full">
-                <span className="relative text-xl lg:text-2xl">
-                  <span className="text-3xl lg:text-4xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
+                <span className="relative text-lg lg:text-xl">
+                  <span className="text-2xl lg:text-3xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text border-b-2 border-gsl-dark-red">
                     {current < 9 ? `0${current + 1}` : current + 1}
                   </span>{" "}
                   of {questions.length}
@@ -530,7 +533,9 @@ const Questions = () => {
               <Tooltip title="Next">
                 <button
                   onClick={handleNext}
-                  className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+                  className={`${
+                    animate && "animate-bounce"
+                  } flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -565,7 +570,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`Great you have selected all answers, would you like to submit?`}
+        heading={`Great. You have attempted all questions. Click yes to end the assessment`}
         firstText={"No"}
         secondText={"Yes"}
       />
@@ -576,7 +581,7 @@ const Questions = () => {
         player_id={player_id}
         heading={`You have not selected answers for ${
           questions.length - res.length
-        } questions, Please review your answer!`}
+        } questions, Please review them now.`}
         firstText={"Ok"}
       />
     </div>

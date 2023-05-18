@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Confetti from "react-confetti";
+import logo from "../assets/images/SPI logo.jpg";
 
 const Result = () => {
   const { player_id, name } = useContext(UserContext);
@@ -240,13 +241,22 @@ const Result = () => {
             gravity={0.02} // Adjust the gravity value to control the speed
             className="animate-opacity"
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-black z-[1]">
-            <span className="w-[90%] lg:w-[60%] mt-[15rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-white rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
-              Congratulations! You have successfully completed the assessment.
+          <div className="absolute top-0 left-0 w-full h-full bg-[#f9f9f9] z-[1]">
+            <img
+              src={logo}
+              alt="SPI"
+              className="absolute left-[30%] lg:left-[42%] top-0 w-[40%] lg:w-[15%]"
+            />
+            <span className="w-[90%] lg:w-[60%] mt-[10rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-black rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
+              <h1 className="text-gsl-light-red text-center text-5xl lg:text-7xl p-5 text-stroke">
+                The 12 Ways of Processing
+              </h1>
+              Congratulations! <br />
+              You have successfully completed the assessment.
             </span>
             <div className="w-full flex justify-center items-center">
               <button
-                className="uppercase py-3 px-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-32 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold"
+                className="uppercase tracking-wide p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold animate-lazily"
                 onClick={() => setShowConfetti(false)}
               >
                 View Result
@@ -270,11 +280,11 @@ const Result = () => {
               </p>
             ) : null}
           </div>
-          <span className="lg:my-2 text-gray-500 text-lg lg:text-2xl mx-auto break-words mt-6 pt-6 text-left">
+          <span className="lg:my-2 text-gray-500 text-lg lg:text-2xl mx-auto break-words pt-3 lg:pt-6 text-left">
             Dear <span className="font-semibold">{name}</span>, Congratulations!
             You have successfully completed the assessment. <br />
-            Based on your test , your Dominant Style & detailed results are as
-            shown below.
+            Based on your test , your dominant style (s) & detailed results are
+            as shown below.
           </span>
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
             {/*  <div className="max-w-48 max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
@@ -318,12 +328,10 @@ const Result = () => {
               </thead>
               <tbody>
                 {result.choice_count.map((item, index) => {
-                  const classname = `p-1 px-3 rounded-full border text-2xl font-semibold ${
-                    item.group_score_color
-                      ? `bg-[${item.group_score_color}]`
-                      : "bg-white"
-                  }`;
-                  console.log(classname);
+                  let color = item.group_score_color
+                    ? item.group_score_color
+                    : "white";
+                  console.log(color);
                   return (
                     <tr
                       key={item.group_id}
@@ -337,7 +345,14 @@ const Result = () => {
                         {item.group_name}
                       </td>
                       <td className="p-2 lg:py-2 lg:px-6 text-2xl">
-                        <span className={classname}>{item.group_score}</span>
+                        <span
+                          className="p-1 px-3 rounded-full border text-2xl font-semibold text-center min-w-5"
+                          style={{
+                            backgroundColor: `${item.group_score_color}`,
+                          }}
+                        >
+                          {item.group_score}
+                        </span>
                       </td>
                     </tr>
                   );
@@ -398,23 +413,20 @@ const Result = () => {
             </table>
           </div>
           <div className="flex flex-col items-center gap-3 w-[90%]">
-            <span className="lg:text-xl">
-              For more results & reports, click below!
-            </span>
             <button
-              className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red py-3 px-4 text-white rounded-md hover:shadow-2xl hover:scale-105 duration-300 ease-in-out"
+              className="uppercase bg-gradient-to-r from-gsl-light-red to-gsl-dark-red py-3 px-4 text-white rounded-md hover:shadow-2xl hover:scale-105 duration-300 ease-in-out"
               onClick={() => {
                 scrollToTop();
                 setOpenModal(true);
               }}
             >
-              Request your Report
+              Request Detailed Report
             </button>
             <Modal
               open={openModal}
               onClose={() => setOpenModal(false)}
               heading={
-                "Thank you for taking this test! We will send you the report soon."
+                "Thank you for taking this assessment! We will send you the report soon."
               }
               firstText={"Ok"}
             />
