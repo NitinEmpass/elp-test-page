@@ -306,9 +306,9 @@ const Result = () => {
             <table className="w-full bg-white border-stone-50 border-2">
               <thead className="text-base lg:text-xl">
                 <tr className="border-2 bg-gsl-light-red text-white">
-                  <th className="w-10"></th>
-                  <th className="w-20"></th>
-                  <th className="p-1 lg:py-2 border-2 border-l-0 font-semibold text-left px-6">
+                  <th className="lg:w-10"></th>
+                  <th className="lg:w-20"></th>
+                  <th className="p-1 lg:py-2 border-2 border-l-0 font-semibold text-left lg:px-6">
                     Processing Styles
                   </th>
                   <th className="p-1 px-3 lg:py-2 lg:px-8 border-2 font-semibold">
@@ -318,28 +318,26 @@ const Result = () => {
               </thead>
               <tbody>
                 {result.choice_count.map((item, index) => {
+                  const classname = `p-1 px-3 rounded-full border text-2xl font-semibold ${
+                    item.group_score_color
+                      ? `bg-[${item.group_score_color}]`
+                      : "bg-white"
+                  }`;
+                  console.log(classname);
                   return (
                     <tr
                       key={item.group_id}
                       className={`${
                         index % 2 === 0 ? "bg-gray-100/80" : "bg-white/80"
-                      } text-center text-xl text-black`}
+                      } text-center text-base lg:text-xl text-black`}
                     >
-                      <td className="w-10"></td>
-                      <td className="w-20"></td>
-                      <td className="p-1 lg:py-2 text-left px-6">
+                      <td className="lg:w-10"></td>
+                      <td className="lg:w-20"></td>
+                      <td className="p-1 lg:py-2 text-left lg:px-6">
                         {item.group_name}
                       </td>
                       <td className="p-2 lg:py-2 lg:px-6 text-2xl">
-                        <span
-                          className={`p-1 px-3 rounded-full border text-2xl font-semibold ${
-                            item.group_score_color
-                              ? `bg-[${item.group_score_color}]`
-                              : "bg-white"
-                          }`}
-                        >
-                          {item.group_score}
-                        </span>
+                        <span className={classname}>{item.group_score}</span>
                       </td>
                     </tr>
                   );
@@ -351,7 +349,7 @@ const Result = () => {
             <table className="w-full bg-white border-stone-50 border-2">
               <thead className="text-base lg:text-xl">
                 <tr className="border-2 bg-gsl-light-red text-white">
-                  <th className="p-1 lg:py-2 border-2 font-semibold text-left px-6">
+                  <th className="p-1 lg:py-2 border-2 font-semibold text-left lg:px-6">
                     Processing Styles
                   </th>
                   <th className="p-1 px-3 lg:py-2 border-2 font-semibold">
@@ -378,7 +376,7 @@ const Result = () => {
                         index % 2 === 0 ? "bg-gray-100/80" : "bg-white/80"
                       } text-center text-lg text-black`}
                     >
-                      <td className="p-1 lg:py-2 text-left px-4">
+                      <td className="p-1 lg:py-2 text-left lg:px-4">
                         {item.group_name}
                       </td>
                       <td className="p-2 lg:px-2 lg:py-5 font-semibold text-xl">

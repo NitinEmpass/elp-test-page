@@ -24,31 +24,31 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
           />
         )}
         <div
-          className={`${classnames} w-64 lg:w-[500px] bg-red-50 !text-black py-5`}
+          className={`${classnames} w-[95%] lg:w-[500px] bg-red-50 !text-black py-5`}
         >
           <h1 className="text-2xl lg:text-4xl font-semibold text-center pb-2">
             Quick Tour
           </h1>
           <div className="border-2 border-gsl-dark-red w-full"></div>
-          <span className="text-2xl py-10">{content}</span>
+          <span className="text-xl lg:text-2xl py-10">{content}</span>
           {tour === 0 && (
             <button
-              className="uppercase py-3 px-3 text-lg bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
+              className="uppercase py-3 px-3 lg:text-lg bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
               onClick={() => setTour((prev) => prev + 1)}
             >
               {!text ? "Next" : text}
             </button>
           )}
           {tour === 9 && (
-            <div className="font-semibold text-black text-base flex justify-between items-center w-full">
+            <div className="font-semibold text-black text-base flex justify-between items-center w-full gap-4">
               <button
-                className="uppercase py-3 px-2 bg-gray-400 w-40 text-white text-lg rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
+                className="uppercase py-3 px-2 bg-gray-400 w-40 text-white lg:text-lg rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
                 onClick={() => setTour(0)}
               >
                 Restart Tour
               </button>
               <button
-                className="uppercase py-3 px-2 text-lg bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
+                className="uppercase py-3 px-2 w-40 lg:text-lg bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
                 onClick={handleClose}
               >
                 {loading ? (
