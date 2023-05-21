@@ -266,7 +266,7 @@ const Result = () => {
         </div>
       )}
       <div className="h-full w-full overflow-auto flex flex-col justify-center items-center gap-4 lg:py-0 py-2 lg:p-5">
-        <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5">
+        <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5 mb-10 lg:mb-20">
           <div className="flex flex-col gap-2">
             <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-3xl lg:text-5xl text-center pb-3 border-b-[0.2rem] border-b-red-400">
               Student Processing Inventory (SPI) Result
@@ -280,7 +280,7 @@ const Result = () => {
               </p>
             ) : null}
           </div>
-          <span className="lg:my-2 text-gray-500 text-lg lg:text-2xl mx-auto break-words pt-3 lg:pt-6 text-left">
+          <span className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words pt-3 lg:pt-6 text-left">
             Dear <span className="font-semibold">{name}</span>, Congratulations!
             You have successfully completed the assessment. <br />
             Based on your test , your dominant style (s) & detailed results are
@@ -360,7 +360,7 @@ const Result = () => {
               </tbody>
             </table>
           </div>
-          <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] shadow-2xl rounded-xl">
+          {/* <div className="my-5 lg:my-10 relative w-full h-full overflow-auto lg:w-[90%] shadow-2xl rounded-xl">
             <table className="w-full bg-white border-stone-50 border-2">
               <thead className="text-base lg:text-xl">
                 <tr className="border-2 bg-gsl-light-red text-white">
@@ -411,7 +411,7 @@ const Result = () => {
                 })}
               </tbody>
             </table>
-          </div>
+          </div> */}
           <div className="flex flex-col items-center gap-3 w-[90%]">
             <button
               className="uppercase bg-gradient-to-r from-gsl-light-red to-gsl-dark-red py-3 px-4 text-white rounded-md hover:shadow-2xl hover:scale-105 duration-300 ease-in-out"
@@ -440,7 +440,7 @@ const Result = () => {
             </div>
           </div> */}
         </div>
-        <div className="my-2 mb-10 lg:mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl border-t-4 border-t-gsl-dark-red">
+        {/* <div className="my-2 mb-10 lg:mb-28 flex flex-col mx-auto justify-center items-center lg:w-[80%] gap-3 p-2 lg:p-5 shadow-xl w-[90%] bg-white rounded-xl border-t-4 border-t-gsl-dark-red">
           <h2 className="text-xl font-bold">
             Brief definitions of the 12 Student Processing Styles
           </h2>
@@ -448,7 +448,7 @@ const Result = () => {
             className="text-gray-600 p-2 w-[90%] leading-8"
             dangerouslySetInnerHTML={{ __html: info }}
           />
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

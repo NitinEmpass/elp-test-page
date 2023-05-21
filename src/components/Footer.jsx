@@ -1,6 +1,7 @@
 import React from "react";
 import GSL from "../assets/images/GSL.avif";
 import Empass from "../assets/images/empass_logo.svg";
+import LSC from "../assets/images/lsc.png";
 
 const Footer = () => {
   const date = new Date();
@@ -23,6 +24,9 @@ const Footer = () => {
               width={100}
               className="bg-black/80 p-3 lg:p-3 rounded-md"
             />
+          </a>
+          <a href="https://www.empasslearning.com/">
+            <img src={LSC} alt="LSC" width={80} className="rounded-md" />
           </a>
         </div>
       </div>
