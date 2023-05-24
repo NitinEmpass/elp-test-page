@@ -6,19 +6,19 @@ const Navbar = () => {
   const location = useLocation();
   // console.log(location.pathname);
   return (
-    <div className="w-full flex justify-between items-center border-b-2 border-b-red-400 bg-gray-100">
+    <div className="w-full flex justify-between items-center border-b-2 border-b-red-400 bg-gray-100 py-1">
       <Link to="/">
         <img
           src={logo}
           alt="SPI"
           height="auto"
-          className="mix-blend-darken aspect-auto lg:w-20 w-12"
+          className="lg:p-2 aspect-auto lg:w-20 w-12"
         />
       </Link>
       {location.pathname === "/" || location.pathname === "/result" ? (
         <a
           href="mailto:support@mymemorymentor.com"
-          className="p-1 lg:p-2 lg:px-4 text-base lg:text-xl border rounded-lg mr-4 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
+          className="p-1 lg:p-1 lg:px-3 text-base lg:text-xl border rounded-lg mr-4 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
         >
           <Tooltip
             title="For any help or request for test code , click here to mail us at support@mymemorymentor.com"

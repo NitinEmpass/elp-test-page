@@ -13,7 +13,7 @@ const Footer = () => {
             <img
               src={GSL}
               alt="Good Sensory Learning"
-              width={150}
+              width={110}
               className="aspect-auto mix-blend-darken"
             />
           </a>
@@ -21,13 +21,18 @@ const Footer = () => {
             <img
               src={Empass}
               alt="Empass Learning"
-              width={100}
-              className="bg-black/80 p-3 lg:p-3 rounded-md"
+              width={70}
+              className="bg-black/80 px-2 py-2.5 rounded-md"
             />
           </a>
-          <a href="https://www.empasslearning.com/">
-            <img src={LSC} alt="LSC" width={80} className="rounded-md" />
-          </a>
+          {/* <a href="#"> */}
+          <img
+            src={LSC}
+            alt="LSC"
+            width={50}
+            className="rounded-md cursor-pointer"
+          />
+          {/* </a> */}
         </div>
       </div>
       <div className="flex justify-center items-center w-full text-gray-500">

@@ -10,7 +10,7 @@ const Login = () => {
           Student Processing Inventory (SPI)
         </h1>
         <span className="font-semibold text-base lg:text-2xl text-center">
-          Building Compassion & Accommodating Neurodiversity
+          Embrace and Accommodate Neurodiversity
         </span>
       </div>
       <div className="flex flex-col lg:flex-row justify-center items-center mb-5 mx-auto gap-10 lg:gap-16">

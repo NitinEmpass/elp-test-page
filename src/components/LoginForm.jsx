@@ -18,11 +18,16 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { setPlayer_Id, setName } = useContext(UserContext);
+  const { setPlayer_Id, setName, setEmail, setAge, setGender, setGrade } =
+    useContext(UserContext);
 
   const handleSubmit = async (e) => {
     setLoading(true);
     setName(formData.firstName + " " + formData.lastName);
+    setEmail(formData.email);
+    setAge(formData.age);
+    setGender(formData.gender);
+    setGrade(formData.grade);
     e.preventDefault();
     e.target.classList.add("submitted");
     if (formData.grade === "") {

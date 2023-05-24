@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Radar } from "react-chartjs-2";
-import Chart from "chart.js/auto";
+// import { Radar } from "react-chartjs-2";
+// import Chart from "chart.js/auto";
 import axios from "axios";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import Modal from "../components/Modal";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +12,8 @@ import Confetti from "react-confetti";
 import logo from "../assets/images/SPI logo.jpg";
 
 const Result = () => {
-  const { player_id, name } = useContext(UserContext);
+  const { player_id, name, email, age, gender, grade } =
+    useContext(UserContext);
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -110,6 +109,7 @@ const Result = () => {
       setShowConfetti(false);
     }, 9000); // Set the duration (in milliseconds) for the confetti effect
     return () => clearTimeout(timer); */
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading || result === null)
@@ -226,7 +226,7 @@ const Result = () => {
   }; */
 
   // const details = DOMPurify.sanitize(result.detail_info);
-  const info = DOMPurify.sanitize(result.glossary);
+  // const info = DOMPurify.sanitize(result.glossary);
 
   return (
     <div className="relative">
@@ -256,7 +256,7 @@ const Result = () => {
             </span>
             <div className="w-full flex justify-center items-center">
               <button
-                className="uppercase tracking-wide p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold animate-lazily"
+                className="uppercase tracking-wide py-3 px-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red w-40 text-white rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold animate-lazily"
                 onClick={() => setShowConfetti(false)}
               >
                 View Result
@@ -267,20 +267,51 @@ const Result = () => {
       )}
       <div className="h-full w-full overflow-auto flex flex-col justify-center items-center gap-4 lg:py-0 py-2 lg:p-5">
         <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5 mb-10 lg:mb-20">
-          <div className="flex flex-col gap-2">
+          <div className="grid lg:grid-cols-2 gap-4 border-2 border-gsl-dark-red p-4 w-full lg:w-[80%] shadow-xl rounded-lg justify-center items-center text-lg">
+            <div className="row-span-6 flex gap-5 lg:gap-14 items-center">
+              <div className="col-span-3 flex flex-col gap-4">
+                <span className="font-bold">Name</span>
+                <span className="font-bold">Age</span>
+                <span className="font-bold">Gender</span>
+              </div>
+              <div className="col-span-3 flex flex-col gap-4">
+                <span>{name}</span>
+                <span>{age}</span>
+                <span>{gender}</span>
+              </div>
+            </div>
+            <div className="row-span-6 flex gap-5 lg:gap-14 items-center">
+              <div className="col-span-3 flex flex-col gap-4">
+                <span className="font-bold">Email</span>
+                <span className="font-bold">Grade</span>
+                <span className="font-bold">Section</span>
+              </div>
+              <div className="col-span-3 flex flex-col gap-4">
+                <span>{email}</span>
+                <span>{grade}</span>
+                <span>NA</span>
+              </div>
+            </div>
+          </div>
+          {/* <div className="flex flex-col gap-2">
             <h1 className="bg-gradient-to-r from-gsl-light-red to-gsl-dark-red inline-block text-transparent bg-clip-text text-3xl lg:text-5xl text-center pb-3 border-b-[0.2rem] border-b-red-400">
               Student Processing Inventory (SPI) Result
             </h1>
             <span className="font-semibold text-base lg:text-2xl text-center">
-              Building Compassion & Accommodating Neurodiversity
+              Embrace and Accommodate Neurodiversity
             </span>
             {error ? (
               <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">
                 {error}
               </p>
             ) : null}
-          </div>
-          <span className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words pt-3 lg:pt-6 text-left">
+          </div> */}
+          {error ? (
+            <p className="bg-gsl-dark-red p-3 my-2 rounded-md text-white">
+              {error}
+            </p>
+          ) : null}
+          <span className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words text-left">
             Dear <span className="font-semibold">{name}</span>, Congratulations!
             You have successfully completed the assessment. <br />
             Based on your test , your dominant style (s) & detailed results are
@@ -296,7 +327,7 @@ const Result = () => {
               </div>
             </div> */}
             <div className="max-w-xl max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
-              <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-xl lg:text-4xl flex items-center justify-center">
+              <div className="w-full flex-1 bg-[#9ba157] text-center p-2 text-white text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style(s)</span>
               </div>
               <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-xl lg:text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
@@ -313,9 +344,9 @@ const Result = () => {
           </div> */}
 
           <div className="my-5 lg:my-10 relative w-full mx-auto h-full overflow-auto lg:w-[70%] shadow-2xl rounded-xl">
-            <table className="w-full bg-white border-stone-50 border-2">
-              <thead className="text-base lg:text-xl">
-                <tr className="border-2 bg-gsl-light-red text-white">
+            <table className="w-full bg-white border-stone-50 border-2 overflow-hidden">
+              <thead className="text-base lg:text-xl overflow-hidden">
+                <tr className="border-2 bg-gsl-light-red text-white overflow-hidden">
                   <th className="lg:w-10"></th>
                   <th className="lg:w-20"></th>
                   <th className="p-1 lg:py-2 border-2 border-l-0 font-semibold text-left lg:px-6">

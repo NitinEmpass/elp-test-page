@@ -1,11 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { UserContext } from "../context/UserContext";
@@ -17,6 +10,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import SoundButton from "./SoundButton";
 import CustomTour from "./CustomTour";
+import { NumberList } from "./NumberList";
 // import { isMobile } from "react-device-detect";
 
 const Questions = () => {
@@ -31,6 +25,7 @@ const Questions = () => {
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
   // console.log("this is questions array", questions);
+  // console.log("this is checked array", checked);
 
   const [openModal, setOpenModal] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
@@ -157,108 +152,17 @@ const Questions = () => {
     scrollToTop();
   };
 
-  function NumberList() {
-    const containerRef = useRef(null);
-    const checkedStr = checked.join(",");
-    useEffect(() => {
-      // Scroll to the current question number when the component mounts
-      const container = containerRef.current;
-      const questionElems = container.querySelectorAll(".question-number");
-      const currentQuestionElem = questionElems[current];
-      const containerWidth = container.offsetWidth;
-      const currentQuestionLeft = currentQuestionElem.offsetLeft;
-      const currentQuestionWidth = currentQuestionElem.offsetWidth;
-      const scrollPosition =
-        currentQuestionLeft + currentQuestionWidth / 2 - containerWidth / 2;
-      container.scrollLeft = scrollPosition;
-    }, [current]);
-
-    const numbers = useMemo(() => {
-      return Array.from({ length: questions.length }, (_, i) => {
-        const number = i + 1;
-        const isCurrent = number === current + 1;
-        const isChecked = checked.includes(number);
-        const isCheckedBox = checkboxArray.includes(number);
-        const className = `question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r ${
-          isChecked
-            ? isCheckedBox
-              ? "bg-[#737373] text-white"
-              : "bg-[#9fe59f] text-black"
-            : "bg-white text-black"
-        } ${
-          isCurrent
-            ? "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-white"
-            : ""
-        }`;
-        return (
-          <div
-            className={className}
-            key={number}
-            onClick={() => setCurrent(number - 1)}
-          >
-            {number <= 9 ? `0${number}` : number}
-          </div>
-        );
-      });
-    }, [questions, current, checkedStr, checkboxArray]);
-
-    return (
-      <div
-        className="flex items-center w-full overflow-x-auto pb-5"
-        ref={containerRef}
-      >
-        <div className="flex justify-center items-center gap-4">{numbers}</div>
-        <div
-          className={`flex justify-center items-center gap-4 ${
-            tour > 5 && tour < 9 ? "absolute" : "hidden"
-          }`}
-        >
-          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-[#737373] text-white">
-            01
-          </div>
-          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-[#9fe59f] text-black">
-            02
-          </div>
-          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-white text-black">
-            03
-          </div>
-          <div className="question-number px-4 py-3 border rounded-full cursor-pointer hover:bg-gradient-to-r bg-white text-black">
-            04
-          </div>
-        </div>
-        <CustomTour
-          content="Question you chose 'I have never done this'"
-          isTour={tour === 6 ? true : false}
-          setTour={setTour}
-          className="bottom-24 left-12 rounded-bl-none"
-        />
-        <CustomTour
-          content="Question attempted"
-          isTour={tour === 7 ? true : false}
-          setTour={setTour}
-          className="bottom-24 left-24 rounded-bl-none"
-        />
-        <CustomTour
-          content="Question unattempted"
-          isTour={tour === 8 ? true : false}
-          setTour={setTour}
-          className="bottom-24 left-40 rounded-bl-none"
-        />
-      </div>
-    );
-  }
-
   const handleClick = (que_id, option, score) => {
     setOption(option);
-    if (checkboxArray.includes(current + 1)) {
-      setCheckboxArray((prev) => prev.filter((item) => item !== current + 1));
-      handleAnswerSelect(que_id, option, score);
-    } else {
-      handleAnswerSelect(que_id, option, score);
-    }
+    // if (checkboxArray.includes(current + 1)) {
+    //   setCheckboxArray((prev) => prev.filter((item) => item !== current + 1));
+    //   handleAnswerSelect(que_id, option, score);
+    // } else {
+    handleAnswerSelect(que_id, option, score);
+    // }
   };
 
-  if (tour === 10) {
+  if (tour === 9) {
     setTour(11);
     setRes([]);
     setChecked([]);
@@ -270,13 +174,13 @@ const Questions = () => {
   return (
     <div className="min-h-screen w-full relative overflow-auto bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
-      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-5 lg:mb-20 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
+      <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-8 lg:my-5 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <CustomTour
-            content="You're all set! Click 'Start Now' to take the assessment now OR 'Tour again' to see navigation tour again."
-            isTour={tour === 9 ? true : false}
+            content="You're all set! Click 'Start Now' to take the assessment OR 'Tour again' to replay navigation."
+            isTour={tour === 7 ? true : false}
             setTour={setTour}
-            tour={9}
+            tour={7}
             text="Start now"
             yMobile="bottom-24"
             xMobile="left-12"
@@ -302,12 +206,12 @@ const Questions = () => {
                   </span>{" "}
                   of {questions.length}
                 </span>
-                <CustomTour
-                  content={"Current question out of Total questions"}
+                {/* <CustomTour
+                  content={"Current item out of Total items"}
                   isTour={tour === 1 ? true : false}
                   setTour={setTour}
                   className="top-12 left-24 rounded-tl-none lg:top-15 lg:left-26"
-                />
+                /> */}
                 <div className="relative flex lg:hidden gap-4">
                   <div className="inline-block lg:hidden">
                     <Tooltip title="Listen to audio">
@@ -315,7 +219,7 @@ const Questions = () => {
                     </Tooltip>
                     <CustomTour
                       content={"Click to listen to this text"}
-                      isTour={tour === 2 ? true : false}
+                      isTour={tour === 1 ? true : false}
                       setTour={setTour}
                       className="top-10 right-16 rounded-tr-none"
                     />
@@ -331,9 +235,9 @@ const Questions = () => {
                     </Tooltip>
                     <CustomTour
                       content={
-                        "Click to listen to a detailed explanation of the question"
+                        "Click to listen to a detailed explanation of the item"
                       }
-                      isTour={tour === 3 ? true : false}
+                      isTour={tour === 2 ? true : false}
                       setTour={setTour}
                       className="right-4 top-10 rounded-tr-none"
                     />
@@ -357,7 +261,7 @@ const Questions = () => {
                   </Tooltip>
                   <CustomTour
                     content={"Click to listen to this text"}
-                    isTour={tour === 2 ? true : false}
+                    isTour={tour === 1 ? true : false}
                     setTour={setTour}
                     className="lg:top-6 lg:right-24 rounded-tr-none"
                   />
@@ -372,9 +276,9 @@ const Questions = () => {
                   <div className="hidden lg:inline-block relative">
                     <CustomTour
                       content={
-                        "Click to listen to a detailed explanation of the question"
+                        "Click to listen to a detailed explanation of the item"
                       }
-                      isTour={tour === 3 ? true : false}
+                      isTour={tour === 2 ? true : false}
                       setTour={setTour}
                       className="lg:top-12 lg:right-4 rounded-tr-none"
                     />
@@ -495,7 +399,7 @@ const Questions = () => {
             <Tooltip title="Previous">
               <button
                 onClick={handlePrev}
-                className="flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+                className="flex justify-center items-center p-2 px-6 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -503,7 +407,7 @@ const Questions = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-white"
+                  className="w-7 h-7 text-white"
                 >
                   <path
                     strokeLinecap="round"
@@ -514,10 +418,10 @@ const Questions = () => {
               </button>
             </Tooltip>
             <CustomTour
-              content="To go back to the previous question"
-              isTour={tour === 4 ? true : false}
+              content="To go back to the previous item"
+              isTour={tour === 3 ? true : false}
               setTour={setTour}
-              className="rounded-tl-none lg:bottom-10 lg:rounded-bl-none lg:rounded-tl-3xl"
+              className="rounded-tl-none lg:bottom-12 lg:rounded-bl-none lg:rounded-tl-3xl"
             />
           </div>
           {current === questions.length - 1 ? (
@@ -535,7 +439,7 @@ const Questions = () => {
                   onClick={handleNext}
                   className={`${
                     animate && "animate-bounce"
-                  } flex justify-center items-center p-2 px-4 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white`}
+                  } flex justify-center items-center p-2 px-6 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -543,7 +447,7 @@ const Questions = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-white"
+                    className="w-7 h-7 text-white"
                   >
                     <path
                       strokeLinecap="round"
@@ -554,15 +458,24 @@ const Questions = () => {
                 </button>
               </Tooltip>
               <CustomTour
-                content="To move to the next question"
-                isTour={tour === 5 ? true : false}
+                content="To move to the next item"
+                isTour={tour === 4 ? true : false}
                 setTour={setTour}
-                className="right-4 rounded-tr-none lg:bottom-10 lg:rounded-br-none lg:rounded-tr-3xl"
+                className="right-4 rounded-tr-none lg:bottom-12 lg:rounded-br-none lg:rounded-tr-3xl"
               />
             </div>
           )}
         </div>
-        <NumberList />
+        <NumberList
+          current={current}
+          setCurrent={setCurrent}
+          questions={questions}
+          checked={checked}
+          checkboxArray={checkboxArray}
+          setCheckboxArray={setCheckboxArray}
+          tour={tour}
+          setTour={setTour}
+        />
       </div>
       <Footer />
       <Modal
@@ -570,7 +483,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`Great. You have attempted all questions. Click yes to end the assessment`}
+        heading={`Great. You have attempted all questions. Would you like to end the assessment?`}
         firstText={"No"}
         secondText={"Yes"}
       />

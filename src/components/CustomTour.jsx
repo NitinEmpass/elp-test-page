@@ -3,9 +3,9 @@ import React, { useState } from "react";
 const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
   const classnames = `${
     isTour ? "absolute" : "hidden"
-  } bg-[#ffff99] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
-  console.log(classnames);
-  console.log(tour);
+  } bg-[#ffff99] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-2xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
+  // console.log(classnames);
+  // console.log(tour);
   const [loading, setLoading] = useState(false);
   const handleClose = () => {
     setLoading(true);
@@ -14,7 +14,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
       setLoading(false);
     }, 4000);
   };
-  if (tour === 0 || tour === 9) {
+  if (tour === 0 || tour === 7) {
     return (
       <>
         {isTour && (
@@ -39,7 +39,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
               {!text ? "Next" : text}
             </button>
           )}
-          {tour === 9 && (
+          {tour === 7 && (
             <div className="font-semibold text-black text-base flex justify-between items-center w-full gap-4">
               <button
                 className="uppercase py-3 px-2 bg-gray-400 w-40 text-white lg:text-lg rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
