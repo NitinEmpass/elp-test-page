@@ -483,7 +483,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`Great. You have attempted all questions. Would you like to end the assessment?`}
+        heading={`Great. You have attempted all items. Would you like to end the assessment?`}
         firstText={"No"}
         secondText={"Yes"}
       />
@@ -494,7 +494,7 @@ const Questions = () => {
         player_id={player_id}
         heading={`You have not selected answers for ${
           questions.length - res.length
-        } questions, Please review them now.`}
+        } items, Please review them now.`}
         firstText={"Ok"}
       />
     </div>
