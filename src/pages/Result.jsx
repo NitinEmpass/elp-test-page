@@ -494,7 +494,7 @@ const Result = () => {
           "Thank you for taking this assessment! We will send you the report soon."
         }
         firstText={"Ok"}
-        className="top-5"
+        className="!top-5"
       />
     </div>
   );
