@@ -22,11 +22,12 @@ const Questions = () => {
   const [checked, setChecked] = useState([]);
   const [option, setOption] = useState("");
   const [animate, setAnimate] = useState(false);
+  const [unattempted, setUnattempted] = useState([]);
+  const [unattemptedFlag, setUnattemptedFlag] = useState(false);
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
-  // console.log("this is questions array", questions);
+  console.log("this is questions array", questions);
   // console.log("this is checked array", checked);
-
   const [openModal, setOpenModal] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
   const [openDesc, setOpenDesc] = useState(false);
@@ -96,7 +97,7 @@ const Questions = () => {
     disableBackButton();
     importSoundTitle();
     importSoundDetail();
-  }, [current]);
+  }, [current, questions]);
 
   function scrollToTop() {
     document.documentElement.scrollTop = 0;
@@ -122,22 +123,39 @@ const Questions = () => {
     console.log("this is ans", ans);
     setRes(ans);
     setAnimate(true);
+    setOption(selectedAnswer);
     if (ans.length === questions.length) {
       setTimeout(() => {
         handleSubmit();
-      }, 1000); // Delay the execution of handleSubmit() by 4 seconds
+      }, 1000); // Delay the execution of handleSubmit() by 1 seconds
     }
   }
   console.log("this is res", res);
 
   const handlePrev = () => {
-    if (current === 0) return;
-    setCurrent(current - 1);
+    if (!unattemptedFlag) {
+      if (current === 0) return;
+      setCurrent(current - 1);
+    } else {
+      if (current === unattempted[0]) {
+        setUnattemptedFlag(false);
+        if (current === 0) return;
+        setCurrent(current - 1);
+      } else setCurrent(unattempted[unattempted.indexOf(current) - 1]);
+    }
   };
   const handleNext = () => {
     setAnimate(false);
-    if (current === questions.length - 1) setCurrent(0);
-    else setCurrent(current + 1);
+    if (!unattemptedFlag) {
+      if (current === questions.length - 1) setCurrent(0);
+      else setCurrent(current + 1);
+    } else {
+      if (current === unattempted[unattempted.length - 1]) {
+        setUnattemptedFlag(false);
+        if (current === questions.length - 1) setCurrent(0);
+        else setCurrent(current + 1);
+      } else setCurrent(unattempted[unattempted.indexOf(current) + 1]);
+    }
   };
   if (!player_id || !questions) {
     return null;
@@ -146,20 +164,20 @@ const Questions = () => {
     if (res.length !== questions.length) {
       setCheckModal(true);
       scrollToTop();
-      return;
+      const unattemptedQuestionIndices = questions
+        .filter(
+          (question) => !res.some((response) => response.que_id === question.id)
+        ) // Filter out the questions that don't have a corresponding response in the res array
+        .map((question) => question.index); // Extract the indices of the unattempted questions
+      console.log(unattemptedQuestionIndices);
+      console.log("this is unattempeted array", unattemptedQuestionIndices);
+      setUnattempted(unattemptedQuestionIndices);
+      setCurrent(unattemptedQuestionIndices[0]);
+      setUnattemptedFlag(true);
+    } else {
+      setOpenModal(true);
+      scrollToTop();
     }
-    setOpenModal(true);
-    scrollToTop();
-  };
-
-  const handleClick = (que_id, option, score) => {
-    setOption(option);
-    // if (checkboxArray.includes(current + 1)) {
-    //   setCheckboxArray((prev) => prev.filter((item) => item !== current + 1));
-    //   handleAnswerSelect(que_id, option, score);
-    // } else {
-    handleAnswerSelect(que_id, option, score);
-    // }
   };
 
   if (tour === 9) {
@@ -170,7 +188,7 @@ const Questions = () => {
     setCurrent(0);
   }
 
-  console.log(tour);
+  // console.log(tour);
   return (
     <div className="min-h-screen w-full relative overflow-auto bg-[url(./assets/images/bg-logo_adobe_express.svg)] bg-cover bg-no-repeat">
       <Navbar />
@@ -308,89 +326,32 @@ const Questions = () => {
             </div>
 
             <div className="flex flex-col justify-center items-center gap-5 lg:gap-3 text-lg lg:text-2xl w-[90%] mx-auto">
-              <li
-                onClick={() => {
-                  handleClick(
-                    questions[current].id,
-                    questions[current].choice_1,
-                    questions[current].score_choice_1
-                  );
-                }}
-                className={`flex justify-center items-center gap-4 border border-gray-500 p-1 lg:p-2 rounded-full w-full cursor-pointer ${
-                  res.find(
-                    (item) =>
-                      item.que_id === questions[current].id &&
-                      item.answer === questions[current].choice_1
-                  ) &&
-                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
-                }`}
-              >
-                {questions[current].choice_1}
-              </li>
-              <li
-                onClick={() => {
-                  handleClick(
-                    questions[current].id,
-                    questions[current].choice_2,
-                    questions[current].score_choice_2
-                  );
-                }}
-                className={`flex justify-center items-center gap-4 border border-gray-500 p-1 lg:p-2 rounded-full w-full cursor-pointer ${
-                  res.find(
-                    (item) =>
-                      item.que_id === questions[current].id &&
-                      item.answer === questions[current].choice_2
-                  ) &&
-                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
-                }`}
-              >
-                {questions[current].choice_2}
-              </li>
-              <li
-                onClick={() => {
-                  handleClick(
-                    questions[current].id,
-                    questions[current].choice_3,
-                    questions[current].score_choice_3
-                  );
-                }}
-                className={`flex justify-center items-center gap-4 border border-gray-500 p-1 lg:p-2 rounded-full w-full cursor-pointer ${
-                  res.find(
-                    (item) =>
-                      item.que_id === questions[current].id &&
-                      item.answer === questions[current].choice_3
-                  ) &&
-                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
-                }`}
-              >
-                {questions[current].choice_3}
-              </li>
-              <li
-                onClick={() => {
-                  if (!checkboxArray.includes(current + 1)) {
-                    setCheckboxArray([...checkboxArray, current + 1]);
-                  } else {
-                    setCheckboxArray((prev) =>
-                      prev.filter((item) => item !== current + 1)
-                    );
-                  }
-                  handleAnswerSelect(
-                    questions[current].id,
-                    questions[current].choice_4,
-                    questions[current].score_choice_4
-                  );
-                }}
-                className={`flex justify-center items-center gap-4 border border-gray-500 p-1 lg:p-2 rounded-full w-full cursor-pointer ${
-                  res.find(
-                    (item) =>
-                      item.que_id === questions[current].id &&
-                      item.answer === questions[current].choice_4
-                  ) &&
-                  "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
-                }`}
-              >
-                {questions[current].choice_4}
-              </li>
+              {questions[current].choices.map((choice, index) => {
+                return (
+                  <li
+                    key={index}
+                    value={option}
+                    onClick={() => {
+                      handleAnswerSelect(
+                        questions[current].id,
+                        questions[current][`choice_${index + 1}`],
+                        questions[current][`score_choice_${index + 1}`]
+                      );
+                    }}
+                    className={`flex justify-center items-center gap-4 border border-gray-500 p-1 lg:p-2 rounded-full w-full cursor-pointer ${
+                      res.find(
+                        (item) =>
+                          item.que_id === questions[current].id &&
+                          item.answer ===
+                            questions[current][`choice_${index + 1}`]
+                      ) &&
+                      "ring-2 ring-[#9fe59f] bg-[#9fe59f] text-black border-transparent"
+                    }`}
+                  >
+                    {choice}
+                  </li>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -467,6 +428,8 @@ const Questions = () => {
           )}
         </div>
         <NumberList
+          disabled={unattemptedFlag}
+          setDisabled={setUnattemptedFlag}
           current={current}
           setCurrent={setCurrent}
           questions={questions}

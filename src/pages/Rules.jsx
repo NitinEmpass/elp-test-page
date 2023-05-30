@@ -41,15 +41,9 @@ const Rules = () => {
       navigate("/");
     }
   }, [navigate, player_id]);
-  // const location = useLocation();
-  // console.log(location);
-
-  // const player_id = location.state.player_id;
-  // console.log(player_id);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const [questions, setQuestions] = useState([]);
   const [intro, setIntro] = useState("");
 
   function scrollToTop() {
@@ -61,9 +55,6 @@ const Rules = () => {
     scrollToTop();
     const func = async () => {
       setLoading(true);
-
-      // setQuestions(questions);
-      // setLoading(false);
       const data = {
         quiz_id: "9",
         crt_id: "9",
@@ -83,9 +74,14 @@ const Rules = () => {
         )
         .then((res) => {
           setLoading(false);
-          // console.log(res.data); // data is here
-          // console.log(res.data.data.crt_que);
-          setQuestions(res.data.data.crt_que);
+          console.log(res.data); // data is here
+          console.log(res.data.data.crt_que);
+          let rawQuestions = res.data.data.crt_que;
+          rawQuestions.map((question, index) => {
+            return (question.index = index);
+          });
+          // console.log(rawQuestions);
+          setQuestions(rawQuestions);
           setIntro(res.data.data.crt_prop.intro_msg);
         })
         .catch((err) => {

@@ -288,7 +288,7 @@ const Result = () => {
               </div>
               <div className="col-span-3 flex flex-col gap-4">
                 <a
-                  href={`mailto:{email}`}
+                  href={`mailto:${email}`}
                   target="_blank"
                   className="font-bold"
                   title={email}
@@ -466,14 +466,6 @@ const Result = () => {
             >
               Request Detailed Report
             </button>
-            <Modal
-              open={openModal}
-              onClose={() => setOpenModal(false)}
-              heading={
-                "Thank you for taking this assessment! We will send you the report soon."
-              }
-              firstText={"Ok"}
-            />
           </div>
           {/* <div className="my-2 flex flex-col w-full lg:w-[85%] gap-3">
             <h1 className="text-lg text-gray-700 font-medium ">
@@ -495,6 +487,15 @@ const Result = () => {
         </div> */}
       </div>
       <Footer />
+      <Modal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        heading={
+          "Thank you for taking this assessment! We will send you the report soon."
+        }
+        firstText={"Ok"}
+        className="top-5"
+      />
     </div>
   );
 };
