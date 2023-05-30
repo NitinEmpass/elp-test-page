@@ -93,13 +93,15 @@ export function NumberList({
         content="Item attempted"
         isTour={tour === 5 ? true : false}
         setTour={setTour}
-        className="bottom-24 left-24 rounded-bl-none"
+        className="bottom-28 left-10"
+        id="speech-bubble-bottom-left"
       />
       <CustomTour
         content="Item unattempted"
         isTour={tour === 6 ? true : false}
         setTour={setTour}
-        className="bottom-24 left-40 rounded-bl-none"
+        className="bottom-28 left-28"
+        id="speech-bubble-bottom-left"
       />
     </div>
   );

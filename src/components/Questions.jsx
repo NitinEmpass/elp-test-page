@@ -200,8 +200,6 @@ const Questions = () => {
             setTour={setTour}
             tour={7}
             text="Start now"
-            yMobile="bottom-24"
-            xMobile="left-12"
           />
           <CustomTour
             content="Please take a minute to get familiar with the assessment navigation and help options."
@@ -209,8 +207,6 @@ const Questions = () => {
             setTour={setTour}
             tour={0}
             text="Start Tour"
-            yMobile="bottom-24"
-            xMobile="left-12"
           />
           <div
             key={questions[current].id}
@@ -239,7 +235,8 @@ const Questions = () => {
                       content={"Click to listen to this text"}
                       isTour={tour === 1 ? true : false}
                       setTour={setTour}
-                      className="top-10 right-16 rounded-tr-none"
+                      className="-top-3 right-24"
+                      id="speech-bubble-right-top"
                     />
                   </div>
                   <div>
@@ -257,7 +254,8 @@ const Questions = () => {
                       }
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
-                      className="right-4 top-10 rounded-tr-none"
+                      className="-right-9 top-16"
+                      id="speech-bubble-top-right"
                     />
                   </div>
                 </div>
@@ -281,7 +279,8 @@ const Questions = () => {
                     content={"Click to listen to this text"}
                     isTour={tour === 1 ? true : false}
                     setTour={setTour}
-                    className="lg:top-6 lg:right-24 rounded-tr-none"
+                    className="lg:-top-2 lg:right-28"
+                    id="speech-bubble-right-top"
                   />
                   <Tooltip title="Click to understand the statement better">
                     <button
@@ -298,7 +297,8 @@ const Questions = () => {
                       }
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
-                      className="lg:top-12 lg:right-4 rounded-tr-none"
+                      className="lg:top-16 lg:-right-5"
+                      id="speech-bubble-top-right"
                     />
                   </div>
                 </div>
@@ -382,7 +382,8 @@ const Questions = () => {
               content="To go back to the previous item"
               isTour={tour === 3 ? true : false}
               setTour={setTour}
-              className="rounded-tl-none lg:bottom-12 lg:rounded-bl-none lg:rounded-tl-3xl"
+              className="bottom-16"
+              id="speech-bubble-bottom-left"
             />
           </div>
           {current === questions.length - 1 ? (
@@ -422,7 +423,8 @@ const Questions = () => {
                 content="To move to the next item"
                 isTour={tour === 4 ? true : false}
                 setTour={setTour}
-                className="right-4 rounded-tr-none lg:bottom-12 lg:rounded-br-none lg:rounded-tr-3xl"
+                className="right-0 bottom-16"
+                id="speech-bubble-bottom-right"
               />
             </div>
           )}

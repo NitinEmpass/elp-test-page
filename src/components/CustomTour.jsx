@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 
-const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
+const CustomTour = ({
+  content,
+  isTour,
+  setTour,
+  text,
+  className,
+  tour,
+  id,
+}) => {
   const classnames = `${
     isTour ? "absolute" : "hidden"
   } bg-[#ffff99] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-2xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
   // console.log(classnames);
   // console.log(tour);
   const [loading, setLoading] = useState(false);
+
   const handleClose = () => {
     setLoading(true);
     setTimeout(() => {
@@ -14,6 +23,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
       setLoading(false);
     }, 4000);
   };
+
   if (tour === 0 || tour === 7) {
     return (
       <>
@@ -63,6 +73,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
       </>
     );
   }
+
   return (
     <>
       {isTour && (
@@ -71,7 +82,7 @@ const CustomTour = ({ content, isTour, setTour, text, className, tour }) => {
           onClick={(e) => e.stopPropagation()}
         />
       )}
-      <div className={classnames}>
+      <div className={classnames} id={id}>
         <span>{content}</span>
         <button
           className="uppercase p-2 w-36 bg-black rounded-md text-base text-center text-white mx-auto cursor-pointer font-semibold my-5"

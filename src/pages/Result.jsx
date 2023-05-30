@@ -343,7 +343,7 @@ const Result = () => {
               <div className="w-full flex-1 bg-[#87cb28] text-center p-2 text-black text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style(s)</span>
               </div>
-              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
+              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-4xl text-center p-2 text-black break-all whitespace-break-spaces">
                 <span>{result.dominant_style}</span>
               </div>
             </div>
