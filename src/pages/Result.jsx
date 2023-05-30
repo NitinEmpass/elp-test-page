@@ -109,7 +109,7 @@ const Result = () => {
       setShowConfetti(false);
     }, 9000); // Set the duration (in milliseconds) for the confetti effect
     return () => clearTimeout(timer); */
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading || result === null)
@@ -247,7 +247,7 @@ const Result = () => {
               alt="SPI"
               className="absolute left-[30%] lg:left-[42%] top-0 w-[40%] lg:w-[15%]"
             />
-            <span className="w-[90%] lg:w-[60%] mt-[10rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-black rounded-xl mx-auto py-5 my-5 animate-lazily ease-in-out duration-300">
+            <span className="w-[90%] lg:w-[60%] mt-[10rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-black rounded-xl mx-auto py-5 my-7 animate-lazily ease-in-out duration-300">
               <h1 className="text-gsl-light-red text-center text-5xl lg:text-7xl p-5 text-stroke">
                 The 12 Ways of Processing
               </h1>
@@ -267,29 +267,39 @@ const Result = () => {
       )}
       <div className="h-full w-full overflow-auto flex flex-col justify-center items-center gap-4 lg:py-0 py-2 lg:p-5">
         <div className="w-[90%] lg:w-[80%] m-5 p-5 shadow-2xl border-t-4 border-t-gsl-dark-red bg-white flex flex-col items-center justify-center rounded-md gap-5 mb-10 lg:mb-20">
-          <div className="grid lg:grid-cols-2 gap-4 border-2 border-gsl-dark-red p-4 w-full lg:w-[80%] shadow-xl rounded-lg justify-center items-center text-lg">
-            <div className="row-span-6 flex gap-5 lg:gap-14 items-center">
+          <div className="grid lg:grid-cols-2 gap-4 border-2 border-gsl-dark-red p-4 w-full lg:w-[80%] shadow-xl rounded-lg justify-center items-center text-lg lg:text-2xl">
+            <div className="row-span-6 flex gap-5 lg:gap-10 items-center">
               <div className="col-span-3 flex flex-col gap-4">
-                <span className="font-bold">Name</span>
-                <span className="font-bold">Age</span>
-                <span className="font-bold">Gender</span>
+                <span>Name</span>
+                <span>Age</span>
+                <span>Gender</span>
               </div>
               <div className="col-span-3 flex flex-col gap-4">
-                <span>{name}</span>
-                <span>{age}</span>
-                <span>{gender}</span>
+                <span className="font-bold">{name}</span>
+                <span className="font-bold">{age}</span>
+                <span className="font-bold">{gender}</span>
               </div>
             </div>
-            <div className="row-span-6 flex gap-5 lg:gap-14 items-center">
+            <div className="row-span-6 flex gap-5 lg:gap-10 items-center">
               <div className="col-span-3 flex flex-col gap-4">
-                <span className="font-bold">Email</span>
-                <span className="font-bold">Grade</span>
-                <span className="font-bold">Section</span>
+                <span>Email</span>
+                <span>Grade</span>
+                <span>Section</span>
               </div>
               <div className="col-span-3 flex flex-col gap-4">
-                <span>{email}</span>
-                <span>{grade}</span>
-                <span>NA</span>
+                <a
+                  href={`mailto:{email}`}
+                  target="_blank"
+                  className="font-bold"
+                  title={email}
+                  rel="noreferrer"
+                >
+                  {email.toString().length > 20
+                    ? email.toString().slice(0, 20) + "..."
+                    : email}
+                </a>
+                <span className="font-bold">{grade}</span>
+                <span className="font-bold">NA</span>
               </div>
             </div>
           </div>
@@ -311,12 +321,15 @@ const Result = () => {
               {error}
             </p>
           ) : null}
-          <span className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words text-left">
+          <div className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words text-left">
             Dear <span className="font-semibold">{name}</span>, Congratulations!
-            You have successfully completed the assessment. <br />
-            Based on your test , your dominant style (s) & detailed results are
-            as shown below.
-          </span>
+            You have successfully completed the assessment.
+            <br />
+            <div className="py-5">
+              Based on your test , your dominant style (s) & detailed results
+              are as shown below.
+            </div>
+          </div>
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
             {/*  <div className="max-w-48 max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
               <div className="w-full flex-1 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-center p-2 text-white text-4xl flex items-center justify-center">
@@ -326,11 +339,11 @@ const Result = () => {
                 <span>{result.total_score}</span>
               </div>
             </div> */}
-            <div className="max-w-xl max-h-60 border-4 border-red-400 rounded-md flex flex-col items-center justify-center">
-              <div className="w-full flex-1 bg-[#9ba157] text-center p-2 text-white text-xl lg:text-4xl flex items-center justify-center">
+            <div className="max-w-xl max-h-60 border-4 border-black/50 rounded-md flex flex-col items-center justify-center">
+              <div className="w-full flex-1 bg-[#87cb28] text-center p-2 text-black text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style(s)</span>
               </div>
-              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-red-400 text-xl lg:text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
+              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-4xl text-center p-2 bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-transparent bg-clip-text break-all whitespace-break-spaces">
                 <span>{result.dominant_style}</span>
               </div>
             </div>

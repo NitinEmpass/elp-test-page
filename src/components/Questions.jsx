@@ -483,7 +483,7 @@ const Questions = () => {
         onClose={() => setOpenModal(false)}
         res={res}
         player_id={player_id}
-        heading={`Great. You have attempted all items. Would you like to end the assessment?`}
+        heading="Great. You have attempted all items. Would you like to end the assessment?"
         firstText={"No"}
         secondText={"Yes"}
       />
