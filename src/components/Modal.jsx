@@ -55,10 +55,7 @@ const CheckModal = ({
   };
   if (!open) return null;
   return (
-    <div
-      onClick={onClose}
-      className="bg-black/90 absolute top-0 left-0 h-full w-full flex justify-center"
-    >
+    <div className="bg-black/90 absolute top-0 left-0 h-full w-full flex justify-center">
       <div
         className={`bg-red-50 lg:w-[40%] w-[90%] max-h-[500px] absolute p-5 top-[30%] rounded-md shadow-2xl flex flex-col justify-center items-center gap-1 ${className}`}
         onClick={(e) => {

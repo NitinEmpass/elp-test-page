@@ -247,12 +247,11 @@ const Result = () => {
               alt="SPI"
               className="absolute left-[30%] lg:left-[42%] top-0 w-[40%] lg:w-[15%]"
             />
-            <span className="w-[90%] lg:w-[60%] mt-[10rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-5xl text-center z-10 bg-transparent text-black rounded-xl mx-auto py-5 my-7 animate-lazily ease-in-out duration-300">
+            <span className="w-[90%] lg:w-[60%] mt-[10rem] flex flex-col justify-center items-center gap-5 lg:gap-10 text-2xl lg:text-4xl text-center z-10 bg-transparent text-black rounded-xl mx-auto py-5 my-7 animate-lazily ease-in-out duration-300">
               <h1 className="text-gsl-light-red text-center text-5xl lg:text-7xl p-5 text-stroke">
                 The 12 Ways of Processing
               </h1>
-              Congratulations! <br />
-              You have successfully completed the assessment.
+              Congratulations! You have successfully completed the assessment.
             </span>
             <div className="w-full flex justify-center items-center">
               <button
@@ -322,8 +321,8 @@ const Result = () => {
             </p>
           ) : null}
           <div className="lg:my-2 text-black text-lg lg:text-2xl mx-auto break-words text-left">
-            Dear <span className="font-semibold">{name}</span>, Congratulations!
-            You have successfully completed the assessment.
+            Dear <span className="font-semibold">{name}</span>,<br />
+            Congratulations! You have successfully completed the assessment.
             <br />
             <div className="py-5">
               Based on your test , your dominant style (s) & detailed results
@@ -343,8 +342,8 @@ const Result = () => {
               <div className="w-full flex-1 bg-[#87cb28] text-center p-2 text-black text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style(s)</span>
               </div>
-              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-4xl text-center p-2 text-black break-all whitespace-break-spaces">
-                <span>{result.dominant_style}</span>
+              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-3xl text-center p-2 text-black break-all whitespace-break-spaces capitalize">
+                <span>{result.dominant_style.toLowerCase()}</span>
               </div>
             </div>
           </div>
@@ -385,8 +384,8 @@ const Result = () => {
                     >
                       <td className="lg:w-10"></td>
                       <td className="lg:w-20"></td>
-                      <td className="p-1 lg:py-2 text-left lg:px-6">
-                        {item.group_name}
+                      <td className="p-1 lg:py-2 text-left lg:px-6 capitalize">
+                        {item.group_name.toLowerCase()}
                       </td>
                       <td className="p-2 lg:py-2 lg:px-6 text-2xl">
                         <span

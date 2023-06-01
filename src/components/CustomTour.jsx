@@ -11,7 +11,7 @@ const CustomTour = ({
 }) => {
   const classnames = `${
     isTour ? "absolute" : "hidden"
-  } bg-[#ffff99] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-2xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
+  } bg-[#F4C23C] text-black text-base lg:text-xl w-52 lg:min-w-[400px] h-auto rounded-2xl px-6 pt-2 flex flex-col justify-center items-center my-1 mx-5 z-[1] ${className}`;
   // console.log(classnames);
   // console.log(tour);
   const [loading, setLoading] = useState(false);
