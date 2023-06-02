@@ -362,7 +362,7 @@ const Result = () => {
                   <th className="lg:w-10"></th>
                   <th className="lg:w-20"></th>
                   <th className="p-1 lg:py-2 border-2 border-l-0 font-semibold text-left lg:px-6">
-                    Processing Styles
+                    Ways of Processing
                   </th>
                   <th className="p-1 px-3 lg:py-2 lg:px-8 border-2 font-semibold">
                     Score
