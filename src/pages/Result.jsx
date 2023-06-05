@@ -276,7 +276,7 @@ const Result = () => {
               <div className="col-span-3 flex flex-col gap-4">
                 <span className="font-bold">{name}</span>
                 <span className="font-bold">{age}</span>
-                <span className="font-bold">{gender}</span>
+                <span className="font-bold capitalize">{gender}</span>
               </div>
             </div>
             <div className="row-span-6 flex gap-5 lg:gap-10 items-center">

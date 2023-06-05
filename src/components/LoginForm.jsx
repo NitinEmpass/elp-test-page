@@ -69,6 +69,48 @@ const LoginForm = () => {
     };
     // console.log(data);
 
+    if (formData.testCode === "ELP21") {
+      console.log("ELP21");
+      await handleRegister(data, player_id);
+    } else {
+      await handleVerify(data, player_id);
+    }
+
+    setLoading(false);
+    // console.log(response);
+    // console.log(testCode, firstName, lastName, email, gender, age, grade);
+    // navigator("/rules", { state: { player_id: player_id } });
+  };
+
+  const handleVerify = async (data, player_id) => {
+    console.log("Verify Called");
+    console.log(data);
+    await axios
+      .post(
+        "/MetaData",
+        { data },
+        {
+          headers: {
+            task: process.env.REACT_APP_WEBSITE_CHECK_USER,
+            token: process.env.REACT_APP_WEBSITE_TOKEN,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.status === "201") {
+          handleRegister(data, player_id);
+        } else {
+          setError(res.data.msg);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Something went wrong. Please try again later.");
+      });
+  };
+  const handleRegister = async (data, player_id) => {
+    console.log("Register called");
     await axios
       .post(
         "/UserProfile",
@@ -81,18 +123,14 @@ const LoginForm = () => {
         }
       )
       .then((res) => {
-        // console.log(res.data);
+        console.log(res);
         setPlayer_Id(player_id);
+        navigator("/rules");
       })
       .catch((err) => {
         console.log(err);
         setError("Something went wrong. Please try again later.");
       });
-    setLoading(false);
-    // console.log(response);
-    // console.log(testCode, firstName, lastName, email, gender, age, grade);
-    // navigator("/rules", { state: { player_id: player_id } });
-    navigator("/rules");
   };
 
   const handleChange = (e) => {
