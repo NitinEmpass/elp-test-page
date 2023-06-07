@@ -325,7 +325,7 @@ const Result = () => {
             Congratulations! You have successfully completed the assessment.
             <br />
             <div className="py-5">
-              Based on your test , your dominant style (s) & detailed results
+              Based on your test, your dominant style(s) & detailed results
               are as shown below.
             </div>
           </div>
@@ -357,7 +357,7 @@ const Result = () => {
 
           <div className="my-5 lg:my-10 relative w-full mx-auto h-full overflow-auto lg:w-[70%] shadow-2xl rounded-xl">
             <table className="w-full bg-white border-stone-50 border-2 overflow-hidden">
-              <thead className="text-base lg:text-xl overflow-hidden">
+              <thead className="text-lg lg:text-2xl overflow-hidden">
                 <tr className="border-2 bg-gsl-light-red text-white overflow-hidden">
                   <th className="lg:w-10"></th>
                   <th className="lg:w-20"></th>
@@ -380,7 +380,7 @@ const Result = () => {
                       key={item.group_id}
                       className={`${
                         index % 2 === 0 ? "bg-gray-100/80" : "bg-white/80"
-                      } text-center text-base lg:text-xl text-black`}
+                      } text-center text-lg lg:text-2xl text-black`}
                     >
                       <td className="lg:w-10"></td>
                       <td className="lg:w-20"></td>
@@ -493,7 +493,7 @@ const Result = () => {
           "Thank you for taking this assessment! We will send you the report soon."
         }
         firstText={"Ok"}
-        className="!top-5"
+        className="!top-60"
       />
     </div>
   );
