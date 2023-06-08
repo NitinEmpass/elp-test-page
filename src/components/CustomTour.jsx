@@ -83,7 +83,7 @@ const CustomTour = ({
         />
       )}
       <div className={classnames} id={id}>
-        <span>{content}</span>
+        <span>{content}.</span>
         <button
           className="uppercase p-2 w-36 bg-black rounded-md text-base text-center text-white mx-auto cursor-pointer font-semibold my-5"
           onClick={() => setTour((prev) => prev + 1)}
