@@ -20,7 +20,7 @@ const Login = () => {
             className="w-[90%] lg:w-[500px] h-full lg:h-80 rounded-lg aspect-video mx-auto"
           >
             <source
-              src="https://drive.google.com/uc?export=download&id=1ILhFCo94yxdDT6K0GjrKY0ughVuqo57F"
+              src="https://drive.google.com/uc?export=download&id=1IBgsXOEevtHvbLXMiX6MwPYGIabjdPnH"
               type="video/mp4"
             />
             Your browser does not support the video tag.
