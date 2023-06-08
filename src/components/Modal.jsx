@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CheckModal = ({
@@ -10,14 +10,27 @@ const CheckModal = ({
   heading,
   firstText,
   secondText,
-  className = "",
 }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   // console.log(heading, firstText, secondText);
-  // console.log(className);
+
+  useEffect(() => {
+    const body = document.querySelector("body");
+
+    if (open) {
+      body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      body.style.overflow = ""; // Enable scrolling
+    }
+
+    return () => {
+      body.style.overflow = ""; // Re-enable scrolling on component unmount
+    };
+  }, [open]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,9 +68,9 @@ const CheckModal = ({
   };
   if (!open) return null;
   return (
-    <div className="bg-white absolute top-0 left-0 h-full w-full flex justify-center">
+    <div className="bg-white absolute top-0 left-0 min-h-screen w-full flex justify-center">
       <div
-        className={`bg-red-50 lg:w-[40%] w-[90%] max-h-[500px] absolute p-5 top-[30%] rounded-md shadow-2xl flex flex-col justify-center items-center gap-1 ${className}`}
+        className="bg-red-50 lg:w-[40%] w-[90%] max-h-[500px] absolute p-5 top-[30%] rounded-md shadow-2xl flex flex-col justify-center items-center gap-1"
         onClick={(e) => {
           e.stopPropagation();
         }}
