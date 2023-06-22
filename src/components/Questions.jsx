@@ -107,6 +107,9 @@ const Questions = () => {
   const [res, setRes] = useState([]);
   function handleAnswerSelect(questionId, selectedAnswer, score) {
     console.log(questionId, selectedAnswer, score);
+    if (selectedAnswer === "I have never done this") {
+      setOpenDesc(true);
+    }
     const ans = res;
     let existingAnswer = ans.find((answer) => answer.que_id === questionId);
     if (existingAnswer) {
@@ -145,6 +148,7 @@ const Questions = () => {
     }
   };
   const handleNext = () => {
+    setOpenDesc(false);
     setAnimate(false);
     if (!unattemptedFlag) {
       if (current === questions.length - 1) setCurrent(0);
@@ -311,7 +315,7 @@ const Questions = () => {
                 }
               >
                 <button
-                  className="absolute border px-4 py-2 rounded-full top-1 right-1 bg-slate-200"
+                  className="absolute border-none px-4 py-2 rounded-full top-1 right-1 bg-slate-200 shadow-md hover:bg-slate-300 duration-300 ease-in-out focus:outline-none"
                   onClick={() => setOpenDesc(!openDesc)}
                 >
                   x
