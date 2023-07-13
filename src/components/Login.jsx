@@ -25,7 +25,7 @@ const Login = () => {
           <img
             src={techniques}
             alt="Banner"
-            className="w-[90%] lg:w-[500px] h-full lg:h-80 aspect-video mx-auto"
+            className="w-[90%] h-full lg:w-[600px] lg:h-[320px] mx-auto"
           />
         </div>
         <div className="border-red-400 border-2 h-40 hidden lg:block"></div>
