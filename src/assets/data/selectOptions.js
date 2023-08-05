@@ -47,6 +47,10 @@ export const gradeOptions = [
   },
   {
     value: 12,
-    label: "12 & Above",
+    label: "12",
+  },
+  {
+    value: "other",
+    label: "Other",
   },
 ];
