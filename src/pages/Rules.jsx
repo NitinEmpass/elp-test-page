@@ -74,8 +74,8 @@ const Rules = () => {
         )
         .then((res) => {
           setLoading(false);
-          console.log(res.data); // data is here
-          console.log(res.data.data.crt_que);
+          // console.log(res.data); // data is here
+          // console.log(res.data.data.crt_que);
           let rawQuestions = res.data.data.crt_que;
           rawQuestions.map((question, index) => {
             return (question.index = index);

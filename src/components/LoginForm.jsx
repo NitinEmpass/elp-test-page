@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { genderOptions, gradeOptions } from "../assets/data/selectOptions";
+import "react-tippy/dist/tippy.css";
+import { Tooltip } from "react-tippy";
+import "../tippycontent.css";
 
 const LoginForm = () => {
   const navigator = useNavigate();
@@ -69,8 +72,8 @@ const LoginForm = () => {
     };
     // console.log(data);
 
-    if (formData.testCode === "ELP21") {
-      console.log("ELP21");
+    if (formData.testCode === "SPI08") {
+      console.log("SPI08");
       await handleRegister(data, player_id);
     } else {
       await handleVerify(data, player_id);
@@ -84,7 +87,7 @@ const LoginForm = () => {
 
   const handleVerify = async (data, player_id) => {
     console.log("Verify Called");
-    console.log(data);
+    // console.log(data);
     await axios
       .post(
         "/MetaData",
@@ -97,7 +100,7 @@ const LoginForm = () => {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.data.status === "201") {
           handleRegister(data, player_id);
         } else {
@@ -105,7 +108,7 @@ const LoginForm = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setError("Something went wrong. Please try again later.");
       });
   };
@@ -123,7 +126,7 @@ const LoginForm = () => {
         }
       )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setPlayer_Id(player_id);
         navigator("/rules");
       })
@@ -155,16 +158,20 @@ const LoginForm = () => {
           onChange={handleChange}
         />
         <div className="w-full flex items-center gap-6">
-          <input
-            type="text"
-            placeholder="Your First Name"
-            className="outline-none border-2 border-gray-500 p-2 rounded-md w-[50%]"
-            required
-            name="firstName"
-            autoComplete="first-name"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
+          <div className="w-[50%] outline-none border-2 border-gray-500 p-2 rounded-md">
+            <Tooltip title="Please enter the details of the Learner as this will get printed on all reports">
+              <input
+                type="text"
+                placeholder="Your First Name"
+                className="w-full"
+                required
+                name="firstName"
+                autoComplete="first-name"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </Tooltip>
+          </div>
           <input
             type="text"
             placeholder="Your Last Name"
@@ -177,16 +184,20 @@ const LoginForm = () => {
           />
         </div>
         <div className="w-full flex flex-col lg:flex-row items-center gap-2 lg:gap-6">
-          <input
-            type="email"
-            placeholder="Your email"
-            className="outline-none border-2 border-gray-500 p-2 rounded-md w-full lg:w-[50%]"
-            required
-            name="email"
-            autoComplete="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <div className="w-full lg:w-[50%] outline-none border-2 border-gray-500 p-2 rounded-md">
+            <Tooltip title="Enter Parent, Personal or Teacher's Email if learner is under 13 years of age">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="w-full"
+                required
+                name="email"
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Tooltip>
+          </div>
           <select
             className="outline-none border-2 border-gray-500 p-2 rounded-md w-full lg:w-[50%]"
             required

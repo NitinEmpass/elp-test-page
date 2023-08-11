@@ -26,7 +26,7 @@ const Questions = () => {
   const [unattemptedFlag, setUnattemptedFlag] = useState(false);
   // console.log("this is checkbox array", checkboxArray);
   // console.log(questions, player_id);
-  console.log("this is questions array", questions);
+  // console.log("this is questions array", questions);
   // console.log("this is checked array", checked);
   const [openModal, setOpenModal] = useState(false);
   const [checkModal, setCheckModal] = useState(false);
@@ -106,7 +106,7 @@ const Questions = () => {
 
   const [res, setRes] = useState([]);
   function handleAnswerSelect(questionId, selectedAnswer, score) {
-    console.log(questionId, selectedAnswer, score);
+    // console.log(questionId, selectedAnswer, score);
     if (selectedAnswer === "I have never done this") {
       setOpenDesc(true);
     }
@@ -123,7 +123,7 @@ const Questions = () => {
       });
       setChecked([...checked, current + 1]);
     }
-    console.log("this is ans", ans);
+    // console.log("this is ans", ans);
     setRes(ans);
     setAnimate(true);
     setOption(selectedAnswer);
@@ -133,7 +133,7 @@ const Questions = () => {
       }, 1000); // Delay the execution of handleSubmit() by 1 seconds
     }
   }
-  console.log("this is res", res);
+  // console.log("this is res", res);
 
   const handlePrev = () => {
     if (!unattemptedFlag) {
@@ -173,8 +173,8 @@ const Questions = () => {
           (question) => !res.some((response) => response.que_id === question.id)
         ) // Filter out the questions that don't have a corresponding response in the res array
         .map((question) => question.index); // Extract the indices of the unattempted questions
-      console.log(unattemptedQuestionIndices);
-      console.log("this is unattempeted array", unattemptedQuestionIndices);
+      // console.log(unattemptedQuestionIndices);
+      // console.log("this is unattempeted array", unattemptedQuestionIndices);
       setUnattempted(unattemptedQuestionIndices);
       setCurrent(unattemptedQuestionIndices[0]);
       setUnattemptedFlag(true);

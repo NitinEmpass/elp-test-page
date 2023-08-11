@@ -18,7 +18,7 @@ const SoundButton = ({ src }) => {
   }, [audio]);
 
   const handlePlay = () => {
-    console.log(src);
+    // console.log(src);
     audio.src = src; // Use require instead of import
     if (currentSrc !== src) {
       stopCurrentAudio();
@@ -44,7 +44,7 @@ const SoundButton = ({ src }) => {
   };
 
   const handlePause = () => {
-    console.log(src);
+    // console.log(src);
     audio.pause();
     setPlaying(false);
   };

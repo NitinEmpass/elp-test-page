@@ -68,7 +68,7 @@ const Result = () => {
     window.history.replaceState(null, "/", window.location.href);
   }
 
-  console.log(player_id);
+  // console.log(player_id);
   const requestData = {
     crt_id: "9",
     quiz_id: "9",
@@ -91,7 +91,7 @@ const Result = () => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          console.log("This is response result: ", res.data);
           setResult(res.data);
           setLoading(false);
         })
@@ -102,7 +102,7 @@ const Result = () => {
     }
 
     fetchData();
-    console.log(result);
+    // console.log(result);
 
     setShowConfetti(true);
     /* const timer = setTimeout(() => {
@@ -325,8 +325,8 @@ const Result = () => {
             Congratulations! You have successfully completed the assessment.
             <br />
             <div className="py-5">
-              Based on your test, your dominant style(s) & detailed results
-              are as shown below.
+              Based on your test, your dominant style(s) & detailed results are
+              as shown below.
             </div>
           </div>
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
