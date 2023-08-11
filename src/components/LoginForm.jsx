@@ -185,7 +185,7 @@ const LoginForm = () => {
         </div>
         <div className="w-full flex flex-col lg:flex-row items-center gap-2 lg:gap-6">
           <div className="w-full lg:w-[50%] outline-none border-2 border-gray-500 p-2 rounded-md">
-            <Tooltip title="Enter Parent, Personal or Teacher's Email if learner is under 13 years of age">
+            <Tooltip title="Enter Parent, Professional or Teacher's Email if learner is under 13 years of age">
               <input
                 type="email"
                 placeholder="Your email"
