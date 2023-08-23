@@ -15,7 +15,7 @@ const CheckModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  console.log("This is questions array: ", res);
+  // console.log("This is questions array: ", res);
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -40,7 +40,7 @@ const CheckModal = ({
       res: res,
     };
 
-    // console.log(data);
+    console.log("This is data: ", data);
 
     setLoading(true);
 

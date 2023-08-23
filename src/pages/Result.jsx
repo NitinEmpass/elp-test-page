@@ -338,11 +338,11 @@ const Result = () => {
                 <span>{result.total_score}</span>
               </div>
             </div> */}
-            <div className="max-w-xl max-h-60 border-4 border-black/50 rounded-md flex flex-col items-center justify-center">
+            <div className="max-w-2xl min-h-max border-4 border-black/50 rounded-md flex flex-col items-center justify-center">
               <div className="w-full flex-1 bg-[#87cb28] text-center p-2 text-black text-xl lg:text-4xl flex items-center justify-center">
                 <span>Dominant Style(s)</span>
               </div>
-              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-3xl text-center p-2 text-black break-all whitespace-break-spaces capitalize">
+              <div className="flex items-center justify-center w-full flex-1 border-t-4 border-t-black/50 text-xl lg:text-3xl text-center p-2 text-black whitespace-break-spaces capitalize break-words">
                 <span>{result.dominant_style.toLowerCase()}</span>
               </div>
             </div>
@@ -490,7 +490,7 @@ const Result = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         heading={
-          "Thank you for taking this assessment! We will send you the report soon."
+          "Thank you for taking this assessment! Your results will be available in the User Dashboard."
         }
         firstText={"Ok"}
       />

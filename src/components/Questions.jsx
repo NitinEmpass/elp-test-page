@@ -199,7 +199,7 @@ const Questions = () => {
       <div className="flex flex-col justify-center items-start p-5 mx-auto w-[95%] lg:w-[65%] my-8 lg:my-5 bg-red-50 rounded-md shadow-lg gap-10 lg:gap-5 relative">
         <div className="flex flex-col justify-center items-center w-full">
           <CustomTour
-            content="You're all set! Click 'Start Now' to take the assessment OR 'Tour again' to replay navigation."
+            content="You're all set! Click START NOW to take the assessment or TOUR AGAIN to replay navigation."
             isTour={tour === 7 ? true : false}
             setTour={setTour}
             tour={7}
@@ -236,7 +236,7 @@ const Questions = () => {
                       <SoundButton src={soundTitle} />
                     </Tooltip>
                     <CustomTour
-                      content={"Click to listen to this text"}
+                      content={"Listen to this text"}
                       isTour={tour === 1 ? true : false}
                       setTour={setTour}
                       className="-top-3 right-24"
@@ -254,7 +254,7 @@ const Questions = () => {
                     </Tooltip>
                     <CustomTour
                       content={
-                        "Click to listen to a detailed explanation of the item"
+                        "Listen to a detailed explanation of the item"
                       }
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
@@ -280,7 +280,7 @@ const Questions = () => {
                     <SoundButton src={soundTitle} />
                   </Tooltip>
                   <CustomTour
-                    content={"Click to listen to this text"}
+                    content={"Listen to this text"}
                     isTour={tour === 1 ? true : false}
                     setTour={setTour}
                     className="lg:-top-2 lg:right-28"
@@ -297,7 +297,7 @@ const Questions = () => {
                   <div className="hidden lg:inline-block relative">
                     <CustomTour
                       content={
-                        "Click to listen to a detailed explanation of the item"
+                        "Listen to a detailed explanation of the item"
                       }
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
