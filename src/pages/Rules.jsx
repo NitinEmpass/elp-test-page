@@ -112,7 +112,7 @@ const Rules = () => {
         </h1>
         <div className="border-2 border-gsl-dark-red w-full"></div>
         <span className="font-medium text-lg">
-          Read all Instructions below before you start the self assessment.
+          Read all Instructions before you start the self assessment.
         </span>
         <div className="w-[85%]">
           <div dangerouslySetInnerHTML={{ __html: mySafeHTML }} />
