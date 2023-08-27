@@ -127,11 +127,11 @@ const Questions = () => {
     setRes(ans);
     setAnimate(true);
     setOption(selectedAnswer);
-    if (ans.length === questions.length) {
-      setTimeout(() => {
-        handleSubmit();
-      }, 1000); // Delay the execution of handleSubmit() by 1 seconds
-    }
+    // if (ans.length === questions.length) {
+    //   setTimeout(() => {
+    //     handleSubmit();
+    //   }, 1000); // Delay the execution of handleSubmit() by 1 seconds
+    // }
   }
   // console.log("this is res", res);
 
@@ -253,9 +253,7 @@ const Questions = () => {
                       </button>
                     </Tooltip>
                     <CustomTour
-                      content={
-                        "Listen to a detailed explanation of the item"
-                      }
+                      content={"Listen to a detailed explanation of the item"}
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
                       className="-right-9 top-16"
@@ -296,9 +294,7 @@ const Questions = () => {
                   </Tooltip>
                   <div className="hidden lg:inline-block relative">
                     <CustomTour
-                      content={
-                        "Listen to a detailed explanation of the item"
-                      }
+                      content={"Listen to a detailed explanation of the item"}
                       isTour={tour === 2 ? true : false}
                       setTour={setTour}
                       className="lg:top-16 lg:-right-5"
@@ -364,7 +360,12 @@ const Questions = () => {
             <Tooltip title="Previous">
               <button
                 onClick={handlePrev}
-                className="flex justify-center items-center p-2 px-6 border hover:ring-2 ring-red-400 rounded-md text-2xl bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white bg-white"
+                disabled={current === 0}
+                className={`flex justify-center items-center p-2 px-6 border hover:ring-2 ring-red-400 rounded-md text-2xl ${
+                  tour > 7 && current === 0
+                    ? "bg-gray-400 cursor-not-allowed" // Change background color for disabled state
+                    : "bg-gradient-to-r from-gsl-light-red to-gsl-dark-red text-black hover:text-white"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

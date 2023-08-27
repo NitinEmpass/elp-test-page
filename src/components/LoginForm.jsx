@@ -153,6 +153,9 @@ const LoginForm = () => {
           required
           name="testCode"
           value={formData.testCode}
+          onInput={(e) => {
+            e.target.value = e.target.value.toUpperCase();
+          }}
           onChange={handleChange}
         />
         <div className="w-full flex items-center gap-6">

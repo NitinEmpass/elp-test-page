@@ -53,7 +53,7 @@ const CustomTour = ({
             <div className="font-semibold text-black text-base flex justify-between items-center w-full gap-4">
               <button
                 className="uppercase py-3 px-2 bg-gray-400 w-40 text-white lg:text-lg rounded-md mx-auto hover:scale-105 duration-300 ease-in-out font-semibold hover:shadow-xl"
-                onClick={() => setTour(0)}
+                onClick={() => setTour(1)}
               >
                 Tour Again
               </button>
